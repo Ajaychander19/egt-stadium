@@ -1,0 +1,19 @@
+NSSF:
+  NSSAI_AVAILABILITY:
+    - NRF_URI: http://192.168.70.130:80
+      S_NSSAI_LIST:
+        - sst: 1
+          sd: "0xFFFFFF"
+        - sst: 2
+          sd: "0xFFFFFF"
+  SUPPORTED_NSSAI_AVAILABILITY_DATA:
+    - TAI:
+        PLMN_ID:
+          MCC: "001"
+          MNC: "01"
+        TAC: "1"
+      SUPPORTED_SNSSAI_LIST:
+        - sst: 1
+          sd: "0xFFFFFF"
+        - sst: 2
+          sd: "0xFFFFFF"

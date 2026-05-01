@@ -1,0 +1,237 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE:      oai_db
+      MYSQL_USER:          test
+      MYSQL_PASSWORD:      test
+      MYSQL_ROOT_PASSWORD: linux
+    volumes:
+      - ./oai_db.sql:/docker-entrypoint-initdb.d/oai_db.sql
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.131
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-utest", "-ptest"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+
+  oai-nrf:
+    image: oaisoftwarealliance/oai-nrf:v2.1.0
+    container_name: oai-nrf
+    environment:
+      - TZ=Europe/Paris
+      - NRF_INTERFACE_NAME_FOR_SBI=eth0
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.130
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  oai-udr:
+    image: oaisoftwarealliance/oai-udr:v2.1.0
+    container_name: oai-udr
+    environment:
+      - TZ=Europe/Paris
+      - UDR_INTERFACE_NAME_FOR_NUDR=eth0
+      - MYSQL_IPV4_ADDRESS=192.168.70.131
+      - MYSQL_USER=test
+      - MYSQL_PASS=test
+      - MYSQL_DB=oai_db
+      - NRF_IPV4_ADDRESS=192.168.70.130
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.136
+    depends_on:
+      mysql:
+        condition: service_healthy
+      oai-nrf:
+        condition: service_started
+
+  oai-udm:
+    image: oaisoftwarealliance/oai-udm:v2.1.0
+    container_name: oai-udm
+    environment:
+      - TZ=Europe/Paris
+      - UDM_INTERFACE_NAME_FOR_NUDM=eth0
+      - NRF_IPV4_ADDRESS=192.168.70.130
+      - UDR_IPV4_ADDRESS=192.168.70.136
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.137
+    depends_on:
+      - oai-udr
+
+  oai-ausf:
+    image: oaisoftwarealliance/oai-ausf:v2.1.0
+    container_name: oai-ausf
+    environment:
+      - TZ=Europe/Paris
+      - AUSF_INTERFACE_NAME_FOR_NAUSF=eth0
+      - NRF_IPV4_ADDRESS=192.168.70.130
+      - UDM_IPV4_ADDRESS=192.168.70.137
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.138
+    depends_on:
+      - oai-udm
+
+  oai-nssf:
+    image: oaisoftwarealliance/oai-nssf:v2.1.0
+    container_name: oai-nssf
+    environment:
+      - TZ=Europe/Paris
+      - NSSF_INTERFACE_NAME_FOR_NNSSF=eth0
+      - NRF_IPV4_ADDRESS=192.168.70.130
+    volumes:
+      - ./config/nssf_slice_config.yaml:/openair-nssf/etc/nssf_slice_config.yaml
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.139
+    depends_on:
+      - oai-nrf
+
+  oai-amf:
+    image: oaisoftwarealliance/oai-amf:v2.1.0
+    container_name: oai-amf
+    volumes:
+      - ./config/amf.conf:/openair-amf/etc/amf.conf
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.132
+    depends_on:
+      - oai-ausf
+      - oai-udm
+      - oai-nssf
+
+  oai-smf:
+    image: oaisoftwarealliance/oai-smf:v2.1.0
+    container_name: oai-smf
+    volumes:
+      - ./config/smf.conf:/openair-smf/etc/smf.conf
+    ports:
+      - "127.0.0.1:8080:80"
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.133
+    depends_on:
+      - oai-amf
+
+  oai-upf-mec:
+    image: oaisoftwarealliance/oai-upf:v2.1.0
+    container_name: oai-upf-mec
+    environment:
+      - TZ=Europe/Paris
+      - UPF_INTERFACE_NAME_FOR_N3=eth0
+      - UPF_INTERFACE_NAME_FOR_N4=eth0
+      - UPF_INTERFACE_NAME_FOR_SGI_N6=eth0
+      - SMF_IPV4_ADDRESS=192.168.70.133
+      - NRF_IPV4_ADDRESS=192.168.70.130
+      - UPF_FQDN=oai-upf-mec
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    privileged: true
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.140
+    depends_on:
+      - oai-smf
+
+  oai-upf-cc:
+    image: oaisoftwarealliance/oai-upf:v2.1.0
+    container_name: oai-upf-cc
+    environment:
+      - TZ=Europe/Paris
+      - UPF_INTERFACE_NAME_FOR_N3=eth0
+      - UPF_INTERFACE_NAME_FOR_N4=eth0
+      - UPF_INTERFACE_NAME_FOR_SGI_N6=eth0
+      - SMF_IPV4_ADDRESS=192.168.70.133
+      - NRF_IPV4_ADDRESS=192.168.70.130
+      - UPF_FQDN=oai-upf-cc
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    privileged: true
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.141
+    depends_on:
+      - oai-smf
+
+  oai-gnb:
+    image: oaisoftwarealliance/oai-gnb:develop
+    container_name: oai-gnb
+    environment:
+      - TZ=Europe/Paris
+      - RFSIMULATOR=server
+      - USE_ADDITIONAL_OPTIONS=--sa --rfsim --log_config.global_log_options level,nocolor,time
+      - GNB_ID=1
+      - GNB_NAME=gNB-Stadium
+      - MCC=001
+      - MNC=01
+      - MNC_LENGTH=2
+      - TAC=1
+      - NSSAI_SST_0=1
+      - NSSAI_SD_0=0xFFFFFF
+      - NSSAI_SST_1=2
+      - NSSAI_SD_1=0xFFFFFF
+      - AMF_IP_ADDRESS=192.168.70.132
+      - GNB_NGA_IF_NAME=eth0
+      - GNB_NGA_IP_ADDRESS=192.168.70.150
+      - GNB_NGU_IF_NAME=eth0
+      - GNB_NGU_IP_ADDRESS=192.168.70.150
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.150
+    depends_on:
+      - oai-amf
+      - oai-upf-mec
+      - oai-upf-cc
+
+  oai-ue-embb:
+    image: oaisoftwarealliance/oai-nr-ue:develop
+    container_name: oai-ue-embb
+    environment:
+      - TZ=Europe/Travis
+      - RFSIMULATOR=192.168.70.150
+      - USE_ADDITIONAL_OPTIONS=-E --sa --rfsim -r 106 --numerology 1 --uicc0.imsi 001010000000001 --uicc0.nssai_sst 1 --uicc0.nssai_sd 0xFFFFFF --uicc0.dnn oai --log_config.global_log_options level,nocolor,time
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.151
+    depends_on:
+      - oai-gnb
+
+  oai-ue-urllc:
+    image: oaisoftwarealliance/oai-nr-ue:develop
+    container_name: oai-ue-urllc
+    environment:
+      - TZ=Europe/Paris
+      - RFSIMULATOR=192.168.70.150
+      - USE_ADDITIONAL_OPTIONS=-E --sa --rfsim -r 106 --numerology 1 --uicc0.imsi 001010000000002 --uicc0.nssai_sst 2 --uicc0.nssai_sd 0xFFFFFF --uicc0.dnn oai2 --log_config.global_log_options level,nocolor,time
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.152
+    depends_on:
+      - oai-gnb
+
+networks:
+  stadium_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.70.128/26
+          gateway: 192.168.70.129
