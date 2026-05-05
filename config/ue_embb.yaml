@@ -1,0 +1,14 @@
+uicc0:
+  imsi: "001010000000001"
+  key: "0C0A34601D4F07677303652C0462535B"
+  opc: "63bfa50ee6523365ff14c1f45f88737d"
+  dnn: "oai"
+  nssai_sst: 1
+  nssai_sd: 0xFFFFFF
+
+rfsimulator:
+  serveraddr: 192.168.70.150
+  serverport: 4043
+
+log_config:
+  global_log_level: info

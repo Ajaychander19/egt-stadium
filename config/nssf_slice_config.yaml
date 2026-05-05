@@ -1,19 +1,48 @@
-NSSF:
-  NSSAI_AVAILABILITY:
-    - NRF_URI: http://192.168.70.130:80
-      S_NSSAI_LIST:
+info:
+  version: 1.4.0
+  description: OAI-NSSF Stadium Deployment
+
+configuration:
+  nsiInfoList:
+    - snssai:
+        sst: 1
+        sd: 'FFFFFF'
+      nsiInformationList:
+        nrfId: http://oai-nrf:8080/nnrf-disc/v1/nf-instances
+        nsiId: '1'
+    - snssai:
+        sst: 2
+        sd: 'FFFFFF'
+      nsiInformationList:
+        nrfId: http://oai-nrf:8080/nnrf-disc/v1/nf-instances
+        nsiId: '2'
+
+  taInfoList:
+    - tai:
+        plmnId:
+          mcc: '001'
+          mnc: '01'
+        tac: '1'
+      supportedSnssaiList:
         - sst: 1
-          sd: "0xFFFFFF"
+          sd: 'FFFFFF'
         - sst: 2
-          sd: "0xFFFFFF"
-  SUPPORTED_NSSAI_AVAILABILITY_DATA:
-    - TAI:
-        PLMN_ID:
-          MCC: "001"
-          MNC: "01"
-        TAC: "1"
-      SUPPORTED_SNSSAI_LIST:
-        - sst: 1
-          sd: "0xFFFFFF"
-        - sst: 2
-          sd: "0xFFFFFF"
+          sd: 'FFFFFF'
+
+  amfInfoList:
+    - targetAmfSet: oai5gcn.mcc001.mnc01.regionid01.setid001.3gppnetwork.org
+      nrfAmfSet: http://oai-nrf:8080/nnrf-disc/v1/nf-instances
+      nrfAmfSetNfMgtUri: http://oai-nrf:8080/nnrf-nfm/v1/nf-instances
+      amfList:
+        - nfId: a87eee86-7077-487d-8113-7a6e69c56fb9
+          supportedNssaiAvailabilityData:
+            tai:
+              plmnId:
+                mcc: '001'
+                mnc: '01'
+              tac: '1'
+            supportedSnssaiList:
+              - sst: 1
+                sd: 'FFFFFF'
+              - sst: 2
+                sd: 'FFFFFF'

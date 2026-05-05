@@ -36,7 +36,7 @@ INSERT IGNORE INTO AuthenticationSubscription VALUES (
 );
 INSERT IGNORE INTO SessionManagementSubscriptionData VALUES (
   '001010000000001','00101',
-  '{"sst":1,"sd":"0xFFFFFF"}',
+  '{"sst":1,"sd":"FFFFFF"}',
   '{"oai":{"pduSessionTypes":{"defaultSessionType":"IPV4"},"sscModes":{"defaultSscMode":"SSC_MODE_1"},"5gQosProfile":{"5qi":6,"arp":{"priorityLevel":1,"preemptCap":"NOT_PREEMPT","preemptVuln":"NOT_PREEMPTABLE"},"priorityLevel":1},"sessionAmbr":{"uplink":"200Mbps","downlink":"400Mbps"}}}'
 );
 
@@ -51,6 +51,6 @@ INSERT IGNORE INTO AuthenticationSubscription VALUES (
 );
 INSERT IGNORE INTO SessionManagementSubscriptionData VALUES (
   '001010000000002','00101',
-  '{"sst":2,"sd":"0xFFFFFF"}',
+  '{"sst":2,"sd":"FFFFFF"}',
   '{"oai2":{"pduSessionTypes":{"defaultSessionType":"IPV4"},"sscModes":{"defaultSscMode":"SSC_MODE_1"},"5gQosProfile":{"5qi":82,"arp":{"priorityLevel":1,"preemptCap":"NOT_PREEMPT","preemptVuln":"NOT_PREEMPTABLE"},"priorityLevel":1},"sessionAmbr":{"uplink":"50Mbps","downlink":"50Mbps"}}}'
 );
