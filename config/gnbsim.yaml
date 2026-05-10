@@ -61,4 +61,4 @@ configuration:
           authenticationManagementField: "8000"
 
   logger:
-    logLevel: info
+    logLevel: debug
