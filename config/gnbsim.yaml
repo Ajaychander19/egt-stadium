@@ -14,20 +14,15 @@ configuration:
           nssai:
             - sst: 1
               sd: "FFFFFF"
-            - sst: 2
-              sd: "FFFFFF"
-
   profiles:
     - profileType: register
-      profileName: profile1
+      profileName: stadium-test
       enable: true
       gnbName: gnb1
       perUserTimeout: 30
-      defaultAs: "192.168.70.132"
       plmnId:
         mcc: "001"
         mnc: "01"
-      dataPktCount: 5
       ues:
         - imsi: "001010000000001"
           key: "0C0A34601D4F07677303652C0462535B"
@@ -36,29 +31,5 @@ configuration:
             sst: 1
             sd: "FFFFFF"
           dnn: oai
-          authenticationMethod: 5G_AKA
-          authenticationManagementField: "8000"
-
-    - profileType: register
-      profileName: profile2
-      enable: true
-      gnbName: gnb1
-      perUserTimeout: 30
-      defaultAs: "192.168.70.132"
-      plmnId:
-        mcc: "001"
-        mnc: "01"
-      dataPktCount: 5
-      ues:
-        - imsi: "001010000000002"
-          key: "0C0A34601D4F07677303652C0462535B"
-          opc: "63bfa50ee6523365ff14c1f45f88737d"
-          sNssai:
-            sst: 2
-            sd: "FFFFFF"
-          dnn: oai2
-          authenticationMethod: 5G_AKA
-          authenticationManagementField: "8000"
-
   logger:
     logLevel: debug
