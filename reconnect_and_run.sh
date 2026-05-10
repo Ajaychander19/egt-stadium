@@ -40,6 +40,12 @@ echo "════════════════════════�
 echo "  STEP 5 — Start gnbsim"
 echo "══════════════════════════════════════"
 docker compose up -d gnbsim
+echo "  Checking container status..."
+docker inspect gnbsim --format '{{.State.Status}}'
+
+echo "  Testing network path to AMF (.132)..."
+docker exec gnbsim ping -c 3 192.168.70.132 || echo "  [WARNING] AMF unreachable from gnbsim container"
+
 echo "  Waiting 45s for UE registration..."
 sleep 45
 
@@ -47,12 +53,12 @@ echo ""
 echo "══════════════════════════════════════"
 echo "  STEP 6 — Check results"
 echo "══════════════════════════════════════"
-echo "--- gnbsim exit/logs ---"
-docker logs gnbsim 2>&1 | grep -E "PASS|FAIL|Error|error|Profile|Register|PDU|Session|established|success" | tail -20
+echo "--- gnbsim logs (raw) ---"
+docker logs gnbsim --tail 50
 
 echo ""
-echo "--- AMF: UE registration ---"
-docker logs oai-amf 2>&1 | grep -iE "imsi|001010|registered|5gmm|pdu" | tail -10
+echo "--- AMF: Registration logs ---"
+docker logs oai-amf --tail 100 | grep -iE "registration|imsi|pdu" || echo "  No registration logs found in AMF"
 
 echo ""
 echo "--- SMF: PDU sessions ---"
