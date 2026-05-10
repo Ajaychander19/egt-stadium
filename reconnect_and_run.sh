@@ -27,7 +27,7 @@ echo ""
 echo "══════════════════════════════════════"
 echo "  STEP 3 — Pull gnbsim image"
 echo "══════════════════════════════════════"
-docker pull oaisoftwarealliance/gnbsim:latest 2>&1 | tail -3
+docker pull rohankharade/gnbsim:latest 2>&1 | tail -3
 
 echo ""
 echo "══════════════════════════════════════"

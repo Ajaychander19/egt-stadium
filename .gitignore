@@ -2,5 +2,5 @@ venv/
 pycache/
 *.pyc
 logs/
-results/
+# results/
 *.sqlite3
