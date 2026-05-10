@@ -1,12 +1,12 @@
 {
   "gnb": {
-    "n2Addr": "192.168.70.160",
+    "n2Addr": "GNB_IP_ADDR",
     "n2Port": 9487,
-    "n3Addr": "192.168.70.160",
+    "n3Addr": "GNB_IP_ADDR",
     "n3Port": 2152
   },
   "amf": {
-    "addr": "192.168.70.132",
+    "addr": "AMF_IP_ADDR",
     "port": 38412
   },
   "ue": {
