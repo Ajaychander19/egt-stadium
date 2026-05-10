@@ -221,6 +221,7 @@ services:
     privileged: true
     tty: true
     stdin_open: true
+    entrypoint: []
     environment:
       - TZ=Europe/Paris
       - USE_FQDN=no
@@ -229,7 +230,7 @@ services:
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: /gnbsim/bin/example --config /gnbsim/config/gnbsim.yaml -v
+    command: sh -c "/gnbsim/bin/example --config /gnbsim/config/gnbsim.yaml -v 2>&1"
     depends_on:
       - oai-amf
       - oai-upf-mec
