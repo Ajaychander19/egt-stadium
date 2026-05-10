@@ -214,7 +214,7 @@ services:
       - oai-gnb
 
   gnbsim:
-    image: rohankharade/gnbsim:latest
+    image: gnbsim:latest
     container_name: gnbsim
     privileged: true
     environment:
@@ -226,7 +226,7 @@ services:
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: sh -c "/gnbsim/bin/gnbsim --config /gnbsim/config/gnbsim.yaml"
+    command: ls -R /gnbsim
     depends_on:
       - oai-amf
       - oai-upf-mec
