@@ -8,7 +8,7 @@
         "n3Port": 2152,
         "s1apPort": 36412,
         "ngapPeerAddr": "192.168.70.132",
-        "localAddress": "192.168.70.160",
+        "localAddress": "192.168.70.1",
         "plmnList": [
           {
             "mcc": "001",
