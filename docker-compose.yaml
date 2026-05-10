@@ -214,19 +214,22 @@ services:
       - oai-gnb
 
   gnbsim:
-    image: oaisoftwarealliance/oai-gnbsim:latest
+    build:
+      context: ../gnbsim
+      dockerfile: docker/Dockerfile.ubuntu.22.04
     container_name: gnbsim
     privileged: true
     tty: true
     stdin_open: true
     environment:
       - TZ=Europe/Paris
+      - USE_FQDN=no
     volumes:
-      - ./config/gnbsim.yaml:/openair-gnbsim/config/gnbsim.yaml
+      - ./config:/gnbsim/config
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: sh -c "/openair-gnbsim/bin/gnbsim --config /openair-gnbsim/config/gnbsim.yaml -v 2>&1"
+    command: /gnbsim/bin/example --config /gnbsim/config/gnbsim.yaml
     depends_on:
       - oai-amf
       - oai-upf-mec
