@@ -226,7 +226,8 @@ services:
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: find / -name gnbsim
+    working_dir: /gnbsim
+    command: ./gnbsim --config /gnbsim/config/gnbsim.yaml
     depends_on:
       - oai-amf
       - oai-upf-mec
