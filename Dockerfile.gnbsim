@@ -13,9 +13,9 @@ WORKDIR /gnbsim
 # Context will be ../gnbsim
 COPY . .
 
-# Build the real gnbsim engine
+# Build the example binary (direct SCTP/NGAP client - what the kharade image runs)
 RUN go mod tidy || true
-RUN cd gnbsim/cmd && go build -o /gnbsim-bin .
+RUN cd gnbsim/example && go build -o /gnbsim-example .
 
 #---------------------------------------------------------------------
 # TARGET STAGE
@@ -33,11 +33,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /gnbsim/bin
-COPY --from=builder /gnbsim-bin ./gnbsim
+COPY --from=builder /gnbsim-example ./example
 
 # Create config directory
 RUN mkdir -p /gnbsim/config
 
-# Standard entrypoint
-ENTRYPOINT ["./gnbsim"]
-CMD ["--config", "/gnbsim/config/gnbsim.yaml"]
+# Standard entrypoint - example binary reads gnbsim.json from CWD
+ENTRYPOINT ["./example"]
