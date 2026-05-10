@@ -215,30 +215,18 @@ services:
 
   gnbsim:
     build:
-      context: ../gnbsim
-      dockerfile: docker/Dockerfile.ubuntu.22.04
+      context: ..
+      dockerfile: egt-stadium/Dockerfile.gnbsim
     container_name: gnbsim
     privileged: true
-    tty: true
-    stdin_open: true
-    entrypoint: []
     environment:
       - TZ=Europe/Paris
-      - USE_FQDN=no
     volumes:
-      - ./config:/gnbsim/config
+      - ./config/gnbsim.yaml:/gnbsim/config/gnbsim.yaml
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: >
-      sh -c "
-      cp /gnbsim/config/gnbsim.json /tmp/gnbsim.json &&
-      sed -i 's/GNB_IP_ADDR/0.0.0.0/g' /tmp/gnbsim.json &&
-      sed -i 's/AMF_IP_ADDR/192.168.70.132/g' /tmp/gnbsim.json &&
-      cat /tmp/gnbsim.json &&
-      sleep 2 &&
-      ./example --config /tmp/gnbsim.json -v
-      "
+    command: --config /gnbsim/config/gnbsim.yaml
     depends_on:
       - oai-amf
       - oai-upf-mec

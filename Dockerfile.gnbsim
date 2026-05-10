@@ -1,0 +1,43 @@
+#---------------------------------------------------------------------
+# BUILDER STAGE
+#---------------------------------------------------------------------
+FROM golang:1.21-bullseye AS builder
+
+# Install SCTP library (CRITICAL for 5G)
+RUN apt-get update && apt-get install -y \
+    libsctp-dev \
+    lksctp-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /gnbsim
+# We will mount or copy the source from ~/gnbsim
+COPY . .
+
+# Build the real gnbsim engine
+RUN go mod tidy || true
+RUN cd cmd && go build -o /gnbsim-bin .
+
+#---------------------------------------------------------------------
+# TARGET STAGE
+#---------------------------------------------------------------------
+FROM ubuntu:22.04
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    libsctp-dev \
+    lksctp-tools \
+    iproute2 \
+    iputils-ping \
+    net-tools \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /gnbsim/bin
+COPY --from=builder /gnbsim-bin ./gnbsim
+
+# Create config directory
+RUN mkdir -p /gnbsim/config
+
+# Standard entrypoint
+ENTRYPOINT ["./gnbsim"]
+CMD ["--config", "/gnbsim/config/gnbsim.yaml"]
