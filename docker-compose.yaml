@@ -222,11 +222,11 @@ services:
       - USE_FQDN=no
     entrypoint: []
     volumes:
-      - ./config/gnbsim.yaml:/gnbsim/config/gnbsim.yaml
+      - ./config:/gnbsim/config
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: /gnbsim/bin/example --config /gnbsim/config/gnbsim.yaml
+    command: /gnbsim/bin/example --config /gnbsim/config/gnbsim.yaml -v
     depends_on:
       - oai-amf
       - oai-upf-mec
