@@ -223,11 +223,11 @@ services:
     environment:
       - TZ=Europe/Paris
     volumes:
-      - ./config/gnbsim.yaml:/gnbsim/config/gnbsim.yaml
+      - ./config/gnbsim.json:/gnbsim/bin/gnbsim.json
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: sh -c "sleep 5 && ./gnbsim --config /gnbsim/config/gnbsim.yaml 2>&1"
+    command: sh -c "sleep 5 && ./gnbsim 2>&1"
     depends_on:
       - oai-amf
       - oai-upf-mec

@@ -1,24 +1,83 @@
 {
-  "gnb": {
-    "n2Addr": "GNB_IP_ADDR",
-    "n2Port": 9487,
-    "n3Addr": "GNB_IP_ADDR",
-    "n3Port": 2152
-  },
-  "amf": {
-    "addr": "AMF_IP_ADDR",
-    "port": 38412
-  },
-  "ue": {
-    "msin": "0000000001",
-    "mcc": "001",
-    "mnc": "01",
-    "key": "0C0A34601D4F07677303652C0462535B",
-    "opc": "63bfa50ee6523365ff14c1f45f88737d",
-    "amf": "8000",
-    "sqn": "000000000000",
-    "dnn": "oai",
-    "sst": 1,
-    "sd": "ffffff"
+  "configuration": {
+    "execInParallel": false,
+    "gnbs": [
+      {
+        "name": "gnb1",
+        "n2Port": 9487,
+        "n3Port": 2152,
+        "s1apPort": 36412,
+        "ngapPeerAddr": "192.168.70.132",
+        "localAddress": "192.168.70.160",
+        "plmnList": [
+          {
+            "mcc": "001",
+            "mnc": "01",
+            "tac": 1,
+            "nssai": [
+              {
+                "sst": 1,
+                "sd": "FFFFFF"
+              },
+              {
+                "sst": 2,
+                "sd": "FFFFFF"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "profiles": [
+      {
+        "profileType": "pdusessest",
+        "profileName": "stadium-embb",
+        "enable": true,
+        "gnbName": "gnb1",
+        "perUserTimeout": 30,
+        "plmnId": {
+          "mcc": "001",
+          "mnc": "01"
+        },
+        "ues": [
+          {
+            "imsi": "001010000000001",
+            "key": "0C0A34601D4F07677303652C0462535B",
+            "opc": "63bfa50ee6523365ff14c1f45f88737d",
+            "sNssai": {
+              "sst": 1,
+              "sd": "FFFFFF"
+            },
+            "dnn": "oai"
+          }
+        ]
+      },
+      {
+        "profileType": "pdusessest",
+        "profileName": "stadium-urllc",
+        "enable": true,
+        "gnbName": "gnb1",
+        "perUserTimeout": 30,
+        "plmnId": {
+          "mcc": "001",
+          "mnc": "01"
+        },
+        "ues": [
+          {
+            "imsi": "001010000000002",
+            "key": "0C0A34601D4F07677303652C0462535B",
+            "opc": "63bfa50ee6523365ff14c1f45f88737d",
+            "sNssai": {
+              "sst": 2,
+              "sd": "FFFFFF"
+            },
+            "dnn": "oai2"
+          }
+        ]
+      }
+    ],
+    "logger": {
+      "logLevel": "info"
+    }
   }
 }
