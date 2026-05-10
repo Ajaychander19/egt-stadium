@@ -46,8 +46,20 @@ docker inspect gnbsim --format '{{.State.Status}}'
 echo "  Testing network path to AMF (.132)..."
 docker exec gnbsim ping -c 3 192.168.70.132 || echo "  [WARNING] AMF unreachable from gnbsim container"
 
-echo "  Waiting 45s for UE registration..."
-sleep 45
+echo "  Monitoring UE registration (timeout 45s)..."
+for i in {1..45}; do
+    STATUS=$(docker inspect gnbsim --format '{{.State.Status}}' 2>/dev/null)
+    if [ "$STATUS" != "running" ]; then
+        echo "  [ERROR] gnbsim container stopped! Check logs below."
+        break
+    fi
+    # If we see "PDU Session Establishment" or "Registered", we can exit early on success
+    if docker logs gnbsim 2>&1 | grep -qE "PDU Session Establishment|Registered"; then
+        echo "  [SUCCESS] UE Registered and Session Established!"
+        break
+    fi
+    sleep 1
+done
 
 echo ""
 echo "══════════════════════════════════════"
