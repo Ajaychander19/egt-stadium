@@ -219,7 +219,6 @@ services:
       dockerfile: ../egt-stadium/Dockerfile.gnbsim
     container_name: gnbsim
     privileged: true
-    entrypoint: []
     environment:
       - TZ=Europe/Paris
     volumes:
@@ -227,6 +226,7 @@ services:
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
+    command: sh -c "sleep 5 && ./example 2>&1"
     depends_on:
       - oai-amf
       - oai-upf-mec
