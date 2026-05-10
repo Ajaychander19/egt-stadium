@@ -226,7 +226,7 @@ services:
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
-    command: find / -type f -name gnbsim
+    command: ls /bin /usr/bin /usr/local/bin
     depends_on:
       - oai-amf
       - oai-upf-mec
