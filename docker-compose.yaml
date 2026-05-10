@@ -217,6 +217,7 @@ services:
     image: rohankharade/gnbsim:v2.0.0
     container_name: gnbsim
     privileged: true
+    entrypoint: []
     environment:
       - TZ=Europe/Paris
       - USE_FQDN=no
