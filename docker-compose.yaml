@@ -217,17 +217,8 @@ services:
     image: gnbsim:latest
     container_name: gnbsim
     privileged: true
-    environment:
-      - TZ=Europe/Paris
-      - USE_FQDN=no
-      - MCC=001
-      - MNC=01
-      - GNBID=1
-      - TAC=1
-      - SST=1
-      - SD=FFFFFF
-      - AMF_IP_ADDR=192.168.70.132
-      - AMF_HOSTNAME=oai-amf
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["cat /gnbsim/bin/entrypoint.sh"]
     networks:
       stadium_net:
         ipv4_address: 192.168.70.160
