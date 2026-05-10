@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /gnbsim
-# We will mount or copy the source from ~/gnbsim
+# Context will be ../gnbsim
 COPY . .
 
 # Build the real gnbsim engine

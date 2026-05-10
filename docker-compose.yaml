@@ -215,8 +215,8 @@ services:
 
   gnbsim:
     build:
-      context: ..
-      dockerfile: egt-stadium/Dockerfile.gnbsim
+      context: ../gnbsim
+      dockerfile: ../egt-stadium/Dockerfile.gnbsim
     container_name: gnbsim
     privileged: true
     environment:
