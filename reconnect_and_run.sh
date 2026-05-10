@@ -37,36 +37,35 @@ git pull origin main 2>&1 || git pull origin master 2>&1 || echo "  (no remote c
 
 echo ""
 echo "══════════════════════════════════════"
-echo "  STEP 5 — Start gnbsim"
+echo "  STEP 5 — Build and run gnbsim natively"
 echo "══════════════════════════════════════"
-docker compose up -d --build gnbsim
-echo "  Checking container status..."
-docker inspect gnbsim --format '{{.State.Status}}'
+# Extract the pre-built binary from the Docker image to avoid Docker SCTP issues
+docker compose build gnbsim 2>&1 | tail -5
+docker create --name gnbsim-extract egt-stadium-gnbsim true 2>/dev/null || true
+docker cp gnbsim-extract:/gnbsim/bin/gnbsim /tmp/gnbsim-bin 2>/dev/null || \
+  docker cp gnbsim-extract:/gnbsim/bin/gnbsim-bin /tmp/gnbsim-bin 2>/dev/null || true
+docker rm gnbsim-extract 2>/dev/null || true
+
+# Copy config to /tmp so binary finds it in CWD
+cp ~/egt-stadium/config/gnbsim.json /tmp/gnbsim.json
+chmod +x /tmp/gnbsim-bin
 
 echo "  Testing network path to AMF (.132)..."
-docker exec gnbsim ping -c 3 192.168.70.132 || echo "  [WARNING] AMF unreachable from gnbsim container"
+ping -c 3 192.168.70.132 || echo "  [WARNING] AMF unreachable from host"
 
-echo "  Monitoring UE registration (timeout 45s)..."
-for i in {1..45}; do
-    STATUS=$(docker inspect gnbsim --format '{{.State.Status}}' 2>/dev/null)
-    if [ "$STATUS" != "running" ]; then
-        echo "  [ERROR] gnbsim container stopped! Check logs below."
-        break
-    fi
-    # If we see "PDU Session Establishment" or "Registered", we can exit early on success
-    if docker logs gnbsim 2>&1 | grep -qE "PDU Session Establishment|Registered"; then
-        echo "  [SUCCESS] UE Registered and Session Established!"
-        break
-    fi
-    sleep 1
-done
+echo "  Starting gnbsim natively and monitoring (timeout 30s)..."
+cd /tmp && timeout 30 /tmp/gnbsim-bin 2>&1 | tee /tmp/gnbsim.log &
+GNBSIM_PID=$!
+sleep 30
+wait $GNBSIM_PID 2>/dev/null || true
+cd ~/egt-stadium
 
 echo ""
 echo "══════════════════════════════════════"
 echo "  STEP 6 — Check results"
 echo "══════════════════════════════════════"
 echo "--- gnbsim logs (raw) ---"
-docker logs gnbsim --tail 50
+cat /tmp/gnbsim.log 2>/dev/null || echo "  (no log file found)"
 
 echo ""
 echo "--- AMF: Registration logs ---"
