@@ -15,7 +15,7 @@ COPY . .
 
 # Build the real gnbsim engine
 RUN go mod tidy || true
-RUN cd cmd && go build -o /gnbsim-bin .
+RUN cd gnbsim/cmd && go build -o /gnbsim-bin .
 
 #---------------------------------------------------------------------
 # TARGET STAGE
