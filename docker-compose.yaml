@@ -219,6 +219,8 @@ services:
     privileged: true
     environment:
       - TZ=Europe/Paris
+      - USE_FQDN=no
+    entrypoint: []
     volumes:
       - ./config/gnbsim.yaml:/gnbsim/config/gnbsim.yaml
     networks:
