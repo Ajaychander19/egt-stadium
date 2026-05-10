@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+# ============================================================
+# EGT-Stadium reconnect script
+# Run this after ssh ajay@luxray.srcd.imta.fr
+# ============================================================
+set -euo pipefail
+cd ~/egt-stadium
+source venv/bin/activate 2>/dev/null || true
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 1 — Check core network status"
+echo "══════════════════════════════════════"
+docker compose ps
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 2 — Verify EGT controller"
+echo "══════════════════════════════════════"
+python3 -c "
+from egt_controller import SystemParams
+p = SystemParams()
+print(f'  k_mec={p.k_mec:.3e}  k_cc={p.k_cc:.3e}  ratio={p.k_mec/p.k_cc:.0f}x  ✓')
+"
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 3 — Pull gnbsim image"
+echo "══════════════════════════════════════"
+docker pull oaisoftwarealliance/gnbsim:latest 2>&1 | tail -3
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 4 — Sync updated files from git"
+echo "══════════════════════════════════════"
+git pull origin main 2>&1 || git pull origin master 2>&1 || echo "  (no remote changes to pull)"
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 5 — Start gnbsim"
+echo "══════════════════════════════════════"
+docker compose up -d gnbsim
+echo "  Waiting 45s for UE registration..."
+sleep 45
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 6 — Check results"
+echo "══════════════════════════════════════"
+echo "--- gnbsim exit/logs ---"
+docker logs gnbsim 2>&1 | grep -E "PASS|FAIL|Error|error|Profile|Register|PDU|Session|established|success" | tail -20
+
+echo ""
+echo "--- AMF: UE registration ---"
+docker logs oai-amf 2>&1 | grep -iE "imsi|001010|registered|5gmm|pdu" | tail -10
+
+echo ""
+echo "--- SMF: PDU sessions ---"
+docker logs oai-smf 2>&1 | grep -iE "pdu|session|upf|established|selected|anchor" | tail -10
+
+echo ""
+echo "--- UPF-MEC: GTP tunnels ---"
+docker logs oai-upf-mec 2>&1 | grep -iE "gtp|pfcp|far|pdr|tunnel|session" | tail -10
+
+echo ""
+echo "--- UPF-CC: GTP tunnels ---"
+docker logs oai-upf-cc 2>&1 | grep -iE "gtp|pfcp|far|pdr|tunnel|session" | tail -10
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 7 — Run stadium simulation"
+echo "══════════════════════════════════════"
+python3 stadium_simulation.py --smf http://localhost:8080
+ls -lh results/
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 8 — Health check"
+echo "══════════════════════════════════════"
+python3 verify_status.py
+
+echo ""
+echo "══════════════════════════════════════"
+echo "  STEP 9 — Commit final state"
+echo "══════════════════════════════════════"
+git add -A
+git commit -m "feat: gnbsim UE attach + final stadium simulation results"
+git push
+echo "  Done."

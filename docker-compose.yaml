@@ -213,6 +213,22 @@ services:
     depends_on:
       - oai-gnb
 
+  gnbsim:
+    image: oaisoftwarealliance/gnbsim:latest
+    container_name: gnbsim
+    privileged: true
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - ./config/gnbsim.yaml:/gnbsim/config/gnbsim.yaml
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.160
+    depends_on:
+      - oai-amf
+      - oai-upf-mec
+      - oai-upf-cc
+
 networks:
   stadium_net:
     driver: bridge
