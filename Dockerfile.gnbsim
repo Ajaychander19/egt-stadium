@@ -15,7 +15,7 @@ COPY . .
 
 # Build the example binary (direct SCTP/NGAP client - what the kharade image runs)
 RUN go mod tidy || true
-RUN cd gnbsim/example && go build -o /gnbsim-example .
+RUN cd example && go build -o /gnbsim-example .
 
 #---------------------------------------------------------------------
 # TARGET STAGE
