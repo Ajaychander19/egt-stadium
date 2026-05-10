@@ -233,7 +233,7 @@ services:
     command: >
       sh -c "
       cp /gnbsim/config/gnbsim.json /tmp/gnbsim.json &&
-      sed -i 's/GNB_IP_ADDR/192.168.70.160/g' /tmp/gnbsim.json &&
+      sed -i 's/GNB_IP_ADDR/0.0.0.0/g' /tmp/gnbsim.json &&
       sed -i 's/AMF_IP_ADDR/192.168.70.132/g' /tmp/gnbsim.json &&
       cat /tmp/gnbsim.json &&
       sleep 2 &&
