@@ -39,7 +39,7 @@ echo ""
 echo "══════════════════════════════════════"
 echo "  STEP 5 — Start gnbsim"
 echo "══════════════════════════════════════"
-docker compose up -d gnbsim
+docker compose up -d --build gnbsim
 echo "  Checking container status..."
 docker inspect gnbsim --format '{{.State.Status}}'
 
