@@ -219,6 +219,7 @@ services:
       dockerfile: ../egt-stadium/Dockerfile.gnbsim
     container_name: gnbsim
     privileged: true
+    entrypoint: []
     environment:
       - TZ=Europe/Paris
     volumes:
