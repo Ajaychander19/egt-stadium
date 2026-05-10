@@ -37,28 +37,32 @@ git pull origin main 2>&1 || git pull origin master 2>&1 || echo "  (no remote c
 
 echo ""
 echo "══════════════════════════════════════"
-echo "  STEP 5 — Build and run gnbsim natively"
+echo "  STEP 5 — Fix SCTP firewall + Start gnbsim"
 echo "══════════════════════════════════════"
-# Extract the pre-built binary from the Docker image to avoid Docker SCTP issues
-docker compose build gnbsim 2>&1 | tail -5
-docker create --name gnbsim-extract egt-stadium-gnbsim true 2>/dev/null || true
-docker cp gnbsim-extract:/gnbsim/bin/gnbsim /tmp/gnbsim-bin 2>/dev/null || \
-  docker cp gnbsim-extract:/gnbsim/bin/gnbsim-bin /tmp/gnbsim-bin 2>/dev/null || true
-docker rm gnbsim-extract 2>/dev/null || true
 
-# Copy config to /tmp so binary finds it in CWD
-cp ~/egt-stadium/config/gnbsim.json /tmp/gnbsim.json
-chmod +x /tmp/gnbsim-bin
+# Fix: Docker uses iptables-legacy on this system — add SCTP allow rule
+echo "  Applying SCTP allow rule to iptables-legacy..."
+sudo iptables-legacy -C DOCKER-USER -p sctp -j ACCEPT 2>/dev/null || \
+  sudo iptables-legacy -I DOCKER-USER -p sctp -j ACCEPT
+echo "  SCTP rule applied."
+
+# Start gnbsim in Docker container on the bridge network
+docker compose up -d --build gnbsim
+echo "  Checking container status..."
+docker inspect gnbsim --format '{{.State.Status}}'
 
 echo "  Testing network path to AMF (.132)..."
-ping -c 3 192.168.70.132 || echo "  [WARNING] AMF unreachable from host"
+docker exec gnbsim ping -c 3 192.168.70.132 2>/dev/null || ping -c 3 192.168.70.132 || echo "  [WARNING] AMF unreachable"
 
-echo "  Starting gnbsim natively and monitoring (timeout 30s)..."
-cd /tmp && timeout 30 /tmp/gnbsim-bin 2>&1 | tee /tmp/gnbsim.log &
-GNBSIM_PID=$!
-sleep 30
-wait $GNBSIM_PID 2>/dev/null || true
-cd ~/egt-stadium
+echo "  Monitoring UE registration (timeout 30s)..."
+for i in {1..30}; do
+    STATUS=$(docker inspect gnbsim --format '{{.State.Status}}' 2>/dev/null)
+    if [ "$STATUS" != "running" ]; then
+        echo "  [INFO] gnbsim finished (status: $STATUS)"
+        break
+    fi
+    sleep 1
+done
 
 echo ""
 echo "══════════════════════════════════════"

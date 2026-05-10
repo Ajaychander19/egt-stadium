@@ -224,7 +224,9 @@ services:
       - TZ=Europe/Paris
     volumes:
       - ./config/gnbsim.json:/gnbsim/bin/gnbsim.json
-    network_mode: host
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.160
     command: sh -c "sleep 5 && ./gnbsim 2>&1"
     depends_on:
       - oai-amf
