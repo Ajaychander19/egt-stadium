@@ -42,8 +42,7 @@ echo "════════════════════════�
 
 # Fix: Docker uses iptables-legacy on this system — add SCTP allow rule
 echo "  Applying SCTP allow rule to iptables-legacy..."
-sudo iptables-legacy -C DOCKER-USER -p sctp -j ACCEPT 2>/dev/null || \
-  sudo iptables-legacy -I DOCKER-USER -p sctp -j ACCEPT
+(sudo iptables-legacy -C DOCKER-USER -p sctp -j ACCEPT 2>/dev/null || sudo iptables-legacy -I DOCKER-USER -p sctp -j ACCEPT) || true
 echo "  SCTP rule applied."
 
 # Start gnbsim in Docker container on the bridge network
