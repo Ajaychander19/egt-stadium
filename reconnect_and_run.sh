@@ -45,7 +45,11 @@ echo "  Applying SCTP allow rule to iptables-legacy..."
 (sudo iptables-legacy -C DOCKER-USER -p sctp -j ACCEPT 2>/dev/null || sudo iptables-legacy -I DOCKER-USER -p sctp -j ACCEPT) || true
 echo "  SCTP rule applied."
 
-# Start gnbsim in Docker container on the bridge network
+# Diagnostic: Check if SCTP conntrack is loaded on host
+echo "  Checking SCTP kernel modules..."
+lsmod | grep -i sctp || echo "  ⚠️ SCTP module not found in lsmod! (Might be built-in)"
+
+# Start gnbsim in Docker container
 docker compose up -d --build gnbsim
 echo "  Checking container status..."
 docker inspect gnbsim --format '{{.State.Status}}'
@@ -68,11 +72,12 @@ echo "════════════════════════�
 echo "  STEP 6 — Check results"
 echo "══════════════════════════════════════"
 echo "--- gnbsim container file structure ---"
-docker exec gnbsim ls -R /gnbsim
+# Use docker export to see files in exited container
+docker export gnbsim | tar -t | grep -E "example.json|gnbsim" || echo "  Could not list files"
 
 echo ""
 echo "--- gnbsim logs (raw) ---"
-docker logs gnbsim
+docker logs gnbsim || echo "  No logs available"
 
 echo ""
 echo "--- AMF: Registration logs ---"
