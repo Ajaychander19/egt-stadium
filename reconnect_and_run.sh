@@ -67,8 +67,12 @@ echo ""
 echo "══════════════════════════════════════"
 echo "  STEP 6 — Check results"
 echo "══════════════════════════════════════"
+echo "--- gnbsim container file structure ---"
+docker exec gnbsim ls -R /gnbsim
+
+echo ""
 echo "--- gnbsim logs (raw) ---"
-cat /tmp/gnbsim.log 2>/dev/null || echo "  (no log file found)"
+docker logs gnbsim
 
 echo ""
 echo "--- AMF: Registration logs ---"
