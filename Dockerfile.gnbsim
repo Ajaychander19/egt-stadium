@@ -33,10 +33,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /gnbsim/bin
-COPY --from=builder /gnbsim-example ./example
+COPY --from=builder /gnbsim-example ./gnbsim-example
 
 # Create config directory
 RUN mkdir -p /gnbsim/config
 
-# Standard entrypoint - example binary reads gnbsim.json from CWD
-ENTRYPOINT ["./example"]
+# Standard entrypoint - example binary reads example.json from CWD
+ENTRYPOINT ["./gnbsim-example"]
