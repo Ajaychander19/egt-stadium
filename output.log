@@ -1,0 +1,467 @@
+
+══════════════════════════════════════
+  STEP 1 — Check core network status
+══════════════════════════════════════
+NAME          IMAGE                                 COMMAND                  SERVICE       CREATED              STATUS                    PORTS
+gnbsim        egt-stadium-gnbsim                    "./gnbsim-example"       gnbsim        About a minute ago   Up About a minute         
+mysql         mysql:8.0                             "docker-entrypoint.s…"   mysql         10 days ago          Up 10 days (healthy)      3306/tcp, 33060/tcp
+oai-amf       oaisoftwarealliance/oai-amf:v2.1.0    "/openair-amf/bin/oa…"   oai-amf       10 days ago          Up 14 minutes (healthy)   80/tcp, 9090/tcp, 38412/sctp
+oai-ausf      oaisoftwarealliance/oai-ausf:v2.1.0   "/openair-ausf/bin/o…"   oai-ausf      10 days ago          Up 10 days (healthy)      80/tcp
+oai-gnb       oaisoftwarealliance/oai-gnb:v2.1.0    "/opt/oai-gnb/bin/en…"   oai-gnb       9 days ago           Up 9 days                 
+oai-nrf       oaisoftwarealliance/oai-nrf:v2.1.0    "/openair-nrf/bin/oa…"   oai-nrf       10 days ago          Up 10 days (healthy)      80/tcp, 9090/tcp
+oai-nssf      oaisoftwarealliance/oai-nssf:v2.1.0   "/openair-nssf/bin/o…"   oai-nssf      10 days ago          Up 10 days (healthy)      80/tcp, 8080/tcp
+oai-smf       oaisoftwarealliance/oai-smf:v2.1.0    "/openair-smf/bin/oa…"   oai-smf       10 days ago          Up 10 days (healthy)      80/tcp, 127.0.0.1:8080->8080/tcp, 8805/udp
+oai-udm       oaisoftwarealliance/oai-udm:v2.1.0    "/openair-udm/bin/oa…"   oai-udm       10 days ago          Up 10 days (healthy)      80/tcp
+oai-udr       oaisoftwarealliance/oai-udr:v2.1.0    "/openair-udr/bin/oa…"   oai-udr       10 days ago          Up 10 days (healthy)      80/tcp
+oai-upf-cc    oaisoftwarealliance/oai-upf:v2.1.0    "/openair-upf/bin/oa…"   oai-upf-cc    10 days ago          Up 10 days (healthy)      2152/udp, 8805/udp
+oai-upf-mec   oaisoftwarealliance/oai-upf:v2.1.0    "/openair-upf/bin/oa…"   oai-upf-mec   10 days ago          Up 10 days (healthy)      2152/udp, 8805/udp
+
+══════════════════════════════════════
+  STEP 2 — Verify EGT controller
+══════════════════════════════════════
+  k_mec=4.833e-04  k_cc=4.833e-05  ratio=10x  ✓
+
+══════════════════════════════════════
+  STEP 3 — Pull gnbsim image
+══════════════════════════════════════
+What's Next?
+  1. Sign in to your Docker account → docker login
+  2. View a summary of image vulnerabilities and recommendations → docker scout quickview rohankharade/gnbsim:latest
+
+══════════════════════════════════════
+  STEP 4 — Sync updated files from git
+══════════════════════════════════════
+fatal: couldn't find remote ref main
+From github.com:Ajaychander19/egt-stadium
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+
+══════════════════════════════════════
+  STEP 5 — Fix SCTP firewall + Start gnbsim
+══════════════════════════════════════
+  Applying SCTP allow rule to iptables-legacy...
+sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+  SCTP rule applied.
+  Checking SCTP kernel modules...
+sctp_diag              16384  0
+inet_diag              28672  5 tcp_diag,sctp_diag,mptcp_diag,raw_diag,udp_diag
+xt_sctp                16384  0
+sctp                  495616  161 sctp_diag
+ip6_udp_tunnel         16384  2 vxlan,sctp
+udp_tunnel             32768  3 gtp,vxlan,sctp
+libcrc32c              12288  4 nf_conntrack,nf_nat,nf_tables,sctp
+x_tables               65536  21 xt_conntrack,xt_statistic,iptable_filter,nft_compat,xt_multiport,xt_NFLOG,xt_tcpudp,xt_bpf,xt_addrtype,xt_physdev,xt_nat,xt_comment,xt_set,xt_policy,xt_sctp,ipt_REJECT,ip_tables,iptable_nat,xt_limit,xt_MASQUERADE,xt_mark
+#0 building with "default" instance using docker driver
+
+#1 [gnbsim internal] load build definition from Dockerfile.gnbsim
+#1 transferring dockerfile: 1.23kB done
+#1 DONE 0.0s
+
+#2 [gnbsim internal] load metadata for docker.io/library/golang:1.21-bullseye
+#2 ...
+
+#3 [gnbsim internal] load metadata for docker.io/library/ubuntu:22.04
+#3 DONE 0.4s
+
+#2 [gnbsim internal] load metadata for docker.io/library/golang:1.21-bullseye
+#2 DONE 0.4s
+
+#4 [gnbsim internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [gnbsim builder 1/6] FROM docker.io/library/golang:1.21-bullseye@sha256:40a67e6626bead90d5c7957bd0354cfeb8400e61acc3adc256e03252630014a6
+#5 DONE 0.0s
+
+#6 [gnbsim stage-1 1/5] FROM docker.io/library/ubuntu:22.04@sha256:962f6cadeae0ea6284001009daa4cc9a8c37e75d1f5191cf0eb83fe565b63dd7
+#6 DONE 0.0s
+
+#7 [gnbsim internal] load build context
+#7 transferring context: 6.06kB done
+#7 DONE 0.0s
+
+#8 [gnbsim stage-1 3/5] WORKDIR /gnbsim/bin
+#8 CACHED
+
+#9 [gnbsim builder 6/6] RUN cd example && go build -o /gnbsim-example .
+#9 CACHED
+
+#10 [gnbsim stage-1 4/5] COPY --from=builder /gnbsim-example ./gnbsim-example
+#10 CACHED
+
+#11 [gnbsim stage-1 2/5] RUN apt-get update && apt-get install -y     libsctp-dev     lksctp-tools     iproute2     iputils-ping     net-tools     ca-certificates     && rm -rf /var/lib/apt/lists/*
+#11 CACHED
+
+#12 [gnbsim builder 2/6] RUN apt-get update && apt-get install -y     libsctp-dev     lksctp-tools     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [gnbsim builder 3/6] WORKDIR /gnbsim
+#13 CACHED
+
+#14 [gnbsim builder 5/6] RUN go mod tidy || true
+#14 CACHED
+
+#15 [gnbsim builder 4/6] COPY . .
+#15 CACHED
+
+#16 [gnbsim stage-1 5/5] RUN mkdir -p /gnbsim/config
+#16 CACHED
+
+#17 [gnbsim] exporting to image
+#17 exporting layers done
+#17 writing image sha256:e954dc4c83088d406de7f72be373e424207680cf3c56ab4954aac14ec6e67911 done
+#17 naming to docker.io/library/egt-stadium-gnbsim done
+#17 DONE 0.0s
+ Container mysql  Running
+ Container oai-nrf  Running
+ Container oai-udr  Running
+ Container oai-udm  Running
+ Container oai-nssf  Running
+ Container oai-ausf  Running
+ Container oai-amf  Running
+ Container oai-smf  Running
+ Container oai-upf-mec  Running
+ Container oai-upf-cc  Running
+ Container gnbsim  Running
+ Container mysql  Waiting
+ Container mysql  Healthy
+ Container mysql  Waiting
+ Container mysql  Healthy
+  Checking container status...
+running
+  Testing network path to AMF (.132)...
+PING 192.168.70.132 (192.168.70.132) 56(84) bytes of data.
+64 bytes from 192.168.70.132: icmp_seq=1 ttl=64 time=0.088 ms
+64 bytes from 192.168.70.132: icmp_seq=2 ttl=64 time=0.072 ms
+64 bytes from 192.168.70.132: icmp_seq=3 ttl=64 time=0.065 ms
+
+--- 192.168.70.132 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2044ms
+rtt min/avg/max/mdev = 0.065/0.075/0.088/0.009 ms
+  Monitoring UE registration (timeout 30s)...
+
+══════════════════════════════════════
+  STEP 6 — Check results
+══════════════════════════════════════
+--- gnbsim container file structure ---
+gnbsim/
+gnbsim/bin/
+gnbsim/bin/example.json
+gnbsim/bin/gnbsim-example
+gnbsim/config/
+
+--- gnbsim logs (raw) ---
+Parsed NGAPPeerAddr: '192.168.70.132'
+[gnbsim]2026/05/13 19:53:39.231242 example.go:53: Dail LocalAddr: 192.168.70.155:46199; RemoteAddr: 192.168.70.132:38412
+[gnbsim]2026/05/13 19:53:39.231537 example.go:73: write: len 44, info: &{Stream:0 SSN:0 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:0 CumTSN:0 AssocID:0}
+[gnbsim]2026/05/13 19:53:39.231864 example.go:94: read: len 59, info: &{Stream:0 SSN:0 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904418 CumTSN:0 AssocID:268}
+dump: 201500370000040001001107004f41492d414d462d5374616469756d00600008000000f110010041005640011e0050000a0000f110000100080080
+Procedure Code: id-NGSetup (21)
+PDU Length: 55
+Protocol IEs: 4 items
+  Item 0
+    Protocol IE: id-AMFName (1)
+      IE length: 17
+        decoding id(1) not supported yet.
+        dump: 07004f41492d414d462d5374616469756d
+  Item 1
+    Protocol IE: id-ServedGUAMIList (96)
+      IE length: 8
+        decoding id(96) not supported yet.
+        dump: 000000f110010041
+  Item 2
+    Protocol IE: id-RelativeAMFCapacity (86)
+      IE length: 1
+        decoding id(86) not supported yet.
+        dump: 1e
+  Item 3
+    Protocol IE: id-PLMNSupportList (80)
+      IE length: 10
+        decoding id(80) not supported yet.
+        dump: 0000f110000100080080
+[gnbsim]2026/05/13 19:53:39.232161 example.go:73: write: len 72, info: &{Stream:0 SSN:0 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904418 CumTSN:0 AssocID:268}
+[gnbsim]2026/05/13 19:53:39.244475 example.go:94: read: len 66, info: &{Stream:0 SSN:1 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904419 CumTSN:0 AssocID:268}
+dump: 0004403e000003000a000200020055000200000026002b2a7e00560302000021dbf5749bc50e30c2d4b8be18528e5b1320104e6423e8a28a80003a04e5d53a675ec0
+Procedure Code: id-DownlinkNASTransport (4)
+PDU Length: 62
+Protocol IEs: 3 items
+  Item 0
+    Protocol IE: id-AMF-UE-NGAP-ID (10)
+      IE length: 2
+  Item 1
+    Protocol IE: id-RAN-UE-NGAP-ID (85)
+      IE length: 2
+  Item 2
+    Protocol IE: id-NAS-PDU (38)
+      IE length: 43
+        EPD: 5G Mobility Management (0x7e)
+        Security Header: 0x0
+        Message Type: Authentication Request (0x56)
+          Authentication Request
+            ngKSI IE
+              NAS key set identifier: 0x3
+            ABBA IE
+              ABBA
+                Length: 2
+                Value: 0x0000
+            Authentication Parameter RAND IE: 0x21
+              RAND: 0xdbf5749bc50e30c2d4b8be18528e5b13
+            Authentication Parameter AUTN IE: 0x20
+              AUTN: 4e6423e8a28a80003a04e5d53a675ec0
+              SEQ xor AK: 4e6423e8a28a
+              AMF       : 8000
+              MAC       : 3a04e5d53a675ec0
+            received and calculated MAC values match.
+[gnbsim]2026/05/13 19:53:39.244746 example.go:73: write: len 64, info: &{Stream:0 SSN:1 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904419 CumTSN:0 AssocID:268}
+[gnbsim]2026/05/13 19:53:39.252325 example.go:94: read: len 45, info: &{Stream:0 SSN:2 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904420 CumTSN:0 AssocID:268}
+dump: 00044029000003000a0002000200550002000000260016157e033d2d40a3007e005d02030480200000e1360102
+Procedure Code: id-DownlinkNASTransport (4)
+PDU Length: 41
+Protocol IEs: 3 items
+  Item 0
+    Protocol IE: id-AMF-UE-NGAP-ID (10)
+      IE length: 2
+  Item 1
+    Protocol IE: id-RAN-UE-NGAP-ID (85)
+      IE length: 2
+  Item 2
+    Protocol IE: id-NAS-PDU (38)
+      IE length: 22
+        EPD: 5G Mobility Management (0x7e)
+        Security Header: 0x3
+          mac: 3d2d40a3
+          seq: 0
+        ***** Integrity check passed
+        EPD: 5G Mobility Management (0x7e)
+        Security Header: 0x0
+        Message Type: Security Mode Command (0x5d)
+          Security Mode Command
+            Selected NAS security algorithms IE
+              NAS Security Algorithms: 0x02
+            ngKSI IE
+              NAS key set identifier: 0x3
+            Replayed UE security capabilities IE
+              Capability: 0x80200000
+            IMEISV Request: 0xe
+              value: 0x1
+            Additional 5G Security Information: 0x36
+              value: 0x2
+                KAMF derivation is not required
+                Retransmission of the initial NAS message requested
+[gnbsim]2026/05/13 19:53:39.252589 example.go:73: write: len 93, info: &{Stream:0 SSN:2 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904420 CumTSN:0 AssocID:268}
+[gnbsim]2026/05/13 19:53:39.257755 example.go:94: read: len 152, info: &{Stream:0 SSN:3 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904421 CumTSN:0 AssocID:268}
+dump: 000e008093000008000a00020002005500020000001c00070000f11001004100000002000100770009000004000000000000005e002048159202ff4970e65a0f28c79a4498ec4d31a8dbbe9fe35d12ae76fca598d8bb002440040000f11000264036357e02c4638b62017e0042010177000bf200f1100100410000000254070000f1100000011502010131020101210201005e01b616010c
+Procedure Code: id-InitialContextSetup (14)
+PDU Length: 147
+Protocol IEs: 8 items
+  Item 0
+    Protocol IE: id-AMF-UE-NGAP-ID (10)
+      IE length: 2
+  Item 1
+    Protocol IE: id-RAN-UE-NGAP-ID (85)
+      IE length: 2
+  Item 2
+    Protocol IE: id-GUAMI (28)
+      IE length: 7
+        decoding id(28) not supported yet.
+        dump: 0000f110010041
+  Item 3
+    Protocol IE: id-AllowedNSSAI (0)
+      IE length: 2
+        decoding id(0) not supported yet.
+        dump: 0001
+  Item 4
+    Protocol IE: id-UESecurityCapabilities (119)
+      IE length: 9
+        decoding id(119) not supported yet.
+        dump: 000004000000000000
+  Item 5
+    Protocol IE: id-SecurityKey (94)
+      IE length: 32
+        decoding id(94) not supported yet.
+        dump: 48159202ff4970e65a0f28c79a4498ec4d31a8dbbe9fe35d12ae76fca598d8bb
+  Item 6
+    Protocol IE: id-MobilityRestrictionList (36)
+      IE length: 4
+        decoding id(36) not supported yet.
+        dump: 0000f110
+  Item 7
+    Protocol IE: id-NAS-PDU (38)
+      IE length: 54
+        EPD: 5G Mobility Management (0x7e)
+        Security Header: 0x2
+          mac: c4638b62
+          seq: 1
+        ***** Integrity check passed
+        EPD: 5G Mobility Management (0x7e)
+        Security Header: 0x0
+        Message Type: Registration Accept (0x42)
+          Registration Accept
+            5GS registration result IE
+              5G Registration Result: 01
+                Not registered for emergency services
+                Network slice-specific authentication and authorization is not to be performed
+                SMS over NAS not allowed
+                3GPP access
+            5G-GUTI: 0x77
+              5GS mobile identity
+                5G-GUTI: 00f11001004100000002
+[gnbsim]2026/05/13 19:53:39.258072 example.go:73: write: len 19, info: &{Stream:0 SSN:3 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904421 CumTSN:0 AssocID:268}
+            TAI list: 0x54
+              5GS tracking area identity list
+                number of element: 1
+                type of list: 0x0
+[gnbsim]2026/05/13 19:53:39.258106 example.go:73: write: len 53, info: &{Stream:0 SSN:3 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904421 CumTSN:0 AssocID:268}
+                MCC: 1
+                MNC: 1
+                tac: 0x000001
+            Allowed NSSAI: 0x15
+              S-NSSAI
+                SST: 1
+[gnbsim]2026/05/13 19:53:42.259991 example.go:105: read: timeout
+[gnbsim]2026/05/13 19:53:43.260249 example.go:73: write: len 78, info: &{Stream:0 SSN:3 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904421 CumTSN:0 AssocID:268}
+[gnbsim]2026/05/13 19:53:43.268364 example.go:94: read: len 191, info: &{Stream:0 SSN:4 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904422 CumTSN:0 AssocID:268}
+dump: 001d0080ba000004000a00020002005500020000004a008098004001627e02f58e9226027e00680100532e0101c2110009010006312101010001060601900600c82905010c010103220101817900060120410101097b000d80000d040808080800100205dc2516036f6169056d6e633031066d63633030310467707273120100202f0000040082000a0c17d78400300bebc200008b000a01f0c0a8468c0000000200860001000088000700010000090000006e400a0c3b9aca00303b9aca00
+Procedure Code: id-PDUSessionResourceSetup (29)
+PDU Length: 186
+Protocol IEs: 4 items
+  Item 0
+    Protocol IE: id-AMF-UE-NGAP-ID (10)
+      IE length: 2
+  Item 1
+    Protocol IE: id-RAN-UE-NGAP-ID (85)
+      IE length: 2
+  Item 2
+    Protocol IE: id-PDUSessionResourceSetupListSUReq (74)
+      IE length: 152
+        number of sequence: 1
+          PDU Session ID: 1
+        EPD: 5G Mobility Management (0x7e)
+        Security Header: 0x2
+          mac: f58e9226
+          seq: 2
+        ***** Integrity check passed
+        EPD: 5G Mobility Management (0x7e)
+        Security Header: 0x0
+        Message Type: DL NAS Transport (0x68)
+          DL NAS Transport
+            Payload container type
+              Type: N1 SM Information(0x1)
+            Payload container
+              Length: 83
+              EPD: 5G Session Management (0x2e)
+              PDU Session Identity: 0x1
+              Procedure Transaction Identity: 0x1
+              Message Type: PDU Session Establishment Accept (0xc2)
+                PDU Session Establishment Accept
+                  Selected PDU session type
+                    PDU Session Type: IPv4(1)
+                  Selected SSC mode
+                    SSC Mode: SSC mode 1(1)
+                  Authorized QoS rules
+                    QoS rules
+                      Length: 9
+                      Qos rule 0
+                        QoS rule identifier: 1
+                        Length: 6
+                        Rule operation code: Create new QoS rule(1)
+                        the QoS rule is the default QoS rule
+                        Number of packet filters: 1
+                        packet filter 0
+                          Packet filter identifier: 1
+                          Packet filter direction: 
+                          Length of packet filter contents: 1
+[gnbsim]2026/05/13 19:53:43.268653 ngap.go:710: Unsupported Protocol IE: 130
+                          Packet filter content 0: Match-all type(1)
+                        QoS rule precedence: 0
+                        Segregation: Segregation not requested
+                        QoS flow identifier: QFI1
+                  Session AMBR
+                    Length of Session-AMBR contents: 6
+                    unit for Session-AMBR for downlink: (6)
+                    Session-AMBR for downlink: 400
+                    unit for Session-AMBR for uplink: (6)
+                    Session-AMBR for uplink: 200
+                  PDU address: 0x29
+                    Length: 5
+                    PDU session type: IPv4(1)
+                    PDU address information: 12.1.1.3
+            PDU session ID: 0x12
+              PDU session identity 2 value: 1
+          S-NSSAI
+            SST: 1
+          PDU Session Resource Setup Request Transfer
+          Protocol IEs: 4 items
+            Item 0
+              Protocol IE:  (130)
+                IE length: 10
+                  decoding id(130) not supported yet.
+                  dump: 0c17d78400300bebc200
+[gnbsim]2026/05/13 19:53:43.268752 ngap.go:710: Unsupported Protocol IE: 110
+            Item 1
+              Protocol IE: id-UL-NGU-UP-TNLInformation (139)
+                IE length: 10
+                  dump: 01f0c0a8468c00000002
+                  Transport Layer Address
+                    bit string length: 32
+                    address: 192.168.70.140
+                  GTP TEID: 2
+            Item 2
+              Protocol IE: id-PDUSessionType (134)
+                IE length: 1
+                  PDU Session Type: ipv4 (0)
+            Item 3
+              Protocol IE: id-QosFlowSetupRequestList (136)
+                IE length: 7
+                  dump: 00010000090000
+                  Item 0
+                    Qos Flow Identifier: 1
+                    Qos Flow Level Qos Prameters: not supported yet
+    Item 3
+      Protocol IE:  (110)
+        IE length: 10
+          decoding id(110) not supported yet.
+          dump: 0c3b9aca00303b9aca00
+[gnbsim]2026/05/13 19:53:44.261062 example.go:105: read: timeout
+[gnbsim]2026/05/13 19:53:44.261266 example.go:73: write: len 40, info: &{Stream:0 SSN:4 Flags:0 _:0 PPID:1006632960 Context:0 TTL:0 TSN:3872904422 CumTSN:0 AssocID:268}
+[gnbsim]2026/05/13 19:53:45.261326 example.go:248: GTP-U interface name: eth0
+[gnbsim]2026/05/13 19:53:45.261353 example.go:249: GTP-U local addr: 192.168.70.155
+[gnbsim]2026/05/13 19:53:45.261362 example.go:250: GTP-U peer addr : 192.168.70.140
+[gnbsim]2026/05/13 19:53:46.263065 example.go:335: GTP-U Peer TEID: 2
+[gnbsim]2026/05/13 19:53:46.263093 example.go:336: GTP-U Local TEID: 4269521070
+[gnbsim]2026/05/13 19:53:46.263100 example.go:337: QoS Flow ID: 1
+[gnbsim]2026/05/13 19:53:46.263107 example.go:339: UE address: 12.1.1.3
+[gnbsim]2026/05/13 19:53:47.263762 example.go:201: Deregister after : 3600 Sec
+
+--- AMF: Registration logs ---
+   |  Index |     5GMM State     |        IMSI        |        GUTI        |   RAN UE NGAP ID   |   AMF UE NGAP ID   |        PLMN        |       Cell Id      |
+   |  Index |     5GMM State     |        IMSI        |        GUTI        |   RAN UE NGAP ID   |   AMF UE NGAP ID   |        PLMN        |       Cell Id      |
+   |  Index |     5GMM State     |        IMSI        |        GUTI        |   RAN UE NGAP ID   |   AMF UE NGAP ID   |        PLMN        |       Cell Id      |
+   |  Index |     5GMM State     |        IMSI        |        GUTI        |   RAN UE NGAP ID   |   AMF UE NGAP ID   |        PLMN        |       Cell Id      |
+
+--- SMF: PDU sessions ---
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Find PDU Session with ID 1
+[2026-05-13 21:53:44.262] [smf_app] [info] Sending ITTI message N11_SESSION_UPDATE_SM_CONTEXT_RESPONSE to task TASK_SMF_APP
+[2026-05-13 21:53:44.262] [smf_app] [info] Handle N4 Session Modification Response
+
+--- UPF-MEC: GTP tunnels ---
+[2026-05-13 21:53:37.613] [upf_n4 ] [info] pfcp_session::remove(pdr) seid 0x1 
+[2026-05-13 21:53:37.613] [upf_n4 ] [info] pfcp_session::remove(pdr) seid 0x1 
+[2026-05-13 21:53:37.613] [upf_n4 ] [info] pfcp_session::remove(far) seid 0x1 
+[2026-05-13 21:53:37.613] [upf_n4 ] [info] pfcp_session::remove(far) seid 0x1 
+[2026-05-13 21:53:43.266] [upf_app] [info] Received N4_SESSION_ESTABLISHMENT_REQUEST seid 0x2 
+[2026-05-13 21:53:43.266] [upf_n4 ] [info] pfcp_session::add(far) seid 0x2 
+[2026-05-13 21:53:43.266] [upf_n4 ] [info] pfcp_session::add(pdr) seid 0x2 
+[2026-05-13 21:53:44.262] [upf_app] [info] Received N4_SESSION_MODIFICATION_REQUEST seid 0x2 
+[2026-05-13 21:53:44.262] [upf_n4 ] [info] pfcp_session::add(far) seid 0x2 
+[2026-05-13 21:53:44.262] [upf_n4 ] [info] pfcp_session::add(pdr) seid 0x2 
+
+--- UPF-CC: GTP tunnels ---

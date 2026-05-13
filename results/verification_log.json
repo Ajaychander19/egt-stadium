@@ -1,0 +1,311 @@
+{
+  "timestamp": "2026-05-13T22:01:23.768422",
+  "summary": {
+    "total": 60,
+    "passed": 54,
+    "failed": 3,
+    "warned": 3
+  },
+  "checks": [
+    {
+      "name": "egt_controller.py (EGT algorithm)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "validate_fig2.py (Alevizaki validation)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "stadium_simulation.py (3-phase simulation)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "docker-compose.yaml (OAI stack definition)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "oai_db.sql (Subscriber database)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "config/amf.conf (AMF config)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "config/smf.conf (SMF config (2 UPFs))",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "config/nssf_slice_config.yaml (NSSF slice config)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "config/gnb.yaml (gNB rfsim config)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "config/ue_embb.yaml (UE-eMBB config)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "config/ue_urllc.yaml (UE-URLLC config)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "results/fig2_reproduction.png (Alevizaki Fig2 reproduction)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "results/stadium_results.png (Stadium simulation figures)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "results/stadium_results.json (Simulation data)",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "EGT imports successfully",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "Convergence < 300 iters (got 231)",
+      "status": "\u2713 PASS",
+      "detail": "Converged at iteration 231"
+    },
+    {
+      "name": "G1@MEC \u2248 16% (got 17.8%)",
+      "status": "\u2713 PASS",
+      "detail": "Alevizaki Fig2: expect ~16%"
+    },
+    {
+      "name": "G2@MEC \u2248 32% (got 32.0%)",
+      "status": "\u2713 PASS",
+      "detail": "Alevizaki Fig2: expect ~32%"
+    },
+    {
+      "name": "Stadium params converge at normal load",
+      "status": "\u2713 PASS",
+      "detail": "Converged at 223 iters"
+    },
+    {
+      "name": "Stadium params converge at peak load \u00d75.5",
+      "status": "\u2713 PASS",
+      "detail": "Converged at 260 iters"
+    },
+    {
+      "name": "Zero eMBB violations at normal load",
+      "status": "\u2713 PASS",
+      "detail": "eMBB vio=0"
+    },
+    {
+      "name": "Zero eMBB violations at peak load",
+      "status": "\u2713 PASS",
+      "detail": "eMBB vio=0"
+    },
+    {
+      "name": "k_mec validated (4.833e-04)",
+      "status": "\u2713 PASS",
+      "detail": "k_mec=4.833e-04"
+    },
+    {
+      "name": "k_cc  validated (4.833e-05)",
+      "status": "\u2713 PASS",
+      "detail": "k_cc=4.833e-05"
+    },
+    {
+      "name": "k ratio = 10",
+      "status": "\u2713 PASS",
+      "detail": "ratio=10.0"
+    },
+    {
+      "name": "Local UPF delay > propagation (0.25ms)",
+      "status": "\u2713 PASS",
+      "detail": "d_mec=7.162ms"
+    },
+    {
+      "name": "Central UPF delay > propagation (1.0ms)",
+      "status": "\u2713 PASS",
+      "detail": "d_cc=2.369ms"
+    },
+    {
+      "name": "Dedicated local UPF (G1 and G2 see different local delays)",
+      "status": "\u2713 PASS",
+      "detail": "local UPF is per-group dedicated"
+    },
+    {
+      "name": "Steer function returns valid UPF name",
+      "status": "\u2713 PASS",
+      "detail": "eMBB\u2192UPF-CC, URLLC\u2192UPF-CC"
+    },
+    {
+      "name": "stadium_results.json has data",
+      "status": "\u2713 PASS",
+      "detail": "285 time steps recorded"
+    },
+    {
+      "name": "All 3 phases present",
+      "status": "\u2713 PASS",
+      "detail": "Phases: [np.int64(1), np.int64(2), np.int64(3)]"
+    },
+    {
+      "name": "Phase I: zero eMBB violations",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "Phase I: zero URLLC violations",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "Phase II: eMBB steered toward CC",
+      "status": "\u2713 PASS",
+      "detail": "Avg eMBB@CC = 85.5%"
+    },
+    {
+      "name": "Phase II: URLLC steered toward CC",
+      "status": "\u2713 PASS",
+      "detail": "Avg URLLC@CC = 76.5%"
+    },
+    {
+      "name": "Phase III: traffic returns to MEC",
+      "status": "\u2713 PASS",
+      "detail": "Avg eMBB@MEC = 47.2%"
+    },
+    {
+      "name": "Phase II infra-limited flagged",
+      "status": "\u2713 PASS",
+      "detail": "131 infra-limited steps in Phase II"
+    },
+    {
+      "name": "QoS compliance > 50% of steps",
+      "status": "\u2713 PASS",
+      "detail": "53.3% violation-free steps"
+    },
+    {
+      "name": "mysql (Database)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-nrf (Network Repository Function)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-udr (Unified Data Repository)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-udm (Unified Data Management)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-ausf (Authentication Function)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-nssf (Network Slice Selection)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-amf (Access & Mobility Management)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-smf (Session Management (2 UPFs))",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-upf-mec (UPF \u2014 MEC edge node)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-upf-cc (UPF \u2014 Central cloud node)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-gnb (gNB RF-simulator)",
+      "status": "\u2713 PASS",
+      "detail": "running"
+    },
+    {
+      "name": "oai-ue-embb (UE eMBB (SST=1))",
+      "status": "\u26a0 WARN",
+      "detail": "not running \u2014 needed for testbed"
+    },
+    {
+      "name": "oai-ue-urllc (UE URLLC (SST=2))",
+      "status": "\u26a0 WARN",
+      "detail": "not running \u2014 needed for testbed"
+    },
+    {
+      "name": "SMF has PFCP log entries",
+      "status": "\u2713 PASS",
+      "detail": "20 relevant log lines"
+    },
+    {
+      "name": "UPF-MEC referenced in SMF logs",
+      "status": "\u2717 FAIL",
+      "detail": "not found"
+    },
+    {
+      "name": "UPF-CC referenced in SMF logs",
+      "status": "\u2717 FAIL",
+      "detail": "not found \u2014 check SMF config"
+    },
+    {
+      "name": "stadium_net exists",
+      "status": "\u2713 PASS",
+      "detail": "d103f2154cce   egt-stadium_stadium_net   bridge    local"
+    },
+    {
+      "name": "Subnet 192.168.70.128/26 configured",
+      "status": "\u2713 PASS",
+      "detail": "192.168.70.128/26"
+    },
+    {
+      "name": "gNB config file being read",
+      "status": "\u2717 FAIL",
+      "detail": "config not mounted"
+    },
+    {
+      "name": "gNB nr_cellid format OK",
+      "status": "\u2713 PASS",
+      "detail": ""
+    },
+    {
+      "name": "gNB running without crash",
+      "status": "\u2713 PASS",
+      "detail": "no crash detected"
+    },
+    {
+      "name": "gNB NG Setup with AMF",
+      "status": "\u26a0 WARN",
+      "detail": "not yet confirmed \u2014 check logs"
+    }
+  ]
+}
