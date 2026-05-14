@@ -2,7 +2,7 @@
 # Single config file shared by all NFs (v2.1.0 pattern)
 
 log_level:
-  general: info
+  general: debug
 
 register_nf:
   general: yes
