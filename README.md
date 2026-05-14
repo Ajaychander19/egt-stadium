@@ -114,13 +114,40 @@ print(ctrl.status()) # Shows x_fraction and delays per UPF
 
 ---
 
-## ⚙️ Scaling & Customization
-To customize the simulation for your own research, you can modify the following files:
+## ⚙️ Advanced Parameter Tuning & System Behavior
+The EGT controller operates based on a delicate balance of mathematical parameters. Modifying the values in `egt_controller.py` allows you to test entirely different network architectures and stress conditions. Here is a deep analysis of how changing each parameter alters the system's behavior:
 
-*   **Population**: Edit `M1` (eMBB) and `M2` (URLLC) in `egt_controller.py`.
-*   **Capacity Constraints**: Adjust `k_mec` and `k_cc` in `egt_controller.py` to change the Edge/Cloud performance ratio.
-*   **QoS Requirements**: Modify `PDB_embb` (default 300ms) or `PDB_urllc` (default 10ms) to test different service standards.
-*   **Network Scale**: To go beyond 1,000 UEs, generate a new `gnbsim.json` and matching `provision_XXXX.sql` script.
+### 1. Population and Traffic Volume ($M_g$, $\rho_g$)
+*   **Parameters**: `M1` (eMBB count), `M2` (URLLC count), `rho_embb`, `rho_urllc`
+*   **System Impact**: These dictate the total offered load. The delay model is exponential: `Delay ∝ exp(load)`. 
+*   **Consequence of Change**:
+    *   **Increasing $M_2$ (URLLC)**: Since URLLC is highly latency-sensitive and primarily targets the MEC, significantly increasing $M_2$ will rapidly saturate the Edge infrastructure. If total URLLC load forces the MEC processing delay beyond 10ms, the system enters an "Infra-Limited" state where QoS violations are mathematically unavoidable on current hardware.
+    *   **Increasing $M_1$ (eMBB)**: Increases background congestion. Because eMBB has a relaxed 300ms PDB, the EGT controller will gracefully "spill" this excess traffic to the Cloud (`UPF-CC`). However, extreme eMBB scaling could eventually saturate the Cloud as well.
+
+### 2. Capacity Constraints ($k_{mec}$, $k_{cc}$)
+*   **Parameters**: `k_mec`, `k_cc`
+*   **System Impact**: In our model, $k$ represents the *inverse* of processing capacity. It acts as the multiplier in the exponent of the delay function. A higher $k$ means the UPF's delay degrades much faster under load.
+*   **Consequence of Change**:
+    *   Currently, `k_mec` is $10\times$ larger than `k_cc` ($4.833 \times 10^{-4}$ vs $4.833 \times 10^{-5}$), enforcing the 1:10 Edge-to-Cloud capacity ratio.
+    *   **Simulating Edge Upgrades**: If you halve `k_mec` (e.g., to $2.41 \times 10^{-4}$), you simulate doubling the CPU capacity of the MEC node. The EGT controller will automatically anchor more traffic at the MEC before the delay forces a spillover to the Cloud.
+
+### 3. Propagation Delays ($t_{prop\_mec}$, $t_{prop\_cc}$)
+*   **Parameters**: `t_prop_mec` (0.25 ms), `t_prop_cc` (1.0 ms)
+*   **System Impact**: This is the fixed baseline latency (fiber distance) added to the dynamic processing delay. It heavily biases the initial EGT payoff.
+*   **Consequence of Change**:
+    *   If you move the Cloud further away (e.g., $t_{prop\_cc} = 15.0$ ms), the Cloud becomes completely non-viable for URLLC traffic (which requires <10ms end-to-end). The EGT controller will refuse to steer URLLC traffic to the Cloud, forcing it to remain on an overloaded MEC and accepting the resulting QoS violations.
+
+### 4. Replicator Dynamics Speed ($\beta$)
+*   **Parameters**: `beta` (default: 1.0)
+*   **System Impact**: Controls the "step size" of the population shift during each iteration.
+*   **Consequence of Change**:
+    *   **$\beta > 1$**: Makes the steering logic highly aggressive. UEs will quickly jump to the better-performing UPF. However, if $\beta$ is set too high (e.g., 5.0), the system will suffer from **oscillations**—traffic will bounce back and forth between MEC and CC without ever settling on a stable Nash Equilibrium.
+    *   **$\beta < 1$**: Makes the system sluggish. It will smoothly approach the equilibrium without overshooting, but it may take hundreds of iterations to get there, potentially failing to react fast enough to a sudden halftime traffic spike.
+
+### 5. Quality of Service Thresholds ($PDB_{embb}$, $PDB_{urllc}$)
+*   **Parameters**: `PDB_embb` (300 ms), `PDB_urllc` (10 ms)
+*   **System Impact**: In the current implementation, these thresholds are used purely for **monitoring and compliance reporting**, not for the steering logic itself (the EGT optimizes absolute delay, not threshold margins).
+*   **Consequence of Change**: Changing these will alter the reported "Violations" in the multi-scenario simulation output, but the actual fraction of traffic steered to the MEC vs CC will remain exactly the same. Making the steering logic explicitly PDB-aware (e.g., heavily penalizing a UPF only when it approaches the PDB) is a subject for future research.
 
 ---
 
