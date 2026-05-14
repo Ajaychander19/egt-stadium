@@ -138,6 +138,25 @@ services:
       stadium_net:
         ipv4_address: 192.168.70.139
 
+  gnbsim:
+    build:
+      context: ../gnbsim
+      dockerfile: ../egt-stadium/Dockerfile.gnbsim
+    container_name: gnbsim
+    privileged: true
+    networks:
+      stadium_net:
+        ipv4_address: 192.168.70.155
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - ./config/gnbsim.json:/gnbsim/bin/example.json
+    command: sh -c "sleep 30 && ./gnbsim-example 2>&1"
+    depends_on:
+      - oai-amf
+      - oai-upf-mec
+      - oai-upf-cc
+
 networks:
   stadium_net:
     driver: bridge
