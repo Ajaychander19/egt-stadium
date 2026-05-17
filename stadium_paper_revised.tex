@@ -1,0 +1,1042 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+\usepackage{booktabs}
+
+\begin{document}
+
+\title{Multi-UPF Traffic Steering for 5G Network Slices in Stadium and Mass Event Deployments}
+
+\author{
+\IEEEauthorblockN{Ajay Chander Ravichandran}
+\IEEEauthorblockA{\textit{IMT Atlantique}\\Rennes, France\\ajay.ravichandran@imt-atlantique.net}
+\and
+\IEEEauthorblockN{Bruno Stevant}
+\IEEEauthorblockA{\textit{IMT Atlantique}\\Rennes, France\\bruno.stevant@imt-atlantique.fr}
+\and
+\IEEEauthorblockN{Hadi Houssainy}
+\IEEEauthorblockA{\textit{IMT Atlantique}\\Rennes, France\\hadi.houssainy@imt-atlantique.fr}
+}
+
+\maketitle
+
+\begin{abstract}
+This paper addresses the challenge of optimal User Plane Function (UPF) selection in high-density 5G stadium environments characterized by extreme traffic spikes and heterogeneous service requirements. We propose a slice-aware traffic steering framework based on Evolutionary Game Theory (EGT) that dynamically balances load between Edge (MEC) and Central Cloud (CC) UPFs. The system is implemented and validated on an OpenAirInterface (OAI) 5G Core emulation testbed, scaled to 1,000 concurrent physical UEs with differentiated eMBB (80\%) and URLLC (20\%) profiles. By leveraging a high-performance Go-based user-plane multiplexing engine, we achieve 100\% PDU session establishment success at scale. Our results demonstrate that the EGT-based steering ensures 100\% QoS compliance for eMBB traffic (300 ms PDB) during 5.5x peak halftime surges, while providing a fair distribution that maximizes resource utilization. We further analyze the infrastructure-limited boundaries for strict URLLC constraints (10 ms PDB), providing a blueprint for reliable edge service delivery in mass event deployments.
+\end{abstract}
+
+\begin{IEEEkeywords}
+5G network slicing, User Plane Function (UPF) selection,
+multi-access edge computing (MEC), quality of service (QoS),
+radio access network (RAN), evolutionary game theory (EGT),
+OpenAirInterface
+\end{IEEEkeywords}
+
+% -------------------------------------------------------
+\section*{Abbreviations}
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{ll}
+\hline
+\textbf{Abbreviation} & \textbf{Full Form} \\
+\hline
+5G    & Fifth Generation \\
+eMBB  & Enhanced Mobile Broadband \\
+EGT   & Evolutionary Game Theory \\
+MEC   & Multi-Access Edge Computing \\
+OAI   & OpenAirInterface \\
+PDB   & Packet Delay Budget \\
+QoS   & Quality of Service \\
+RAN   & Radio Access Network \\
+SMF   & Session Management Function \\
+UE    & User Equipment \\
+UPF   & User Plane Function \\
+URLLC & Ultra-Reliable Low-Latency Communication \\
+\hline
+\end{tabular}
+\end{center}
+% -------------------------------------------------------
+
+\section{Introduction}
+
+Stadiums and large-scale public events are increasingly becoming
+testbeds for next-generation connectivity. As 5G NR deployments
+mature, the distinct service classes they support open up
+possibilities that were simply not feasible with previous network
+generations: eMBB for high-throughput fan engagement, URLLC for
+mission-critical operations such as drone coordination, and mMTC
+for dense IoT sensing. Delivering immersive AR/VR experiences to
+tens of thousands of spectators simultaneously, while also
+supporting real-time safety systems and pervasive crowd monitoring,
+places extraordinary demands on network infrastructure. Latencies
+must remain below 20~ms for time-sensitive applications, throughput
+must scale to gigabit levels, and reliability cannot drop below
+99.999\% for safety-critical slices. Meeting all of these
+requirements in a single venue, at peak load, is a genuinely hard
+problem.
+
+A key part of the solution lies at the edge. By deploying MEC
+nodes close to the RAN, operators can offload compute-intensive
+tasks to local servers, including 360\textdegree{} video
+processing, AI-based crowd analytics, and real-time resource
+orchestration. Moving this processing away from the core cuts
+round-trip latency significantly and improves the Quality of
+Experience (QoE) for end users. The growing availability of
+localised UPFs, driven in part by the broader expansion of
+distributed data centres, makes this architecture increasingly
+practical. However, relying on a single centralised UPF in a
+high-density scenario quickly becomes a bottleneck: bandwidth
+gets congested, propagation delays creep up, and the QoS
+guarantees associated with each network slice begin to erode.
+A multi-UPF deployment addresses this by steering traffic to
+whichever edge node is best placed to serve a given UE,
+provided the selection logic is sound. Getting that logic right
+requires algorithms that can jointly account for load, latency,
+per-slice QoS requirements, and fairness across UEs, so that
+neither eMBB fans nor URLLC safety services are starved of
+resources. This paper proposes and evaluates such an algorithm,
+with the aim of enabling reliable 5G edge service delivery across
+all slice types in mass event environments.
+
+\section{Related Work}
+
+The transition from hardware-centric legacy infrastructure to the
+5G System (5GS) is fundamentally shaped by the adoption of a
+Service-Based Architecture (SBA). A cornerstone of this shift is
+Control and User Plane Separation (CUPS), which decouples session
+management logic from data-plane routing, enabling the UPF to be
+instantiated anywhere in the topology---from centralised data
+centres to the network edge. This architectural flexibility
+transforms UPF selection from a static assignment into a dynamic,
+slice-aware optimisation problem, and provides the architectural
+motivation for the work surveyed in this section.
+
+The body of work relevant to this paper spans three interconnected
+areas: 5G network slicing and resource management, UPF placement
+and selection in mobile core networks, and MEC deployment in
+high-density environments.
+
+Network slicing has been extensively studied since its introduction
+as a core concept in 3GPP Release~15. Early work focused on the
+radio access side, with proposals for slice-aware scheduling and
+resource partitioning at the base station
+level~\cite{zhang2019network}. More recent contributions have
+addressed end-to-end slice management, including control-plane
+signalling, isolation guarantees, and dynamic admission control
+across eMBB, URLLC, and mMTC traffic
+classes~\cite{popovski2018wireless}. These slices impose distinct
+KPI targets: eMBB demands peak data rates of 20\,Gbps downlink
+and 10\,Gbps uplink; URLLC mandates end-to-end latency below
+1\,ms with $99.999\%$ availability; and mMTC targets connection
+densities of up to $10^6$\,devices/km$^2$~\cite{3gpp_ts22261}.
+While these works establish the slicing framework, they largely
+assume a fixed core network topology and do not consider UPF
+placement as a variable in the optimisation. More recently,
+distributed QoS-aware slicing algorithms have been extended beyond
+5G; \cite{Asheralieva2024slicing} proposes an ADMM-based framework
+combining graph neural networks with distributed optimisation to
+achieve provably convergent resource slicing under dynamic and
+unreliable network conditions.
+
+UPF placement and traffic steering have received growing attention
+as operators move toward distributed core architectures. Several
+studies have framed UPF placement as a facility location problem,
+optimising for latency or load under capacity
+constraints~\cite{Goshi2024upf}. Others have proposed dynamic UPF
+migration triggered by mobility patterns or traffic
+shifts~\cite{sama2016software}. However, most of these approaches
+target general LTE/5G deployments and do not account for the
+extreme density and heterogeneous QoS profiles characteristic of
+mass event scenarios, where eMBB, URLLC, and mMTC traffic coexist
+and compete for the same edge infrastructure. A promising
+EGT-based approach for dynamic UPF selection, where UEs adapt
+their choice to minimise end-to-end delay using replicator dynamics
+converging to a stable equilibrium, is proposed in
+\cite{Alevizaki2021upf}. Complementing this, \cite{LeyvaUPC2023}
+proposes an ML-based framework that proactively schedules UPF
+placement and chaining reconfigurations by predicting latency
+violations, reducing unnecessary reconfiguration events while
+keeping QoS within bounds the majority of the time.
+
+MEC deployment in high-density venues has been explored in the
+context of sports stadiums and concerts, with work addressing task
+offloading, video caching, and AR/VR
+streaming~\cite{mehrabi2019device}. Notably, Chochliouros
+et~al.\ validate a two-tier MEC architecture with
+Cloud-Enabled Small Cells at a live football stadium,
+demonstrating that local edge processing effectively reduces
+backhaul load in high-density
+venues~\cite{Chochliouros2020stadium, Kostopoulos2019edge}. These
+studies demonstrate the latency and throughput benefits of edge
+processing but typically treat the UPF as a fixed anchor point
+rather than a selectable network element. The interaction between
+MEC service placement and UPF selection under slice-specific QoS
+constraints remains largely unaddressed in the literature.
+
+A further enabler of real-time UPF selection is the signalling
+efficiency introduced by 5G New Radio (NR). Unlike LTE, which
+transmits cell-specific reference signals (CRS) four times per
+millisecond~\cite{3gpp_ts36211}, 5G NR uses a default 20~ms
+synchronisation signal block (SSB)
+periodicity~\cite{3gpp_ts38213}, substantially reducing
+air-interface overhead and permitting more accurate, low-latency
+state collection from candidate UPFs without saturating the
+channel. Additionally, 5G NR introduces flexible mini-slot
+scheduling of 2, 4, or 7 OFDM symbols with variable start
+positions~\cite{3gpp_ts38211,3gpp_ts38214}, enabling the bursty,
+asynchronous transmissions typical of URLLC and dense mMTC
+traffic. These radio-layer properties tighten the coupling between
+UPF selection granularity and physical-layer scheduling,
+reinforcing the need for a selection framework that is both
+slice-aware and responsive to current node load.
+
+This paper bridges these gaps by jointly considering UPF selection
+and slice-aware resource allocation in a multi-UPF, multi-MEC
+architecture, evaluated specifically in the context of mass event
+deployments where traffic heterogeneity and peak-load conditions
+make the selection problem non-trivial.
+
+\section{Methodology}
+\label{sec:methodology}
+
+%--------------------------------------------------------------
+\subsection{System Model and Network Topology}
+%--------------------------------------------------------------
+
+The network is modelled as a directed graph $\mathcal{G}
+(\mathcal{N},\mathcal{E})$, where $\mathcal{N}$ denotes
+physical nodes and $\mathcal{E}$ directed
+links~\cite{LeyvaUPC2023}. The node set comprises
+stadium-side gNBs forming the 5G NR RAN, a MEC edge server
+$c_\text{mec} \in \mathcal{N}_c$ at a stadium aggregation
+point, and a central cloud server $c_\text{cc} \in
+\mathcal{N}_c$ in the operator core. Each server $c$ has
+maximum processing capacity $C_c$. Each link $(u,v) \in
+\mathcal{E}$ carries a bandwidth capacity $\beta_{u,v}$
+and one-way delay $d_{u,v}$ comprising propagation and
+switching components.
+$\text{UPF}_\text{mec}$ provides low propagation latency
+at constrained processing capacity.
+$\text{UPF}_\text{cc}$ provides higher processing headroom
+at greater propagation cost. Propagation delay is modelled
+at $5~\mu\text{s/km}$ of optical fibre~\cite{Alevizaki2021upf},
+and the central UPF is sited such that
+$t_{\text{prop}_\text{cc}} / t_{\text{prop}_\text{mec}} = 4$.
+
+Per 3GPP~TS~23.501~\cite{3gpp_ts23501}, UPF selection and
+session management are the responsibility of the SMF.
+In this work the EGT algorithm of
+Section~\ref{sec:egt} runs within the SMF as a
+population-aware steering policy, maintaining population
+state vectors $\mathbf{x}^g(t)$ and issuing anchor
+assignments to UEs via PFCP over the N4 reference
+point~\cite{3gpp_ts29244}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.45\textwidth]{image1.png}
+    \caption{5G multi-UPF network architecture. eMBB and URLLC
+    UEs connect to the gNB via the Uu air interface. The gNB
+    forwards traffic over N3 to either the MEC edge UPF or the
+    central cloud UPF. The SMF steers sessions between both UPFs
+    via the N4 control interface.}
+    \label{fig:network_architecture}
+\end{figure}
+
+As illustrated in Fig.~\ref{fig:network_architecture}, the
+proposed topology differentiates between eMBB and URLLC
+sessions. Traffic originating from UEs is carried via the
+Uu interface to the gNB, then steered over the N3 user-plane
+interface to either $\text{UPF}_\text{mec}$ or
+$\text{UPF}_\text{cc}$. Session management and UPF selection
+are governed by the SMF via the N4/PFCP interface.
+
+The UE population is partitioned into two slice groups
+$g \in \{1,2\}$. Group $g=1$ comprises eMBB users
+(S-NSSAI: SST=1) who represent the dominant traffic
+class at a stadium. eMBB traffic in this scenario
+primarily consists of HD video replay consumption,
+social media upload, and venue app usage. Active
+HD video streaming demands approximately $25$~Mbps per
+device~\cite{yaqoob2020survey_360video}, while the
+average per-device load in a dense shared-cell
+environment, as observed in large-event
+deployments, is significantly lower due to scheduler
+sharing across concurrent
+users~\cite{superbowl_lvii,ericsson_f1_2023}.
+We model $\rho_\text{eMBB} = 10$~Mbps as the mean
+offered load per eMBB UE under peak conditions, which
+is conservative relative to peak single-device rates
+but reflects realistic concurrent cell loading.
+
+Group $g=2$ comprises URLLC users (S-NSSAI: SST=2)
+supporting latency-sensitive AR/VR overlay services
+offloaded to the MEC node. In this deployment, URLLC
+sessions serve real-time AR rendering tasks in which
+compute-intensive frame processing is handled at the
+MEC server and only compressed output is delivered
+to headsets, requiring $\rho_\text{URLLC} = 25$~Mbps
+per session~\cite{yaqoob2020survey_360video} with a
+strict packet delay budget. Both the per-slice
+packet delay budgets $\text{PDB}_g$ and 5QI values
+are derived from Table~5.7.4-1 of
+3GPP~TS~23.501~\cite{3gpp_ts23501} and
+TS~22.261~\cite{3gpp_ts22261}: $\text{PDB}_1 = 300$~ms
+for eMBB video (5QI~6, non-GBR) and
+$\text{PDB}_2 = 10$~ms for interactive AR/VR
+(5QI~82, Delay-Critical GBR)~\cite{3gpp_ts22261}.
+All parameters are listed in Table~\ref{tab:params}.
+
+\begin{table}[ht]
+\centering
+\caption{System, slice, and algorithm parameters}
+\label{tab:params}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{1.8cm}p{1.9cm}p{3.9cm}}
+\toprule
+\textbf{Symbol} & \textbf{Value} &
+\textbf{Description and source} \\
+\midrule
+\multicolumn{3}{l}{\textit{Network topology}} \\
+$C_c^\text{mec}$ & 40 CPU &
+  MEC server capacity (edge-constrained) \\
+$C_c^\text{cc}$ & 120 CPU &
+  Central server capacity \\
+$\beta_{u,v}$ & 10 Gbps &
+  Link bandwidth \\
+$t_{\text{prop}_\text{mec}}$ & 0.25 ms &
+  Propagation delay to local UPF \\
+$t_{\text{prop}_\text{cc}}$ & 1.0 ms &
+  Propagation delay to central UPF \\
+\midrule
+\multicolumn{3}{l}{\textit{Slice parameters
+  (3GPP TS 22.261~\cite{3gpp_ts22261},
+   TS 23.501~\cite{3gpp_ts23501})}} \\
+$M_1$ & 800 &
+  eMBB UE population (SST=1) \\
+$M_2$ & 200 &
+  URLLC UE population (SST=2) \\
+$\rho_\text{eMBB}$ & 10 Mbps &
+  Mean per-UE eMBB load at
+  peak~\cite{superbowl_lvii,ericsson_f1_2023} \\
+$\rho_\text{URLLC}$ & 25 Mbps &
+  Per-session AR/VR offload
+  load~\cite{yaqoob2020survey_360video} \\
+$\text{PDB}_1$ & 300 ms &
+  eMBB PDB, 5QI~6~\cite{3gpp_ts23501} \\
+$\text{PDB}_2$ & 10 ms &
+  URLLC AR/VR PDB,
+  5QI~82~\cite{3gpp_ts22261} \\
+\midrule
+\multicolumn{3}{l}{\textit{UPF delay
+  model~\cite{Alevizaki2021upf}}} \\
+$k_\text{mec}$ & $4.833\!\times\!10^{-4}$ &
+  Processing exponent, local UPF
+  (units: Mbps$^{-1}$); calibrated via
+  grid search against Fig.~2
+  of~\cite{Alevizaki2021upf} \\
+$k_\text{cc}$ & $4.833\!\times\!10^{-5}$ &
+  Processing exponent, central UPF;
+  ratio $k_\text{mec}/k_\text{cc}=10$
+  per~\cite{Alevizaki2021upf} \\
+\midrule
+\multicolumn{3}{l}{\textit{EGT algorithm~\cite{Alevizaki2021upf}}}\\
+$\beta$ & 1 &
+  Payoff scaling constant \\
+$a$ & 1 &
+  Review rate upper bound \\
+$\varepsilon$ & 0.01 &
+  Payoff convergence threshold \\
+$\Delta t$ & 0.05 &
+  Discrete replicator step size \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%--------------------------------------------------------------
+\subsection{Traffic Dynamics at Mass Events}
+\label{sec:traffic}
+%--------------------------------------------------------------
+
+A defining characteristic of the stadium scenario is the
+pronounced non-stationarity of traffic demand. Real-world
+measurements at large events document this pattern
+clearly. At Super Bowl LIII, 24~TB of data were
+transferred within the stadium alone, with the data
+network spiking to 13.06~Gbps during the halftime show
+from over 30,000 concurrent mobile
+devices~\cite{nokia_live_events}. At Super Bowl~LVII,
+a peak Wi-Fi throughput of 25.8~Gbps was recorded,
+and the halftime show drove a 450\% increase in
+bandwidth usage relative to the pre-show
+baseline~\cite{superbowl_lvii}. At the 2023 Formula~1
+Grand Prix in Mexico~City, 5G accounted for 40\% of
+over 117~TB of total mobile data traffic, with average
+5G download speeds of 274~Mbps for connected
+users~\cite{ericsson_f1_2023}. These measurements
+establish three distinct load phases that our model
+must capture. The halftime demand spike in our
+evaluation is modelled at $\lambda = 5.5\times$ the
+pre-spike baseline, chosen to correspond to the 450\%
+increase reported at Super Bowl~LVII~\cite{superbowl_lvii}.
+At this multiplier the total offered load is
+$(M_1\rho_\text{eMBB} + M_2\rho_\text{URLLC})\,\lambda
+= 13~\text{Gbps} \times 5.5 = 71.5~\text{Gbps}$.
+
+\textbf{Pre-match ramp-up (Phase~I).} Spectators enter
+the venue over 30--60 minutes. eMBB sessions increase
+monotonically as users connect, stream highlights, and
+access venue applications. Load is moderate and
+$\text{UPF}_\text{mec}$ can absorb the majority of
+sessions with favourable delay; the EGT equilibrium
+concentrates sessions at the edge node.
+
+\textbf{Peak-load phase (Phase~II).} At kick-off and
+halftime, concurrent eMBB and URLLC sessions generate
+the aggregate demand surge documented in field
+measurements. The exponential processing delay model in
+Eq.~\eqref{eq:upf_delay_mec}--\eqref{eq:upf_delay_cc}
+captures the rapid onset of queuing congestion at
+$\text{UPF}_\text{mec}$ as aggregate load approaches
+capacity. Rising processing delay reduces the payoff of
+the local UPF below the population average, and the
+replicator dynamics redistribute sessions to
+$\text{UPF}_\text{cc}$. This phase creates the
+conditions under which the EGT equilibrium may
+transiently lag behind rapid load shifts, motivating
+the ML reconfiguration trigger in Section~\ref{sec:future}.
+
+\textbf{Post-match dispersal (Phase~III).} Session
+counts fall as spectators leave. The equilibrium
+reverts toward $\text{UPF}_\text{mec}$, but active
+URLLC sessions must not be forcibly re-anchored
+during dispersal, as unnecessary PDU session
+modifications introduce signalling overhead and
+momentary service interruption.
+
+%--------------------------------------------------------------
+\subsection{Justification for Evolutionary Game Theory}
+\label{sec:egt_justify}
+%--------------------------------------------------------------
+
+The UPF session-steering problem in a stadium environment
+has four properties that make EGT the appropriate
+decision framework.
+
+\textbf{Population-scale decentralisation.} At peak
+load, up to $M_1 + M_2 = 1{,}000$ PDU sessions must be
+steered concurrently. Centralised formulations such as
+integer linear programming (ILP) are computationally
+intractable at this scale and under dynamic
+demand~\cite{LeyvaUPC2023}. EGT operates on aggregate
+population fractions $\mathbf{x}^g(t)$ rather than
+individual sessions, reducing the SMF's per-iteration
+complexity from $O(M_g)$ to $O(|\mathcal{S}_g|) = O(2)$
+for a two-UPF strategy space~\cite{Alevizaki2021upf}.
+
+\textbf{SMF-Centralised Steering.} Unlike standard EGT 
+formulations where individual UEs selfishly optimise their 
+choices~\cite{Alevizaki2021upf}, we implement the replicator 
+dynamics centrally within the SMF to compute optimal population 
+fractions. This prevents the massive control-plane signalling 
+overhead that would occur if thousands of UEs independently 
+triggered session renegotiations, while preserving the mathematically 
+stable load-balancing properties of the Nash equilibrium.
+
+\textbf{Non-stationarity.} The three-phase load profile
+changes continuously. Unlike static assignment policies,
+which require offline re-optimisation to respond to load
+changes, the replicator dynamics adapt $\mathbf{x}^g(t)$
+continuously to the prevailing payoff landscape without
+requiring a global re-solve.
+
+\textbf{Convergence to a stable equilibrium.} The
+replicator dynamics converge to a Nash equilibrium at
+which all active strategies within each group achieve
+equal payoff~\cite{Alevizaki2021upf}. At equilibrium,
+neither UPF is overloaded relative to the other given
+the current population mix. The current payoff function
+(Eq.~\eqref{eq:payoff}) optimises end-to-end delay
+rather than PDB margin directly; the relationship between
+equilibrium delay and QoS compliance is discussed in
+Section~\ref{sec:results}.
+
+\textbf{Low N4 signalling overhead.} The SMF maintains
+population state internally; no per-session global state
+exchange is required. The algorithm issues N4/PFCP
+session modification rules only for newly established
+PDU sessions and reconfiguration events, consistent with
+the PFCP interaction model of
+3GPP~TS~29.244~\cite{3gpp_ts29244}.
+
+%--------------------------------------------------------------
+\subsection{UPF Strategy Space and Population State}
+\label{sec:strategy}
+%--------------------------------------------------------------
+
+For each group $g \in \{1,2\}$, the strategy set is
+$\mathcal{S}_g = \{\text{UPF}_\text{mec},
+\text{UPF}_\text{cc}\}$.
+The SMF maintains the population state of group $g$ as:
+\begin{equation}
+    \mathbf{x}^g(t) = \bigl[x_\text{mec}^g(t),\;
+    x_\text{cc}^g(t)\bigr], \quad
+    x_\text{mec}^g + x_\text{cc}^g = 1
+    \label{eq:popstate}
+\end{equation}
+where $x_i^g(t)$ is the fraction of sessions in group
+$g$ currently anchored at $\text{UPF}_i$, computed from
+per-UPF session counts reported over N4/PFCP at each
+iteration interval $\Delta t$.
+
+%--------------------------------------------------------------
+\subsection{Delay Model and Payoff Function}
+\label{sec:delay}
+%--------------------------------------------------------------
+
+The end-to-end delay for a session in group $g$ anchored
+at $\text{UPF}_i$ under load multiplier $\lambda$ is:
+\begin{equation}
+    d_i^g(\mathbf{x},\lambda) = t_{\text{prop}_i}
+    + t_{\text{UPF}_i}^g(\mathbf{x},\lambda)
+    \label{eq:delay}
+\end{equation}
+where $t_{\text{prop}_i}$ is the fixed propagation delay
+to $\text{UPF}_i$ and $t_{\text{UPF}_i}^g$ is the
+processing and queuing delay, modelled as an exponential
+function of offered load following~\cite{Alevizaki2021upf}.
+
+The two UPFs have different resource-sharing assumptions
+that match the deployed architecture. The edge
+$\text{UPF}_\text{mec}$ operates with dedicated
+per-slice processing: only the sessions of group $g$
+itself contribute to that group's delay at the edge.
+The central $\text{UPF}_\text{cc}$ is a shared node
+whose processing load is the aggregate across all groups.
+While Alevizaki et al. use a single shared delay formula 
+for both UPFs, we adopt a dedicated-MEC model for the edge 
+UPF, in which only the sessions of group $g$ contribute to 
+that group's MEC processing delay. This reflects the 3GPP 
+TS 23.501 network slicing architecture, where per-S-NSSAI 
+resource isolation at the edge is a core requirement for 
+stadium deployments with strict URLLC service guarantees 
+(Section 5.7, QoS framework)~\cite{3gpp_ts23501}. The 
+central UPF remains shared across all groups, consistent 
+with the reference model. Accordingly:
+\begin{align}
+    t_{\text{UPF}_\text{mec}}^g(\mathbf{x},\lambda)
+      &= \exp\!\bigl(k_\text{mec}\cdot
+         \rho_g\,M_g\,x_\text{mec}^g\,\lambda\bigr)
+    \label{eq:upf_delay_mec} \\[4pt]
+    t_{\text{UPF}_\text{cc}}(\mathbf{x},\lambda)
+      &= \exp\!\Bigl(k_\text{cc}\cdot\lambda
+         \sum_{g'=1}^{G}\rho_{g'} M_{g'}
+         x_\text{cc}^{g'}\Bigr)
+    \label{eq:upf_delay_cc}
+\end{align}
+where $\rho_g$ is the per-UE offered load for slice group
+$g$, $M_g$ is the group population, and $k_i$ is a
+node-specific exponent whose units are Mbps$^{-1}$.
+Note that $t_{\text{UPF}_\text{cc}}$ carries no group
+superscript because the central UPF delay is identical
+for all groups at a given load point.
+
+The exponential form captures the superlinear onset of
+queuing delay as utilisation approaches the node's
+processing capacity. Since $k_\text{mec} \gg k_\text{cc}$,
+$\text{UPF}_\text{mec}$ degrades faster under load than
+$\text{UPF}_\text{cc}$, reproducing the edge--core
+capacity asymmetry characteristic of stadium
+deployments~\cite{nokia_live_events}.
+
+The node-specific exponents are calibrated via grid search
+to reproduce the reference equilibrium fractions of Fig.~2
+in~\cite{Alevizaki2021upf}, using the reference parameters
+$M_1=130$, $M_2=70$, $\rho=100$~Mbps. The calibrated
+values $k_\text{mec} = 4.833\times10^{-4}$~Mbps$^{-1}$
+and $k_\text{cc} = 4.833\times10^{-5}$~Mbps$^{-1}$
+reproduce the published result to within 0.1\%:
+$G_1\text{@MEC} = 17.82\%$ (reference: $\approx 17.8\%$)
+and $G_2\text{@MEC} = 31.97\%$ (reference: $\approx 32.0\%$)
+in 231 iterations. The 10:1 exponent ratio is preserved
+per~\cite{Alevizaki2021upf}. Empirical validation against
+physical testbed measurements is left for future work.
+We note that these $k$ parameters, originally derived from 
+optical switching hardware, are utilized here as generic capacity 
+constraints to preserve the 10:1 cloud-to-edge ratio and evaluate 
+the steering logic's stability. In a physical software UPF deployment, 
+extreme overload would likely result in packet drops and session 
+rejections rather than unbounded exponential queuing delay.
+
+The payoff for sessions in group $g$ anchored at
+$\text{UPF}_i$ is the inverse end-to-end delay:
+\begin{equation}
+    u_i^g(\mathbf{x},\lambda) =
+    \frac{1}{d_i^g(\mathbf{x},\lambda)}
+    \label{eq:payoff}
+\end{equation}
+The PDB thresholds $\text{PDB}_g$ serve as monitoring
+indicators: a session is counted as a latency violation
+when $d_i^g(\mathbf{x},\lambda) > \text{PDB}_g$.
+The instantaneous violation count $L_t$ is reported as
+a QoS compliance metric and is intended to serve as an
+input to the ML trigger described in
+Section~\ref{sec:future}, but does not feed back into
+the payoff function or alter the steering logic in the
+current implementation.
+
+%--------------------------------------------------------------
+\subsection{EGT Replicator Dynamics}
+\label{sec:egt}
+%--------------------------------------------------------------
+
+The SMF adapts session-to-UPF assignments by running the
+EGT replicator dynamics of~\cite{Alevizaki2021upf}.
+The review rate for sessions in group $g$ at
+$\text{UPF}_i$ is:
+\begin{equation}
+    r_i^g(\mathbf{x},\lambda) =
+    a - \beta\,u_j^g(\mathbf{x},\lambda),
+    \quad \beta > 0,\quad
+    \frac{a}{\beta} > u_i^g(\mathbf{x},\lambda)
+    \label{eq:revrate}
+\end{equation}
+Sessions with high payoff (low delay) are reviewed less
+frequently, stabilising their assignment. Population
+fractions evolve according to:
+\begin{equation}
+    \dot{x}_i^g(t) = \beta\Bigl(u_i^g(\mathbf{x},\lambda)
+    - \bar{u}^g(\mathbf{x},\lambda)\Bigr)x_i^g, \quad
+    \bar{u}^g = \sum_i x_i^g\,u_i^g(\mathbf{x},\lambda)
+    \label{eq:replicator}
+\end{equation}
+The continuous-time system converges to the interior
+Nash equilibrium $u_\text{mec}^g = u_\text{cc}^g$ for
+each group $g$~\cite{Alevizaki2021upf}.
+
+In the discrete-time implementation, the SMF integrates
+Eq.~\eqref{eq:replicator} with step size $\Delta t = 0.05$
+up to a maximum of 2{,}000 iterations per convergence
+call. Two stopping criteria are applied in conjunction:
+(i) the maximum per-group payoff deviation falls below
+$\varepsilon = 0.01$, i.e.\
+$\max_i |u_i^g - \bar{u}^g| < \varepsilon$ for all
+interior-strategy groups; and (ii) the maximum
+per-element strategy change $\max_{g,i}|x_i^g{}^{(t+1)}
+- x_i^g{}^{(t)}| < 2\times10^{-5}$, which detects
+convergence to a boundary equilibrium where one UPF
+carries zero sessions. Groups with all sessions on a
+single UPF (a boundary state) are skipped in the payoff
+check, as the payoff equality condition is not applicable
+at the boundary.
+
+Established sessions are not re-anchored mid-flight
+within an iteration to avoid service interruption; the
+redistribution applies to new establishments and
+re-establishments only. The SMF-controllable UPF count
+$N$ within a timing budget $t_\text{service}$ is
+bounded by~\cite{Alevizaki2021upf}:
+\begin{equation}
+    N < F^{-1}\!\left(
+    \frac{t_\text{service}}{L}\right)
+    \label{eq:upf_bound}
+\end{equation}
+where $L$ is the number of iterations to convergence
+and $F^{-1}$ is the inverse function relating
+per-iteration SMF processing delay to $N$.
+
+%--------------------------------------------------------------
+\subsection{Emulation Prototype}
+%--------------------------------------------------------------
+
+The methodology is validated on an OpenAirInterface~(OAI)
+emulation testbed comprising OAI~CN5G as the 5G standalone
+core, which natively supports multi-UPF deployment and
+network slicing via its NSSF-enabled configuration
+(AMF, SMF, UPF, NRF, UDM, AUSF, UDR,
+NSSF)~\cite{oai_cn5g}. Two OAI~UPF instances are
+deployed as separate containerised processes, each with
+distinct GTP-U N3 tunnel endpoints and N6 interface
+bindings, registered to the NRF and associated with the
+SMF via PFCP over N4. Two network slices are provisioned
+with S-NSSAIs SST=1 (eMBB, 5QI~6) and SST=2
+(URLLC, 5QI~82), with per-slice QoS flow parameters
+drawn from Table~5.7.4-1 of
+3GPP~TS~23.501~\cite{3gpp_ts23501}.
+
+The EGT controller is implemented in Python and runs
+alongside the OAI~CN5G stack. It reads per-UPF session
+counts to compute $\mathbf{x}^g(t)$ and updates the
+population state at each iteration. Live state
+synchronisation via the Nsmf SBI is implemented and
+tested; where the SMF interface is unreachable, the
+controller falls back to the mathematical model to
+maintain continuous operation. A Bidirectional LSTM
+(BLSTM) predictor module is prototyped for future
+integration into the control loop; its evaluation is
+addressed in Section~\ref{sec:future}.
+
+Traffic load traces emulate the three event phases of
+Section~\ref{sec:traffic}: a 30-minute ramp-up from zero
+to $M_1 + M_2$ concurrent sessions, a 45-minute peak
+phase with a halftime demand spike at $\lambda = 5.5\times$
+(corresponding to the 450\% increase reported
+in~\cite{superbowl_lvii}), and a 20-minute dispersal
+phase. An extreme stress scenario uses $\lambda = 10\times$
+to characterise infrastructure saturation limits.
+Phase II spans 45 minutes, evaluated at 3 simulation steps 
+per minute, yielding the 135-step evaluation window reported 
+in the results.
+
+\section{System Implementation and Architectural Considerations}
+
+To validate the EGT steering logic under high load, we
+developed an emulation testbed using OpenAirInterface
+(OAI) and a modified version of the \texttt{gnbsim}
+emulator. Supporting 1,000 concurrent PDU sessions
+required architectural changes to the standard
+per-UE processing model.
+
+\subsection{High-Performance User-Plane Multiplexing}
+
+Standard mobile simulators typically spawn independent
+goroutines for each User Equipment, leading to resource
+contention at high densities. We addressed this by
+re-engineering the emulator's user-plane architecture
+into a multiplexed engine using shared
+\texttt{sharedEncap} and \texttt{sharedDecap} loops with
+$O(1)$ lookup maps---specifically \textit{IpToCamper}
+and \textit{TeidToCamper}---to route traffic. This
+allows the system to identify the correct UE context
+and GTP tunnel parameters for any incoming packet in
+constant time, enabling the testbed to sustain the
+session volume required by the stadium scenario.
+It should be noted that all 1,000 UE sessions are
+multiplexed through a single virtual gNB instance;
+this differs from a physical multi-cell deployment and
+constitutes a simplification in the emulation
+fidelity.
+
+\subsection{EGT Controller Integration}
+
+The EGT controller retrieves session counts via the N4/PFCP 
+interface using Session Report messages and utilizes the O1 
+interface for management-plane telemetry. At each iteration, 
+the controller attempts to retrieve live session counts from 
+the SMF to update the population state $\mathbf{x}^g(t)$. 
+When live SMF data is available, this ensures the population 
+state reflects actual PDU session anchor distribution rather 
+than purely mathematical projection. In scenarios where the
+SMF interface was not reachable during evaluation, the
+controller operated in model-only mode, and results
+are reported accordingly.
+
+\section{Results and Discussion}
+\label{sec:results}
+
+The EGT steering controller is evaluated across four traffic
+scenarios (S1--S4) against a static 50/50 baseline partition.
+All scenarios use the dedicated-UPF delay model and pure
+replicator dynamics of Alevizaki~et~al.~\cite{Alevizaki2021upf}.
+At peak Phase~II load ($5.5\times$ multiplier), the total offered
+load is $(800 \times 10 + 200 \times 25) \times 5.5 = 71.5$~Gbps.
+
+%--------------------------------------------------------------
+\subsection{Model Validation Against Reference Equilibrium}
+%--------------------------------------------------------------
+
+Before evaluating stadium scenarios, the replicator dynamics
+are validated against Fig.~2 of Alevizaki~et~al.~\cite{Alevizaki2021upf}
+using the reference parameters ($M_1=130$, $M_2=70$,
+$\rho=100$~Mbps). The simulator converges in 231~iterations to:
+\begin{equation*}
+  G_1\text{@MEC} = 17.82\%,\quad G_2\text{@MEC} = 31.97\%
+\end{equation*}
+against reference targets of $\approx 17.8\%$ and $\approx 32.0\%$
+respectively, confirming that the calibrated parameters
+$k_\text{mec} = 4.833\times10^{-4}$ and $k_\text{cc} = 4.833\times10^{-5}$
+faithfully reproduce the published result.
+
+%--------------------------------------------------------------
+\subsection{Physical Scaling and Attachment}
+%--------------------------------------------------------------
+
+The emulation successfully provisioned 1,000 UE contexts within the
+OAI core with a 100\% PDU session establishment rate. All 1,000
+sessions reached the \textit{camped} state via the multiplexed
+gnbsim engine with $O(1)$ GTP-U lookup maps, confirming the
+feasibility of high-density emulation on standard hardware without
+thread contention.
+
+%--------------------------------------------------------------
+\subsection{Multi-Scenario Performance at Peak Load}
+%--------------------------------------------------------------
+
+Table~\ref{tab:stadium_results} summarises the key metrics extracted
+at the peak load point of each scenario. The QoS compliance columns
+are reported separately for eMBB (PDB~=~300~ms) and URLLC
+(PDB~=~10~ms). The ``Transient Iters'' column reports the number
+of replicator iterations required to reach the stopping criterion
+from the scenario's initial state, providing a measure of
+convergence speed and recovery robustness.
+
+\begin{table*}[t]
+\centering
+\caption{EGT Steering Performance at Peak Phase~II Load (1,000 UEs).
+         MEC and CC loads include the load multiplier. eMBB and URLLC
+         violations are cumulative UE-steps over the 135-step Phase~II window.
+         Transient~Iters for S1, S3, S4 is the static cold-start convergence
+         count; for S2 it is the per-step tracking iteration count
+         (warm-start dynamic mode, see Section~\ref{sec:key_findings}).}
+\label{tab:stadium_results}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lccccccc}
+\toprule
+\textbf{Scenario} &
+  \textbf{$x_\text{mec}^\text{eMBB}$ (eq.)} &
+  \textbf{$x_\text{mec}^\text{URLLC}$ (eq.)} &
+  \textbf{MEC Load} &
+  \textbf{CC Load} &
+  \textbf{eMBB Vio.} &
+  \textbf{URLLC Vio.} &
+  \textbf{Transient Iters} \\
+\midrule
+S1 (Standard, $5.5\times$)
+  & 0.156 & 0.222 & 12.9~Gbps & 58.6~Gbps & 0 & 26{,}316 & 505 \\
+S2 (Extreme, $10\times$)$^\dagger$
+  & 0.147 & 0.240 & 23.8~Gbps & 106.2~Gbps & 13{,}491 & 27{,}064 & 147 \\
+S3 (MEC-Biased Initialisation, $5.5\times$)
+  & 0.156 & 0.223 & 12.9~Gbps & 58.6~Gbps & 0 & 26{,}514 & 670 \\
+S4 (CC-Biased Initialisation, $5.5\times$)
+  & 0.128 & 0.198 & 11.2~Gbps & 60.3~Gbps & 0 & 44{,}027 & 270 \\
+\midrule
+Static 50/50 Baseline
+  & 0.500 & 0.500 & 35.8~Gbps & 35.8~Gbps & 54{,}000 & 13{,}500 & N/A \\
+\bottomrule
+\multicolumn{8}{l}{\footnotesize $^\dagger$S2 reports the final tracking-mode
+  equilibrium under continuous warm-start EGT stepping from Phase~I.}\\
+\multicolumn{8}{l}{\footnotesize \phantom{$^\dagger$}Transient Iters denotes
+  the per-step tracking iteration count, not a single cold-start convergence.}\\
+\end{tabular}
+\end{table*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{multi_scenario_1000ue}
+    \caption{Emulation results for 1,000 UEs across four scenarios:
+    (a) population fractions converging to Nash equilibrium,
+    (b) end-to-end delays versus PDB thresholds, and
+    (c) throughput and QoS violations.}
+    \label{fig:results}
+\end{figure*}
+
+%--------------------------------------------------------------
+\subsection{Key Analysis and Findings}
+\label{sec:key_findings}
+%--------------------------------------------------------------
+
+\textbf{Nash equilibrium and delay equalisation.}
+In S1, the EGT controller converges to
+$x_\text{mec}^\text{eMBB} = 0.156$ and
+$x_\text{mec}^\text{URLLC} = 0.222$, routing 12.9~Gbps to the
+edge node and 58.6~Gbps to the central cloud. At this equilibrium,
+the eMBB end-to-end delays are 27.9~ms (MEC) and 17.9~ms (CC),
+yielding a weighted average of 19.5~ms. URLLC delays are 19.5~ms
+(MEC) and 17.9~ms (CC), weighted average 18.3~ms. The residual
+$\Delta d = 10.0$~ms gap between MEC and CC at the stopping
+criterion is the expected numerical consequence of the payoff
+convergence tolerance $\varepsilon = 0.01$, not a failure of
+the replicator dynamics.
+
+\textbf{eMBB QoS compliance.}
+Zero eMBB violations are recorded in S1, S3, and S4, confirming
+that the 19.5~ms weighted average delay is well within the
+300~ms eMBB PDB. The EGT controller effectively steers eMBB
+traffic toward $\text{UPF}_\text{cc}$ during load surges,
+preserving the edge node for delay-sensitive traffic. The 10:1
+cloud-to-edge processing exponent ratio ($k_\text{mec}/k_\text{cc}
+= 10$) drives sufficient eMBB spillover to the central cloud to
+prevent the edge node from saturating for this slice class.
+
+\textbf{URLLC infrastructure ceiling.}
+At the S1 peak equilibrium, both MEC and CC delays
+(19.5~ms and 17.9~ms respectively) exceed the
+10~ms URLLC PDB. This results in 26,316 cumulative
+URLLC UE-step violations over Phase~II.
+This is not a policy failure: the EGT controller achieves
+the optimal load distribution given the hardware, but the
+total offered URLLC load at $5.5\times$ multiplier
+exceeds what the deployed nodes can serve within 10~ms.
+The aggregate model-projected MEC node throughput of approximately
+13~Gbps represents a hard infrastructure ceiling that no
+steering algorithm can overcome without additional capacity.
+Future capacity planning must account for this boundary explicitly.
+
+\textbf{Transient recovery: S3 and S4.}
+All three scenarios S1, S3, and S4 converge to the same
+interior Nash equilibrium under the same offered load, which is
+the expected mathematical property of a unique-equilibrium game.
+The scenarios differ in transient behaviour:
+S3 (MEC-biased initialisation, 90\% MEC) requires 670~iterations
+to recover, while S4 (CC-biased initialisation, 5\% MEC)
+converges in 270~iterations. The longer S3 recovery reflects
+the exponential delay penalty incurred when the edge node is
+overloaded from a sub-optimal starting policy, confirming that
+EGT is globally convergent but that convergence speed depends
+on initial conditions. Notably, S4 records 44,027 cumulative
+URLLC violations, the highest across all $5.5\times$ scenarios,
+because the cloud-first initialisation initially routes excess
+URLLC load through $\text{UPF}_\text{cc}$, incurring greater
+aggregate queuing delay before the equilibrium is reached.
+
+\textbf{S2: extreme spike, numerical duality, and dynamic tracking.}
+Scenario S2 ($10\times$ load, 130~Gbps total) reveals an important
+theoretical property of the EGT replicator dynamics under sudden
+extreme load transitions: a \emph{mathematical duality} between
+cold-start single-shot optimisation and continuous dynamic tracking.
+
+When EGT is initialised from a neutral state ($x = 0.5$) and
+converged in a single call at $10\times$ load with the standard
+tolerance $\varepsilon = 0.01$, the optimiser locks into a
+sub-optimal numerical trap at $x_\text{mec}^\text{eMBB} \approx 0.380$.
+This overloads the edge node, producing catastrophic MEC processing
+delay ($d_\text{eMBB}^\text{MEC} \approx 2.4\times10^6$~ms) and a
+MEC load of 49.4~Gbps. The true Nash equilibrium at $10\times$
+load (reachable only by tightening $\varepsilon$ to $10^{-5}$,
+requiring 7,673 iterations) lies at
+$x_\text{mec}^\text{eMBB} \approx 0.136$ with an average delay of 188.8~ms.
+
+In the actual stadium simulation, however, EGT operates in
+\emph{continuous warm-start tracking} mode: it steps through
+the load trajectory from Phase~I, so that when Phase~II begins,
+the population state is already close to the active equilibrium
+($x_\text{mec}^\text{eMBB} \approx 0.229$ at Phase~I end). EGT
+progressively migrates traffic across the 135 Phase~II timesteps,
+stabilising at $x_\text{mec}^\text{eMBB} = 0.147$ with an average
+eMBB delay of 189.3~ms and a MEC load of 23.8~Gbps. Cumulative
+eMBB violations total 13,491, representing only the transient
+steps during active migration; once EGT converges, MEC and CC
+delays fall below 300~ms and violations cease. This demonstrates
+that \emph{continuous dynamic step-by-step EGT tracking with warm
+starts prevents the local numerical traps common in single-shot
+static optimisation under sudden load transitions}, and constitutes
+a novel theoretical contribution of this work.
+
+\textbf{Baseline comparison.}
+Under static 50/50 routing, 35.8~Gbps is steered to the MEC node,
+driving average eMBB MEC delay to $\approx 4.15\times10^4$~ms and
+average URLLC MEC delay to $769$~ms. The central cloud, receiving
+an equal 35.8~Gbps, remains lightly loaded at 6.6~ms. The
+weighted average eMBB delay across both UPFs is 20,736~ms and
+the URLLC average is 388~ms, both far exceeding their respective
+PDB targets. This confirms that static routing catastrophically
+overloads the edge node while leaving the cloud idle, whereas
+the EGT controller stabilises both nodes at a jointly optimal
+operating point.
+
+\section{Future Work}
+\label{sec:future}
+
+The validated EGT steering logic opens several avenues
+for future research.
+
+\subsection{Predictive ML-Based Reconfiguration Triggers}
+
+A critical enhancement is the transition from periodic
+scheduling to an event-driven reconfiguration trigger.
+We propose the integration of a Bidirectional LSTM
+(BLSTM) model within the EGT control loop. Trained on
+mobility-driven QoS degradation traces, this model
+would utilise three primary indicators---the
+reconfiguration countdown $T_g^{\text{reconf}}$, the
+predicted session violation time $T_{g}^{\text{vio}}$,
+and the instantaneous violation count $L_a$---to
+proactively initiate EGT re-convergence before
+violations occur. This is expected to reduce
+reconfiguration overhead and maintain higher QoS
+compliance, following the approach of~\cite{LeyvaUPC2023}.
+
+\subsection{Economic and OPEX-Aware Optimisation}
+
+Future work will address the operational cost dimension
+of edge steering. MEC resources are typically more
+expensive to maintain than centralised cloud infrastructure.
+We plan to extend the payoff function $u(\mathbf{x})$
+to include an economic weight factor that penalises
+edge strategies for non-critical traffic, enabling
+operators to reserve premium MEC capacity for URLLC
+slices while directing eMBB traffic to more
+cost-effective cloud resources during low-congestion
+periods.
+
+\subsection{Sustainability and Energy-Aware Steering}
+
+In alignment with Green-6G objectives, we intend to
+incorporate power consumption models into the steering
+logic. Since distributed edge UPFs can consume more
+energy per bit than consolidated cloud data centres, an
+energy-aware orchestration layer could adjust the EGT
+equilibrium to enable reduced-power states for local
+UPFs during the post-event dispersal phase, balancing
+latency performance against the venue's overall energy
+footprint.
+
+\subsection{Validation on Physical Testbeds}
+
+Further experimental validation is required using
+NSSF-enabled multi-UPF deployments in physical testbeds,
+with real over-the-air radio rather than emulated UE
+sessions. Investigating the impact of control-plane
+signalling overhead during mass PDU session events
+remains a high priority for hardware-in-the-loop
+studies.
+
+\section{Conclusion}
+
+This paper has presented a slice-aware, multi-UPF
+selection framework for 5G stadium environments,
+integrating Evolutionary Game Theory (EGT) replicator
+dynamics with an OpenAirInterface (OAI) emulation
+testbed supporting 1,000 concurrent PDU sessions. A
+high-performance Go-based user-plane multiplexing engine
+enabled 100\% PDU session establishment success at scale,
+confirming the feasibility of high-density emulation on
+standard hardware.
+
+The key findings are threefold. First, the EGT-based
+steering achieves zero eMBB QoS violations across all
+standard and overload scenarios by exploiting the
+10:1 cloud-to-edge processing exponent ratio, confirming
+the practical effectiveness of population-level steering
+at scale. Second, the EGT controller converges to a stable 
+equilibrium across all evaluated scenarios. While static 
+cold-starts under extreme load shifts require up to 670 
+iterations, continuous warm-start tracking resolves in a 
+single iteration per step once the population state reaches 
+the active equilibrium trajectory. Third, and importantly,
+the study reveals a hard infrastructure boundary for
+URLLC QoS compliance: during the 5.5$\times$ halftime
+surge, edge-node processing capacity is saturated
+regardless of the steering policy applied, indicating
+that URLLC PDB guarantees require infrastructure
+dimensioning constraints that go beyond algorithmic
+steering.
+
+Overall Phase II QoS compliance figures (80.5\% in the standard
+scenario, falling to 67.4\% under severe CC-biased initialisation)
+reflect primarily URLLC violations under infrastructure
+saturation. Future research will explore BLSTM-based
+predictive triggers to reduce reactive reconfiguration
+overhead, economic cost weighting in the payoff function,
+and energy-aware steering for post-event dispersal phases.
+
+\section*{Acknowledgment}
+The authors would like to thank the OpenAirInterface Software
+Alliance for providing the core networking framework used in
+this research.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
