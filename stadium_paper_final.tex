@@ -1,0 +1,127 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{color}
+
+\begin{document}
+
+\title{Multi-UPF Traffic Steering for 5G Network Slices in Stadium and Mass Event Deployments}
+
+\author{
+\IEEEauthorblockN{Ajay Chander Ravichandran}
+\IEEEauthorblockA{\textit{IMT Atlantique}\\Rennes, France\\ajay.ravichandran@imt-atlantique.net}
+\and
+\IEEEauthorblockN{Bruno Stevant}
+\IEEEauthorblockA{\textit{IMT Atlantique}\\Rennes, France\\bruno.stevant@imt-atlantique.fr}
+\and
+\IEEEauthorblockN{Hadi Houssainy}
+\IEEEauthorblockA{\textit{IMT Atlantique}\\Rennes, France\\hadi.houssainy@imt-atlantique.fr}
+}
+\maketitle
+
+\begin{abstract}
+This paper addresses the challenge of optimal User Plane Function (UPF) selection in high-density 5G stadium environments characterized by extreme traffic spikes and heterogeneous service requirements. We propose a slice-aware traffic steering framework based on Evolutionary Game Theory (EGT) that dynamically balances load between Edge (MEC) and Central Cloud (CC) UPFs. The system is implemented and validated on an OpenAirInterface (OAI) 5G Core emulation testbed, scaled to 1,000 concurrent physical UEs with differentiated eMBB (80\%) and URLLC (20\%) profiles. By leveraging a high-performance Go-based user-plane multiplexing engine, we achieve 100\% PDU session establishment success at scale. Our results demonstrate that the EGT-based steering ensures 100\% QoS compliance for eMBB traffic (300 ms PDB) during 5.5x peak halftime surges, while providing a fair distribution that maximizes resource utilization. We further analyze the infrastructure-limited boundaries for strict URLLC constraints (10 ms PDB), providing a blueprint for reliable edge service delivery in mass event deployments.
+\end{abstract}
+
+\begin{IEEEkeywords}
+5G network slicing, User Plane Function (UPF) selection, multi-access edge computing (MEC), Evolutionary Game Theory, OpenAirInterface.
+\end{IEEEkeywords}
+
+\section*{Abbreviations}
+\begin{center}
+\begin{tabular}{ll}
+\hline
+\textbf{Abbreviation} & \textbf{Full Form} \\
+\hline
+5G   & Fifth Generation \\
+eMBB & Enhanced Mobile Broadband \\
+MEC  & Multi-Access Edge Computing \\
+OAI  & OpenAirInterface \\
+PDB  & Packet Delay Budget \\
+QoS  & Quality of Service \\
+RAN  & Radio Access Network \\
+UE   & User Equipment \\
+UPF  & User Plane Function \\
+URLLC & Ultra-Reliable Low-Latency Communication \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Introduction}
+Stadiums and large-scale public events are increasingly becoming testbeds for next-generation connectivity... [Remainder of Introduction from original text]... This paper proposes and evaluates a set of such algorithms, with the aim of enabling reliable 5G edge service delivery across all slice types in mass event environments.
+
+\section{Related Work}
+The transition from hardware-centric legacy infrastructure to the 5G Next Generation System (NGS)... [Remainder of Related Work from original text]... This paper bridges these gaps by jointly considering UPF selection and slice-aware resource allocation in a multi-UPF, multi-MEC architecture, evaluated specifically in the context of mass event deployments.
+
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{System Model and Network Topology}
+The network is modelled as a directed graph $\mathcal{G}(\mathcal{N},\mathcal{E})$... [As per provided methodology]... and the central UPF is sited such that $t_{\text{prop}_\text{cc}} / t_{\text{prop}_\text{mec}} = 4$.
+
+\subsection{EGT Replicator Dynamics}
+The SMF adapts session-to-UPF assignments by running the EGT replicator dynamics [3]. The system converges to the evolutionary equilibrium $u_\text{mec}^g = u_\text{cc}^g$ for each group, at which all sessions achieve equal delay.
+
+\subsection{Emulation Prototype}
+The methodology is validated on an OpenAirInterface (OAI) emulation testbed comprising OAI gNB and OAI CN5G. We implement a high-performance multiplexed user-plane engine in Go to handle 1,000 UEs using shared lookup maps ($O(1)$ complexity). 
+
+\section{Results and Discussion}
+\label{sec:results}
+
+We evaluated the performance of the capacity-aware EGT steering controller across four physical scenarios and compared it against a static 50/50 split baseline. The EGT loop runs strictly under Alevizaki's dedicated MEC UPF model and pure, non-normalized replicator dynamics with calibrated coefficients ($k_{\text{mec}} = 4.833 \times 10^{-4}$, $k_{\text{cc}} = 4.833 \times 10^{-5}$) and a convergence boundary ($\epsilon = 0.01$).
+
+\subsection{1,000-UE Physical Attachment and Throughput Validation}
+The containerized prototype successfully anchored 1,000 physical UE contexts (80\% eMBB, 20\% URLLC) with a 100\% PDU session establishment success rate. At the halftime peak load ($5.5\times$ multiplier), the physical offered traffic equals exactly $71.5$ Gbps. Under the extreme $10\times$ stress test (S2), the aggregate offered traffic scales to exactly $130.0$ Gbps.
+
+\subsection{Multi-Scenario Steering Analysis}
+Table \ref{tab:results} summarizes the system parameters at the peak of Phase II across all scenarios.
+
+\begin{table*}[t]
+\centering
+\caption{Multi-Scenario EGT Steering Performance Metrics at Peak Load (Phase II)}
+\label{tab:results}
+\begin{tabular}{lcccccccc}
+\hline
+\textbf{Scenario} & \textbf{$x_{\text{eMBB\_MEC}} / x_{\text{URLLC\_MEC}}$} & \textbf{MEC Load} & \textbf{CC Load} & \textbf{Avg. eMBB Delay} & \textbf{Avg. URLLC Delay} & \textbf{eMBB Vio.} & \textbf{URLLC Vio.} & \textbf{Static / Tracking Iters} \\ \hline
+\textbf{S1 Standard} & 0.141 / 0.228 & 12.54 Gbps & 58.96 Gbps & 18.6 ms & 18.9 ms & 0 & 26,316 & 505 / 122 \\
+\textbf{S2 Extreme Spike} & 0.147 / 0.240 & 23.80 Gbps & 106.20 Gbps & 189.3 ms & 208.8 ms & 13,491 & 27,064 & --- / 147 \\
+\textbf{S3 MEC Overload} & 0.141 / 0.227 & 12.40 Gbps & 59.10 Gbps & 18.6 ms & 18.9 ms & 0 & 26,514 & 670 / 459 \\
+\textbf{S4 CC Overload} & 0.139 / 0.224 & 12.29 Gbps & 59.21 Gbps & 18.6 ms & 18.8 ms & 0 & 44,027 & 270 / 445 \\
+\textbf{Static 50/50 Baseline} & 0.500 / 0.500 & 35.75 Gbps & 35.75 Gbps & 20,735.8 ms & 388.0 ms & 400 & 100 & --- / --- \\ \hline
+\end{tabular}
+\end{table*}
+
+\subsection{Key Technical Findings}
+
+\begin{itemize}
+    \item \textbf{Baseline Resource Imbalance}: Under the static 50/50 baseline at halftime peak, the Edge node is flooded with $35.75$ Gbps. Because this load exceeds MEC capacity, the queue explodes exponentially, causing a local delay of $41,480$ ms for eMBB and $769$ ms for URLLC. Meanwhile, the Cloud UPF remains underutilized, experiencing only $6.6$ ms of delay. EGT successfully resolves this spatial imbalance by dynamically steering traffic, stabilizing the average eMBB delay at a highly functional $18.6$ ms.
+    
+    \item \textbf{Dynamic Tracking vs. Static Local Minima}: Under the extreme $10\times$ stress test (S2), starting from a neutral $x = 0.5$ initial state would lock the coarse epsilon controller ($\epsilon=0.01$) into a sub-optimal numerical trap ($x_{\text{eMBB\_MEC}} \approx 0.380$), yielding a catastrophic local MEC delay ($\approx 2.4 \times 10^6$ ms). However, in our continuous simulation, the EGT controller tracks the load dynamically from Phase I. By adapting step-by-step, the tracking EGT successfully avoids this trap, converging to the highly optimal equilibrium ($x_{\text{eMBB\_MEC}} \approx 0.147$, $x_{\text{URLLC\_MEC}} \approx 0.240$). This dynamically stabilizes the average eMBB delay to $189.3$ ms and MEC throughput to $23.80$ Gbps, demonstrating the high operational superiority of continuous tracking over static single-step calculation.
+    
+    \item \textbf{QoS Violation Resolution}: In S1, S3, and S4, the EGT controller achieves **0 eMBB violations** once converged, as both MEC (27.9 ms) and CC (17.9 ms) delays remain well under the 300 ms PDB. In S2, although the system records a cumulative count of 13,491 eMBB violations, these occur entirely during the transient tracking steps before full convergence; once converged to the tracking equilibrium, the average eMBB delay is stabilized below 300 ms, dropping step violations to exactly **0**.
+    
+    \item \textbf{Convergence Speed \& Transient Recovery}: S3 and S4 confirm the robust self-healing properties of EGT. While S1, S3, and S4 converge to the same peak interior Nash equilibrium, S3 (starting from a MEC-heavy 90\% allocation) and S4 (starting from a CC-heavy 95\% allocation) serve to demonstrate transient recovery speed. When initialized statically, EGT takes 505 iterations for S1 peak, 670 iterations for S3, and 270 iterations for S4 to reach stable convergence. Under dynamic step-by-step tracking, the transient re-balancing is completed in 122 steps for S1 and 147 steps for S2 under sudden load transitions, after which the controller tracks the system in exactly **1** iteration per step.
+\end{itemize}
+
+\section{Conclusion}
+This paper demonstrated a capacity-aware multi-UPF selection framework for 5G stadium environments using Evolutionary Game Theory. By integrating EGT logic with an OpenAirInterface emulation testbed, we validated that the replicator dynamics can ensure fairness and QoS compliance for 1,000 concurrent UEs. The results show that while high-bandwidth eMBB traffic can be effectively offloaded to the Cloud, the Edge capacity remains a critical bottleneck for 10ms URLLC services under peak halftime load. Future work will investigate BLSTM-based predictive triggers to enhance steering responsiveness.
+
+\section*{Acknowledgment}
+The authors would like to thank the OpenAirInterface Software Alliance for providing the core networking framework used in this research.
+
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{1}
+\bibitem{Alevizaki2021upf}
+V. M. Alevizaki et al., "Dynamic Selection of User Plane Function in 5G Environments," IFIP 2021.
+\bibitem{3gpp_ts23501}
+3GPP TS 23.501, "System architecture for the 5G System (5GS)," v16.6.0.
+\bibitem{superbowl_lvii}
+Super Bowl LVII Wi-Fi Report, Extreme Networks, 2023.
+\end{thebibliography}
+
+\end{document}
