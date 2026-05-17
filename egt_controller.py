@@ -33,6 +33,10 @@ class SystemParams:
     k_mec: float = 4.833e-04
     k_cc:  float = 4.833e-05
 
+    # EGT algorithm parameters — matched to Alevizaki Fig.2 caption
+    # a/beta = 1 per reference (a=1, beta=1); a appears in review rate r=a-beta*u
+    # but cancels in the replicator dynamics — only beta affects equilibrium speed
+    a:       float = 1.0   # Review rate upper bound (Alevizaki Eq.2); set to 1 per reference
     beta:    float = 1.0
     epsilon: float = 0.01
     PDB_embb:  float = 300.0
