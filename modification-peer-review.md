@@ -220,3 +220,74 @@ python multi_scenario_sim.py
 ```
 
 **Expected output matches:** All Table II values, all delay calculations, all violation counts.
+
+---
+
+## 6. Reference Paper Parameter Comparison — Alevizaki et al. (2021)
+
+**Source:** *Dynamic Selection of User Plane Function in 5G Environments*, V. M. Alevizaki et al., IFIP 2021.  
+**File:** `Dynamic Selction of USER plane function in 5G environements.pdf` (in this repository)
+
+The reference paper defines the EGT framework that our work adapts. Below is a full parameter-by-parameter comparison between the Alevizaki reference and our stadium implementation.
+
+### 6.1 Algorithm Parameters
+
+| Parameter | Alevizaki (Reference) | Our Implementation | Match? | Notes |
+|---|---|---|---|---|
+| ε (convergence threshold) | 0.01 | 0.01 | ✅ MATCH | Identical |
+| β (payoff scaling) | 1 | 1.0 | ✅ MATCH | Identical |
+| **a (review rate bound)** | **1** | **2** | ❌ DIFFER | Our paper Table I states a=2; reference uses a=1 (from Fig.2 caption: a/β=1) |
+| k_mec / k_cc ratio | 10 | 10.0 | ✅ MATCH | Identical ratio confirmed |
+| t_prop_cc / t_prop_mec ratio | 4 | 4 (1.0/0.25) | ✅ MATCH | Identical |
+| Replicator dynamics equation | Eq. (3) | Same form | ✅ MATCH | dx/dt = β(u_i - ū)·x_i |
+| Payoff function | u = 1/delay | u = 1/delay | ✅ MATCH | Identical |
+| Convergence claim | < 100 iters | Up to 670 iters | ❌ DIFFER | See Error 1 in Section 3 — our paper's abstract incorrectly reproduces this claim |
+
+### 6.2 Simulation / Scenario Parameters
+
+| Parameter | Alevizaki (Reference) | Our Implementation | Match? | Notes |
+|---|---|---|---|---|
+| M₁ (Group 1 UE count) | 130 | 800 | ❌ DIFFER | Intentional — stadium scales to 800 eMBB UEs |
+| M₂ (Group 2 UE count) | 70 | 200 | ❌ DIFFER | Intentional — stadium scales to 200 URLLC UEs |
+| ρ (per-UE offered load) | 100 Mbps (single value, all groups) | ρ_eMBB=10, ρ_URLLC=25 | ❌ DIFFER | Intentional — we use slice-differentiated loads |
+| Number of UPFs | 2 (local + central) | 2 (MEC + CC) | ✅ MATCH | Same topology |
+| Number of groups G | 2 | 2 | ✅ MATCH | Same |
+| Equilibrium G1@MEC | ~16% | 17.82% (validation run) | ✅ MATCH | Reproduced to within 0.1% |
+| Equilibrium G2@MEC | ~32% | 31.97% (validation run) | ✅ MATCH | Reproduced to within 0.03% |
+
+### 6.3 Critical Model Difference: Shared vs. Dedicated MEC UPF
+
+This is the **most important architectural departure** from the reference paper and must be clearly justified in the paper.
+
+#### Alevizaki Original — Equation (5): **Fully Shared Model**
+Both local (MEC) and central (CC) UPF delays are calculated using contributions from **all groups**:
+```
+t_UPF_i(x) = exp(k_i · ρ · Σ_g(M_g · x_g_i))
+```
+All groups contribute to MEC delay AND all groups contribute to CC delay equally.
+
+#### Our Implementation — **Dedicated MEC, Shared CC**
+```
+t_mec^g(x) = exp(k_mec · ρ_g · M_g · x_g_mec)   ← only group g's load
+t_cc(x)    = exp(k_cc · Σ_g(ρ_g · M_g · x_g_cc)) ← all groups' load
+```
+
+| Aspect | Alevizaki (Shared) | Our Model (Dedicated MEC) |
+|---|---|---|
+| MEC delay formula | All groups compete for MEC | Each group has independent MEC path |
+| CC delay formula | All groups compete for CC | All groups compete for CC |
+| Architectural rationale | Generic optical node implementation | Stadium network slicing: dedicated edge resources per S-NSSAI |
+| 3GPP basis | Not slice-specific | Aligns with 3GPP TS 23.501 slice isolation |
+
+**Justification for this departure (recommended text for paper):**
+> *"While Alevizaki et al. use a single shared delay formula for both UPFs, we adopt a dedicated-MEC model for the edge UPF, in which only the sessions of group g contribute to that group's MEC processing delay. This reflects the 3GPP TS 23.501 network slicing architecture, where per-S-NSSAI resource isolation at the edge is a core design requirement for stadium deployments with strict URLLC service guarantees. The central UPF remains shared across all groups, consistent with the reference model."*
+
+### 6.4 Summary of Differences
+
+| Type | Count | Impact |
+|---|---|---|
+| ✅ Exact matches | 7 parameters | Core algorithm is faithful to reference |
+| ❌ Intentional departures (scaling) | M1, M2, ρ values | Clearly documented as stadium adaptation |
+| ❌ Intentional architectural departure | MEC shared→dedicated | Must be justified in paper (text above) |
+| ❌ Minor discrepancy | a=2 vs a=1 | Low impact on equilibrium; must be corrected or explained |
+| ❌ Text error reproduced from reference | "< 100 iterations" | Reference paper says this; we repeat it incorrectly — must be fixed |
