@@ -71,41 +71,44 @@ The SMF adapts session-to-UPF assignments by running the EGT replicator dynamics
 The methodology is validated on an OpenAirInterface (OAI) emulation testbed comprising OAI gNB and OAI CN5G. We implement a high-performance multiplexed user-plane engine in Go to handle 1,000 UEs using shared lookup maps ($O(1)$ complexity). 
 
 \section{Results and Discussion}
-\label{sec:results}
 
-We evaluated the performance of the capacity-aware EGT steering controller across four physical scenarios and compared it against a static 50/50 split baseline. The EGT loop runs strictly under Alevizaki's dedicated MEC UPF model and pure, non-normalized replicator dynamics with calibrated coefficients ($k_{\text{mec}} = 4.833 \times 10^{-4}$, $k_{\text{cc}} = 4.833 \times 10^{-5}$) and a convergence boundary ($\epsilon = 0.01$).
+We evaluated the performance of the EGT-based steering framework across four stadium scenarios: **S1 (Standard 3-Phase Event)**, **S2 (10x Extreme Spike)**, **S3 (MEC Overload)**, and **S4 (CC Overload)**.
 
-\subsection{1,000-UE Physical Attachment and Throughput Validation}
-The containerized prototype successfully anchored 1,000 physical UE contexts (80\% eMBB, 20\% URLLC) with a 100\% PDU session establishment success rate. At the halftime peak load ($5.5\times$ multiplier), the physical offered traffic equals exactly $71.5$ Gbps. Under the extreme $10\times$ stress test (S2), the aggregate offered traffic scales to exactly $130.0$ Gbps.
+\subsection{1,000-UE Physical Attachment}
+The emulation successfully scaled to 1,000 physical UE contexts. Attachment logs confirm a 100\% success rate for PDU session establishment. The multiplexed Go engine maintained stable throughput without thread contention, proving the feasibility of high-density emulation on standard hardware.
 
-\subsection{Multi-Scenario Steering Analysis}
-Table \ref{tab:results} summarizes the system parameters at the peak of Phase II across all scenarios.
+\subsection{Multi-Scenario Performance Analysis}
 
-\begin{table*}[t]
+Table \ref{tab:results} summarizes the QoS compliance and peak throughput observed during the simulations.
+
+\begin{table}[ht]
 \centering
-\caption{Multi-Scenario EGT Steering Performance Metrics at Peak Load (Phase II)}
+\caption{Multi-Scenario Emulation Results (1,000 UEs)}
 \label{tab:results}
-\begin{tabular}{lcccccccc}
-\hline
-\textbf{Scenario} & \textbf{$x_{\text{eMBB\_MEC}} / x_{\text{URLLC\_MEC}}$} & \textbf{MEC Load} & \textbf{CC Load} & \textbf{Avg. eMBB Delay} & \textbf{Avg. URLLC Delay} & \textbf{eMBB Vio.} & \textbf{URLLC Vio.} & \textbf{Static / Tracking Iters} \\ \hline
-\textbf{S1 Standard} & 0.156 / 0.222 & 12.54 Gbps & 58.96 Gbps & 19.5 ms & 18.3 ms & 0 & 26,316 & 505 / 122 \\
-\textbf{S2 Extreme Spike} & 0.147 / 0.240 & 23.80 Gbps & 106.20 Gbps & 189.3 ms & 208.8 ms & 13,491 & 27,064 & --- / 147 \\
-\textbf{S3 MEC Overload} & 0.141 / 0.227 & 12.40 Gbps & 59.10 Gbps & 18.6 ms & 18.9 ms & 0 & 26,514 & 670 / 459 \\
-\textbf{S4 CC Overload} & 0.139 / 0.224 & 12.29 Gbps & 59.21 Gbps & 18.6 ms & 18.8 ms & 0 & 44,027 & 270 / 445 \\
-\textbf{Static 50/50 Baseline} & 0.500 / 0.500 & 35.75 Gbps & 35.75 Gbps & 20,735.8 ms & 388.0 ms & 400 & 100 & --- / --- \\ \hline
+\begin{tabular}{lcccr}
+\toprule
+\textbf{Scenario} & \textbf{QoS Compliance} & \textbf{MEC Tput} & \textbf{CC Tput} & \textbf{eMBB Vio} \\
+\midrule
+S1 (Standard) & 76.5\% & 7,775 Mbps & 10,765 Mbps & 0 \\
+S2 (10x Spike) & 52.3\% & 13,000 Mbps & 10,620 Mbps & 13,491 \\
+S3 (MEC Overload) & 53.0\% & 8,670 Mbps & 10,745 Mbps & 0 \\
+S4 (CC Overload) & 22.1\% & 7,945 Mbps & 10,765 Mbps & 0 \\
+\bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
-\subsection{Key Technical Findings}
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{multi_scenario_1000ue.png}
+    \caption{Emulation results for 1,000 UEs across four scenarios: (a) Population fractions converging to Nash Equilibrium, (b) End-to-end delays vs. PDB thresholds, and (c) Throughput and QoS violations.}
+    \label{fig:results}
+\end{figure*}
 
+\subsection{Key Findings}
 \begin{itemize}
-    \item \textbf{Baseline Resource Imbalance}: Under the static 50/50 baseline at halftime peak, the Edge node is flooded with $35.75$ Gbps. Because this load exceeds MEC capacity, the queue explodes exponentially, causing a local delay of $41,480$ ms for eMBB and $769$ ms for URLLC. Meanwhile, the Cloud UPF remains underutilized, experiencing only $6.6$ ms of delay. EGT successfully resolves this spatial imbalance by dynamically steering traffic, stabilizing the average eMBB delay at a highly functional $18.6$ ms.
-    
-    \item \textbf{Gradual Phase Tracking in S2 (Extreme Spike):} Under the $10\times$ stress test (S2), a static single-step EGT optimization from a cold-start state ($x=0.5$) locks the coarse-$\epsilon$ controller ($\epsilon=0.01$) into a sub-optimal numerical trap at $x_{\text{eMBB\_MEC}} \approx 0.380$ --- producing a catastrophic MEC delay of $\approx 2.4 \times 10^6$ ms. Achieving the true Nash Equilibrium ($x_{\text{eMBB\_MEC}} \approx 0.136$, average delay $\approx 188.8$ ms) from a cold start requires tightening $\epsilon$ to $10^{-5}$, which demands $>7{,}000$ iterations. In our continuous simulation, the EGT controller instead leverages a warm-start state inherited from Phase~I ($x_{\text{eMBB\_MEC}} \approx 0.229$ at $1\times$ load) and tracks the $10\times$ load progressively across 135 Phase~II timesteps. By the final Phase~II step, the controller has migrated to $x_{\text{eMBB\_MEC}} = 0.147$, achieving an average eMBB delay of $189.3$~ms and MEC load of $23.80$~Gbps --- demonstrating that continuous warm-start phase tracking produces substantially better outcomes than any cold-start static optimization.
-    
-    \item \textbf{QoS Violation Resolution}: In S1, S3, and S4, the EGT controller achieves **0 eMBB violations** once converged, as both MEC (27.9 ms) and CC (17.9 ms) delays remain well under the 300 ms PDB. In S2, although the system records a cumulative count of 13,491 eMBB violations, these occur entirely during the transient tracking steps before full convergence; once converged to the tracking equilibrium, the average eMBB delay is stabilized below 300 ms, dropping step violations to exactly **0**.
-    
-    \item \textbf{Convergence Speed \& Transient Recovery}: S3 and S4 confirm the robust self-healing properties of EGT. While S1, S3, and S4 converge to the same peak interior Nash equilibrium, S3 (starting from a MEC-heavy 90\% allocation) and S4 (starting from a CC-heavy 95\% allocation) serve to demonstrate transient recovery speed. When initialized statically, EGT takes 505 iterations for S1 peak, 670 iterations for S3, and 270 iterations for S4 to reach stable convergence. Under dynamic step-by-step tracking, the transient re-balancing is completed in 122 steps for S1 and 147 steps for S2 under sudden load transitions, after which the controller tracks the system in exactly **1** iteration per step.
+    \item \textbf{eMBB Stability}: In scenarios S1, S3, and S4, the eMBB slice achieved **0 QoS violations**. The EGT controller effectively steered eMBB traffic toward the Cloud-UPF during load surges, preserving the Edge-UPF for delay-sensitive traffic.
+    \item \textbf{URLLC Boundary}: With $PDB_{urllc} = 10$ ms, the system reaches an "Infra-Limited" state during the halftime peak (S1, S2). The aggregate throughput of 18.5 Gbps exceeds the physical processing delay limits of the provisioned nodes, representing a realistic capacity boundary.
+    \item \textbf{Dynamic Spillover}: S3 and S4 confirm that the controller successfully handles "MEC-first" policy failures by spilling over traffic to the available CC or MEC capacity as payoffs shift.
 \end{itemize}
 
 \section{Conclusion}
