@@ -31,10 +31,10 @@ This paper presents a dual-UPF traffic steering framework for 5G stadium
 environments that employs Evolutionary Game Theory (EGT) replicator
 dynamics, implemented centrally within the Session Management Function
 (SMF), to compute optimal population-level UPF anchor assignments across
-eMBB and URLLC slices. The framework is prototyped on an OpenAirInterface
-(OAI) testbed to validate session scalability, while QoS performance
-is evaluated using an analytical queuing model supporting
-1,000 concurrent PDU sessions.
+eMBB and URLLC slices. The framework's control-plane scalability is
+prototyped on an OpenAirInterface (OAI) testbed to validate massive
+session establishment, while data-plane QoS performance is evaluated offline
+using an analytical queuing model supporting 1,000 concurrent PDU sessions.
 We demonstrate that the EGT controller achieves zero eMBB QoS violations
 across all standard-load scenarios (S1, S3, S4) by exploiting the 10:1
 cloud-to-edge processing exponent asymmetry. In the extreme 10$\times$
@@ -938,9 +938,11 @@ mode, and results are reported accordingly.
 \label{sec:results}
 
 The emulation successfully provisioned all 1,000 UE contexts
-with a 100\% PDU session establishment rate via the multiplexed
-gnbsim engine with $O(1)$ GTP-U lookup maps, confirming
-the feasibility of high-density emulation on standard hardware.
+with a 100\% PDU session establishment rate at the core network
+via the multiplexed gnbsim engine with $O(1)$ GTP-U lookup maps.
+It is important to note this validates AMF/SMF control-plane
+capacity under ideal radio assumptions; physical RACH contention
+at the gNB is bypassed in this emulation.
 
 The EGT steering controller is evaluated across four traffic
 scenarios (S1--S4) against a static 50/50 baseline partition.
@@ -1098,10 +1100,12 @@ edge node and 58.6~Gbps to the central cloud. At this equilibrium,
 the eMBB end-to-end delays are 27.8~ms (MEC) and 17.9~ms (CC),
 yielding a weighted average of 19.4~ms. URLLC delays are 19.4~ms
 (MEC) and 17.9~ms (CC), weighted average 18.3~ms. The residual
-$\Delta d = 10.0$~ms gap between MEC and CC at the stopping
-criterion is the expected numerical consequence of the payoff
-convergence tolerance $\varepsilon = 0.01$, not a failure of
-the replicator dynamics. Note that the Nash equilibrium equalises
+$\Delta d = 9.9$~ms gap between MEC and CC at the stopping
+criterion occurs because the inter-UPF payoff difference
+($|1/17.9 - 1/27.8| \approx 0.0199$) exceeds $\varepsilon = 0.01$,
+causing the optimiser to halt on the strategy-change gradient limit
+($|\Delta x| < 2\times 10^{-5}$) rather than the payoff tolerance.
+Note that the Nash equilibrium equalises
 payoffs (inverse delays) rather than delays themselves; as a
 result, at the stopping criterion MEC delay exceeds CC delay,
 which is the correct outcome given the heavier MEC processing
@@ -1394,9 +1398,10 @@ This paper has presented a slice-aware, dual-UPF
 selection framework for 5G stadium environments,
 integrating Evolutionary Game Theory (EGT) replicator
 dynamics within the SMF with an OpenAirInterface (OAI)
-emulation testbed. The OAI testbed validated session
-scalability, achieving 100\% PDU session establishment
-success for 1,000 concurrent UE contexts via a
+emulation testbed. The OAI testbed validated core-network
+control-plane scalability, achieving 100\% PDU session
+establishment success at the AMF/SMF for 1,000 concurrent UE contexts
+(assuming ideal radio conditions without RACH collisions) via a
 high-performance Go-based user-plane multiplexing engine.
 QoS performance was evaluated using an analytical queuing
 model calibrated against published results.
