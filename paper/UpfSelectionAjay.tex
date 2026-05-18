@@ -42,11 +42,11 @@ stress scenario (S2), transient eMBB violations occur during the
 warm-start migration phase, corresponding to a 12.5\% violation rate
 across Phase~II eMBB UE-steps; these cease once EGT converges to its
 equilibrium routing fraction.
-% P8-Q4: Warm-start characterised as critical stabilisation mechanism,
-%         not merely a convergence speed optimisation.
+% P8-Q4/P9: Updated to reflect vanishing-gradient arrest correction.
 Under standard load (S1, 5.5$\times$), warm-start tracking acts as a
-critical stabilisation mechanism that prevents discrete-time replicator
-dynamics from collapsing into unstable boundary states; it converges in
+critical stabilisation mechanism that prevents the discrete-time
+replicator from suffering vanishing-gradient arrest at sub-optimal
+states; it converges in
 1~iteration for 97\% of Phase~II steps (max: 122~iterations at
 load-transition boundaries, mean: 3.3). Under the extreme 10$\times$
 surge (S2), 98.5\% of steps still converge in 1~iteration; the maximum
@@ -737,23 +737,24 @@ an alternative UPF strategy $j \in \mathcal{S}_g$,
 $j \neq i$, chosen at random by the reviewing agent
 under the pairwise comparison protocol
 of~\cite{Alevizaki2021upf}.
-% P8-Q4: Footnote upgraded to acknowledge stability implications of
-%         the pairwise form and the role of warm-start as a necessary
-%         stabilisation mechanism, not merely a convergence speedup.
+% P8-Q4/P9: Footnote updated to reflect the corrected S2 cold-start characterisation.
+%   P9 empirical test shows the optimiser does NOT reach boundary; it is arrested
+%   by a vanishing-gradient effect at x_mec=0.380. Footnote adjusted accordingly.
 \footnote{The pairwise comparison protocol of~\cite{Alevizaki2021upf}
 yields the $(u_j - \bar{u})\cdot x_i$ update form used here.
 While the interior Nash equilibrium $u_\text{mec}^g = u_\text{cc}^g$
 is identical to that of the standard $(u_i - \bar{u})\cdot x_i$
-replicator, the Jacobian sign structure of the discrete-time
-implementation differs near boundary states. This difference
-means warm-start tracking functions as a \emph{critical
-stabilisation mechanism} --- not merely a convergence speedup ---
-that anchors the state vector in the vicinity of the interior
-equilibrium and prevents the discrete-time dynamics from
-collapsing into unstable boundary states (such as the all-MEC
-boundary observed in cold-start S2 trials). The cold-start
-boundary-convergence phenomenon is a direct structural consequence
-of this dynamic, not merely a cold-start numerical artifact.}
+replicator, both formulations are susceptible to a
+\emph{vanishing-gradient arrest} under extreme overload: when MEC
+processing delay reaches catastrophic values, the inverse-delay
+payoff $u_\text{mec}$ collapses toward zero, causing the inter-UPF
+payoff gap to fall within the tolerance $\varepsilon$ before the
+Nash Equilibrium is reached. This means warm-start tracking
+functions as a \emph{critical stabilisation mechanism} --- not
+merely a convergence speedup --- by keeping the population state
+in the neighbourhood of the interior equilibrium at each load
+step, preventing the discrete-time dynamics from diverging into
+regions where the gradient vanishes and convergence stalls.}
 The continuous-time system converges to the interior
 Nash equilibrium $u_\text{mec}^g = u_\text{cc}^g$ for
 each group $g$~\cite{Alevizaki2021upf}.
@@ -1094,8 +1095,8 @@ In S1, the EGT controller converges to
 $x_\text{mec}^\text{eMBB} = 0.156$ and
 $x_\text{mec}^\text{URLLC} = 0.222$, routing 12.9~Gbps to the
 edge node and 58.6~Gbps to the central cloud. At this equilibrium,
-the eMBB end-to-end delays are 27.9~ms (MEC) and 17.9~ms (CC),
-yielding a weighted average of 19.5~ms. URLLC delays are 19.5~ms
+the eMBB end-to-end delays are 27.8~ms (MEC) and 17.9~ms (CC),
+yielding a weighted average of 19.4~ms. URLLC delays are 19.4~ms
 (MEC) and 17.9~ms (CC), weighted average 18.3~ms. The residual
 $\Delta d = 10.0$~ms gap between MEC and CC at the stopping
 criterion is the expected numerical consequence of the payoff
@@ -1108,7 +1109,7 @@ penalty at this load point.
 
 \textbf{URLLC infrastructure ceiling.}
 At the S1 peak equilibrium, both MEC and CC delays
-(19.5~ms and 17.9~ms respectively) exceed the 10~ms URLLC PDB,
+(19.4~ms and 17.9~ms respectively) exceed the 10~ms URLLC PDB,
 resulting in 26,316 violations across the 27,000 URLLC UE-steps
 of Phase~II --- a 97.5\% violation rate. This is not a policy
 failure but a fundamental infrastructure constraint. From
@@ -1139,7 +1140,7 @@ constraint.
 
 \textbf{eMBB QoS compliance.}
 Zero eMBB violations are recorded in S1, S3, and S4, confirming
-that the 19.5~ms weighted average delay is well within the
+that the 19.4~ms weighted average delay is well within the
 300~ms eMBB PDB. The EGT controller effectively steers eMBB
 traffic toward $\text{UPF}_\text{cc}$ during load surges,
 preserving the edge node for delay-sensitive traffic. The 10:1
@@ -1169,12 +1170,13 @@ load is computed via Eq.~\eqref{eq:upf_delay_cc}:
     (800 \times 10 \times 0.857 + 200 \times 25 \times 0.769)
   = 58{,}855~\text{Mbps}
 \end{equation*}
-% P8-Q1: Corrected CC delay at S4 Phase II onset from erroneous 27.6 ms
-%         to the correct value of 18.5 ms, using the per-slice fractions
-%         from Table 3 and Eq. (4), as confirmed by egt_controller.py output.
+% P8-Q1/P9: Corrected CC delay at S4 Phase II onset.
+%   P8 corrected from 27.6 ms to 18.5 ms.
+%   P9 empirical re-verification via egt_controller.py gives exp(2.844)=17.2 ms
+%   processing + 1.0 ms propagation = 18.2 ms total.
 producing $t_\text{CC} = \exp(k_\text{cc} \times 58{,}855)
-= \exp(2.845) \approx 17.5$~ms processing delay plus
-$t_{\text{prop}_\text{cc}} = 1.0$~ms, totalling \textbf{18.5}~ms
+= \exp(2.844) \approx 17.2$~ms processing delay plus
+$t_{\text{prop}_\text{cc}} = 1.0$~ms, totalling \textbf{18.2}~ms
 end-to-end --- still well in excess of the 10~ms URLLC PDB,
 confirming PDB$_2$ violations from step one of Phase~II. Every
 URLLC session on the CC violates the PDB at Phase~II onset.
@@ -1187,28 +1189,33 @@ UE-steps), S4 accumulates 44,027 cumulative violations --- a
 transient before equilibrium is reached and the Phase~I penalty
 from the biased initialisation.
 
+% P9: Complete rewrite of S2 cold-start paragraph.
+%   Empirical test (verify_claims.py) shows the optimiser does NOT reach the
+%   all-MEC boundary. It halts at x_mec=0.380 in 347 iterations due to a
+%   vanishing-gradient effect, not a boundary collapse. Corrected accordingly.
 \textbf{S2: extreme spike and warm-start tracking.}
 Scenario S2 ($10\times$ load, 130~Gbps total) illustrates a
 practically important empirical property of EGT replicator
 dynamics under sudden extreme load transitions.
 When EGT is initialised from a neutral state ($x = 0.5$) and
 converged in a single cold-start call at $10\times$ load with
-$\varepsilon = 0.01$, the optimiser converges in 213 iterations
-to the all-MEC boundary equilibrium ($x_\text{mec} = 1.0$),
-where the payoff equality condition is trivially satisfied at
-zero CC occupancy. An intermediate snapshot at approximately
-iteration 150 shows $x_\text{mec}^\text{eMBB} \approx 0.380$,
-producing catastrophic MEC processing delay
-($d_\text{eMBB}^\text{MEC} \approx 2.4\times10^6$~ms), but the
-algorithm proceeds to the boundary rather than halting there.
-While physical UPFs would drop packets rather than queue them
-indefinitely, this boundary-convergence behaviour is a structural
-consequence of the Jacobian sign structure of the discrete-time
-replicator under the pairwise comparison protocol (see footnote
-to Eq.~\eqref{eq:replicator}): the interior Nash equilibrium is
-not a stable attractor under cold-start conditions, and the
-all-MEC boundary is the only reachable stable fixed point from
-$x = 0.5$ at this load level.
+$\varepsilon = 0.01$, the optimiser halts prematurely in
+347~iterations at an intermediate state
+($x_\text{mec}^\text{eMBB} \approx 0.380$) --- well short of
+any boundary. At this fraction, the MEC processing delay is
+catastrophic ($d_\text{eMBB}^\text{MEC} \approx 2.46\times10^6$~ms),
+causing the inverse-delay payoff to collapse to near-zero
+($u_\text{mec} \approx 4.06\times10^{-7}$). The payoff
+\emph{difference} between the two UPFs then falls within the
+$\varepsilon = 0.01$ tolerance, satisfying the stopping criterion
+prematurely. This is a \emph{vanishing-gradient arrest}: the
+extreme MEC overload renders the payoff signal too small for
+the discrete stopping criterion to distinguish from convergence.
+The algorithm therefore halts at a sub-optimal fraction rather
+than tracking toward the true Nash Equilibrium. This behaviour
+reinforces why cold-start cannot reliably find the interior NE
+under extreme load: the stopping criterion is met for the wrong
+reason before the equilibrium is approached.
 The true Nash equilibrium at $10\times$
 load (reachable only by tightening $\varepsilon$ to $10^{-5}$,
 requiring 7,673 iterations) lies at
@@ -1407,9 +1414,10 @@ across all evaluated scenarios: static cold-start benchmarks
 require 270--670~iterations depending on initialisation
 conditions. Critically, warm-start tracking functions as a
 \emph{stabilisation mechanism}, not merely a convergence
-speedup: it prevents discrete-time replicator collapse into
-boundary states by anchoring the population state in the
-neighbourhood of the interior Nash equilibrium.
+speedup: by keeping the population state near the interior
+Nash equilibrium at each load step, it prevents the
+vanishing-gradient arrest that causes cold-start to stall at
+sub-optimal fractions under extreme load conditions.
 Under standard load (S1: max 122 iterations at
 load-transition boundaries, total 442 iterations across
 135 Phase~II steps) and a maximum of 147~iterations per
