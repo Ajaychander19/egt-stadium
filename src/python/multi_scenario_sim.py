@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import pandas as pd
 from egt_controller import EGTController, SystemParams
+import os
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+
 
 logging.basicConfig(level=logging.INFO,
     format="%(asctime)s [SIM] %(message)s", datefmt="%H:%M:%S")
@@ -200,7 +203,7 @@ def plot_all(results):
         ax3.legend(lines1+lines2, lbl1+lbl2, fontsize=7, loc="upper left")
         ax3.grid(alpha=0.3)
 
-    plt.savefig("results/multi_scenario_results.png", dpi=150, bbox_inches="tight")
+    plt.savefig(os.path.join(BASE_DIR, "results/multi_scenario_results.png"), dpi=150, bbox_inches="tight")
     log.info("Saved: results/multi_scenario_results.png")
 
 
@@ -233,7 +236,7 @@ def print_summary(results):
 
     # Save combined JSON
     combined = pd.concat(list(results.values()))
-    combined.to_json("results/multi_scenario_results.json", orient="records", indent=2)
+    combined.to_json(os.path.join(BASE_DIR, "results/multi_scenario_results.json"), orient="records", indent=2)
     log.info("Saved: results/multi_scenario_results.json")
 
 

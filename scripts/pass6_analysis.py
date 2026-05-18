@@ -3,8 +3,11 @@ import json, math
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 from collections import Counter
+import os
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-with open('results/multi_scenario_results.json') as f:
+
+with open(os.path.join(BASE_DIR, 'results/multi_scenario_results.json')) as f:
     data = json.load(f)
 
 k_mec = 4.833e-4
@@ -107,7 +110,7 @@ print("Pairwise comparison protocol (Alevizaki Eq.): agents review at rate r_i =
 print("  Rate at which i-player switches to j: r_i * x_j (encounter probability)")
 print("  Net flow from i to j: x_i * r_i * x_j - x_j * r_j * x_i")
 print("  = x_i * x_j * (r_i - r_j)")
-print("  = x_i * x_j * ((a - beta*u_i) - (a - beta*u_j))")
+print("  = x_i * x_j * ((a - beta*u_i) - (a - beta*u_j)")
 print("  = x_i * x_j * beta * (u_j - u_i)")
 print()
 print("  dx_i/dt = -flow(i→j) = -x_i*x_j*beta*(u_j-u_i)")

@@ -10,7 +10,7 @@ services:
       - MYSQL_USER=test
       - MYSQL_PASSWORD=test
     volumes:
-      - ./oai_db.sql:/docker-entrypoint-initdb.d/oai_db.sql
+      - ./config/oai_db.sql:/docker-entrypoint-initdb.d/oai_db.sql
     networks:
       stadium_net:
         ipv4_address: 192.168.70.131

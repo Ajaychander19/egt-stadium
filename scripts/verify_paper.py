@@ -5,6 +5,9 @@ Verifies every numerical claim in the paper against the simulation code.
 from egt_controller import EGTController, SystemParams
 import numpy as np
 import pandas as pd
+import os
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
 
 p = SystemParams(epsilon=0.01)
 results = {}
@@ -183,7 +186,7 @@ print(f"  *** This abstract claim is INCORRECT and must be fixed ***")
 # ──────────────────────────────────────────────────────────────────
 print("\n[CLAIM] Cumulative violations from simulation results JSON")
 try:
-    df = pd.read_json("results/multi_scenario_results.json")
+    df = pd.read_json(os.path.join(BASE_DIR, "results/multi_scenario_results.json"))
     for sc, grp in df.groupby("scenario"):
         e_vio = grp["vio_eMBB"].sum()
         u_vio = grp["vio_URLLC"].sum()

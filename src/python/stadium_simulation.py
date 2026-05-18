@@ -7,6 +7,9 @@ import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 from egt_controller import EGTController, SystemParams
+import os
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+
 
 logging.basicConfig(level=logging.INFO,
     format="%(asctime)s [SIM] %(message)s", datefmt="%H:%M:%S")
@@ -75,7 +78,7 @@ def run(smf_url=None):
                          f"eMBB->{se} URLLC->{su} | vio={vio}{flag}")
 
     df = pd.DataFrame(records)
-    df.to_json("results/stadium_results.json", orient="records", indent=2)
+    df.to_json(os.path.join(BASE_DIR, "results/stadium_results.json"), orient="records", indent=2)
     log.info("Saved: results/stadium_results.json")
     return df
 
@@ -158,7 +161,7 @@ def plot(df):
     ax.grid(alpha=0.3); phase_labels(ax)
 
     plt.tight_layout()
-    plt.savefig("results/stadium_results.png", dpi=150, bbox_inches="tight")
+    plt.savefig(os.path.join(BASE_DIR, "results/stadium_results.png"), dpi=150, bbox_inches="tight")
     log.info("Saved: results/stadium_results.png")
 
     print(f"\n{'='*55}\nSIMULATION SUMMARY\n{'='*55}")

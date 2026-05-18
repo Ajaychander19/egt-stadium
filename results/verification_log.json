@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-05-13T22:01:23.768422",
+  "timestamp": "2026-05-19T00:54:38.203428",
   "summary": {
     "total": 60,
-    "passed": 54,
-    "failed": 3,
-    "warned": 3
+    "passed": 39,
+    "failed": 17,
+    "warned": 4
   },
   "checks": [
     {
-      "name": "egt_controller.py (EGT algorithm)",
+      "name": "src/python/egt_controller.py (EGT algorithm)",
       "status": "\u2713 PASS",
       "detail": ""
     },
     {
-      "name": "validate_fig2.py (Alevizaki validation)",
-      "status": "\u2713 PASS",
-      "detail": ""
+      "name": "scripts/validate_fig2.py (Alevizaki validation)",
+      "status": "\u2717 FAIL",
+      "detail": "MISSING \u2014 needs to be created"
     },
     {
-      "name": "stadium_simulation.py (3-phase simulation)",
+      "name": "src/python/stadium_simulation.py (3-phase simulation)",
       "status": "\u2713 PASS",
       "detail": ""
     },
@@ -28,7 +28,7 @@
       "detail": ""
     },
     {
-      "name": "oai_db.sql (Subscriber database)",
+      "name": "config/oai_db.sql (Subscriber database)",
       "status": "\u2713 PASS",
       "detail": ""
     },
@@ -199,58 +199,58 @@
     },
     {
       "name": "mysql (Database)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-nrf (Network Repository Function)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-udr (Unified Data Repository)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-udm (Unified Data Management)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-ausf (Authentication Function)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-nssf (Network Slice Selection)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-amf (Access & Mobility Management)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-smf (Session Management (2 UPFs))",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-upf-mec (UPF \u2014 MEC edge node)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-upf-cc (UPF \u2014 Central cloud node)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u2717 FAIL",
+      "detail": "NOT RUNNING \u2014 critical"
     },
     {
       "name": "oai-gnb (gNB RF-simulator)",
-      "status": "\u2713 PASS",
-      "detail": "running"
+      "status": "\u26a0 WARN",
+      "detail": "not running \u2014 needed for testbed"
     },
     {
       "name": "oai-ue-embb (UE eMBB (SST=1))",
@@ -264,8 +264,8 @@
     },
     {
       "name": "SMF has PFCP log entries",
-      "status": "\u2713 PASS",
-      "detail": "20 relevant log lines"
+      "status": "\u2717 FAIL",
+      "detail": "1 relevant log lines"
     },
     {
       "name": "UPF-MEC referenced in SMF logs",
@@ -279,13 +279,13 @@
     },
     {
       "name": "stadium_net exists",
-      "status": "\u2713 PASS",
-      "detail": "d103f2154cce   egt-stadium_stadium_net   bridge    local"
+      "status": "\u2717 FAIL",
+      "detail": ""
     },
     {
       "name": "Subnet 192.168.70.128/26 configured",
-      "status": "\u2713 PASS",
-      "detail": "192.168.70.128/26"
+      "status": "\u2717 FAIL",
+      "detail": ""
     },
     {
       "name": "gNB config file being read",

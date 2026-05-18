@@ -1,0 +1,6070 @@
+{
+    "GlobalGNBID": {
+        "mcc": 1,
+        "mnc": 1,
+        "gnbid": 1
+    },
+    "SupportedTAList": [
+        {
+            "TAC": "0x000001",
+            "BroadcastPLMNList": [
+                {
+                    "MCC": 1,
+                    "MNC": 1,
+                    "SliceSupportList": [
+                        {
+                            "SST": 1,
+                            "SD": "ffffff"
+                        },
+                        {
+                            "SST": 2,
+                            "SD": "ffffff"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "PagingDRX": "v32",
+    "RANUENGAPID": 0,
+    "UE": {
+        "imeisv": "35609204079514",
+        "msin": "0000000001",
+        "mcc": 1,
+        "mnc": 1,
+        "RoutingIndicator": 1234,
+        "ProtectionScheme": "null",
+        "AuthParam": {
+            "K": "0C0A34601D4F07677303652C0462535B",
+            "OPc": "63bfa50ee6523365ff14c1f45f88737d"
+        },
+        "snssai": {
+            "sst": 1,
+            "sd": "ffffff"
+        },
+        "dnn": "oai",
+        "url": "http://192.168.70.140:80/"
+    },
+    "UEList": [
+        {
+            "msin": "0000000001",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000002",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000003",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000004",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000005",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000006",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000007",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000008",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000009",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000010",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000011",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000012",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000013",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000014",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000015",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000016",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000017",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000018",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000019",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000020",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000021",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000022",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000023",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000024",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000025",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000026",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000027",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000028",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000029",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000030",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000031",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000032",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000033",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000034",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000035",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000036",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000037",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000038",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000039",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000040",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000041",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000042",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000043",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000044",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000045",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000046",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000047",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000048",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000049",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000050",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000051",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000052",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000053",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000054",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000055",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000056",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000057",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000058",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000059",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000060",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000061",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000062",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000063",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000064",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000065",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000066",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000067",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000068",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000069",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000070",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000071",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000072",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000073",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000074",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000075",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000076",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000077",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000078",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000079",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000080",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000081",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000082",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000083",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000084",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000085",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000086",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000087",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000088",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000089",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000090",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000091",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000092",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000093",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000094",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000095",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000096",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000097",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000098",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000099",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000100",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000101",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000102",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000103",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000104",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000105",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000106",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000107",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000108",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000109",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000110",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000111",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000112",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000113",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000114",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000115",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000116",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000117",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000118",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000119",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000120",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000121",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000122",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000123",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000124",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000125",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000126",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000127",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000128",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000129",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000130",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000131",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000132",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000133",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000134",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000135",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000136",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000137",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000138",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000139",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000140",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000141",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000142",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000143",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000144",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000145",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000146",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000147",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000148",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000149",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000150",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000151",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000152",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000153",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000154",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000155",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000156",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000157",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000158",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000159",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000160",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000161",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000162",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000163",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000164",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000165",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000166",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000167",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000168",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000169",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000170",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000171",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000172",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000173",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000174",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000175",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000176",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000177",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000178",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000179",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000180",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000181",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000182",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000183",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000184",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000185",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000186",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000187",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000188",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000189",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000190",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000191",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000192",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000193",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000194",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000195",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000196",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000197",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000198",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000199",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000200",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000201",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000202",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000203",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000204",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000205",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000206",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000207",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000208",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000209",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000210",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000211",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000212",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000213",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000214",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000215",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000216",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000217",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000218",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000219",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000220",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000221",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000222",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000223",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000224",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000225",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000226",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000227",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000228",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000229",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000230",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000231",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000232",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000233",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000234",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000235",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000236",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000237",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000238",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000239",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000240",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000241",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000242",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000243",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000244",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000245",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000246",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000247",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000248",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000249",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000250",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000251",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000252",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000253",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000254",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000255",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000256",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000257",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000258",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000259",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000260",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000261",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000262",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000263",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000264",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000265",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000266",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000267",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000268",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000269",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000270",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000271",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000272",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000273",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000274",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000275",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000276",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000277",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000278",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000279",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000280",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000281",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000282",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000283",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000284",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000285",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000286",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000287",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000288",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000289",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000290",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000291",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000292",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000293",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000294",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000295",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000296",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000297",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000298",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000299",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000300",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000301",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000302",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000303",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000304",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000305",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000306",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000307",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000308",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000309",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000310",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000311",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000312",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000313",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000314",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000315",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000316",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000317",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000318",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000319",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000320",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000321",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000322",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000323",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000324",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000325",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000326",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000327",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000328",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000329",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000330",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000331",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000332",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000333",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000334",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000335",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000336",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000337",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000338",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000339",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000340",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000341",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000342",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000343",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000344",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000345",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000346",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000347",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000348",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000349",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000350",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000351",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000352",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000353",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000354",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000355",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000356",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000357",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000358",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000359",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000360",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000361",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000362",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000363",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000364",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000365",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000366",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000367",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000368",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000369",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000370",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000371",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000372",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000373",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000374",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000375",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000376",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000377",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000378",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000379",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000380",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000381",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000382",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000383",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000384",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000385",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000386",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000387",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000388",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000389",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000390",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000391",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000392",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000393",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000394",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000395",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000396",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000397",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000398",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000399",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000400",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000401",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000402",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000403",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000404",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000405",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000406",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000407",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000408",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000409",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000410",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000411",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000412",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000413",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000414",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000415",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000416",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000417",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000418",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000419",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000420",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000421",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000422",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000423",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000424",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000425",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000426",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000427",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000428",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000429",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000430",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000431",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000432",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000433",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000434",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000435",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000436",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000437",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000438",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000439",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000440",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000441",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000442",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000443",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000444",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000445",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000446",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000447",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000448",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000449",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000450",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000451",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000452",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000453",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000454",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000455",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000456",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000457",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000458",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000459",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000460",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000461",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000462",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000463",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000464",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000465",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000466",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000467",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000468",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000469",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000470",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000471",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000472",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000473",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000474",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000475",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000476",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000477",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000478",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000479",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000480",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000481",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000482",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000483",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000484",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000485",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000486",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000487",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000488",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000489",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000490",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000491",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000492",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000493",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000494",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000495",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000496",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000497",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000498",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000499",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000500",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000501",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000502",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000503",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000504",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000505",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000506",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000507",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000508",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000509",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000510",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000511",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000512",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000513",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000514",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000515",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000516",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000517",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000518",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000519",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000520",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000521",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000522",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000523",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000524",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000525",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000526",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000527",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000528",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000529",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000530",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000531",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000532",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000533",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000534",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000535",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000536",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000537",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000538",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000539",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000540",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000541",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000542",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000543",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000544",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000545",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000546",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000547",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000548",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000549",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000550",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000551",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000552",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000553",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000554",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000555",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000556",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000557",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000558",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000559",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000560",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000561",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000562",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000563",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000564",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000565",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000566",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000567",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000568",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000569",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000570",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000571",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000572",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000573",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000574",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000575",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000576",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000577",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000578",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000579",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000580",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000581",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000582",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000583",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000584",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000585",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000586",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000587",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000588",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000589",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000590",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000591",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000592",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000593",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000594",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000595",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000596",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000597",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000598",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000599",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000600",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000601",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000602",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000603",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000604",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000605",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000606",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000607",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000608",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000609",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000610",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000611",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000612",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000613",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000614",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000615",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000616",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000617",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000618",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000619",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000620",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000621",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000622",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000623",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000624",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000625",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000626",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000627",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000628",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000629",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000630",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000631",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000632",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000633",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000634",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000635",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000636",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000637",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000638",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000639",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000640",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000641",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000642",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000643",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000644",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000645",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000646",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000647",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000648",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000649",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000650",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000651",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000652",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000653",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000654",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000655",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000656",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000657",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000658",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000659",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000660",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000661",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000662",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000663",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000664",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000665",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000666",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000667",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000668",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000669",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000670",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000671",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000672",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000673",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000674",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000675",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000676",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000677",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000678",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000679",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000680",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000681",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000682",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000683",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000684",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000685",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000686",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000687",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000688",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000689",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000690",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000691",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000692",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000693",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000694",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000695",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000696",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000697",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000698",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000699",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000700",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000701",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000702",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000703",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000704",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000705",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000706",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000707",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000708",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000709",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000710",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000711",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000712",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000713",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000714",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000715",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000716",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000717",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000718",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000719",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000720",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000721",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000722",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000723",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000724",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000725",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000726",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000727",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000728",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000729",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000730",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000731",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000732",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000733",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000734",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000735",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000736",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000737",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000738",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000739",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000740",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000741",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000742",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000743",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000744",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000745",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000746",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000747",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000748",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000749",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000750",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000751",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000752",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000753",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000754",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000755",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000756",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000757",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000758",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000759",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000760",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000761",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000762",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000763",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000764",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000765",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000766",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000767",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000768",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000769",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000770",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000771",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000772",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000773",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000774",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000775",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000776",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000777",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000778",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000779",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000780",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000781",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000782",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000783",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000784",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000785",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000786",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000787",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000788",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000789",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000790",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000791",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000792",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000793",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000794",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000795",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000796",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000797",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000798",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000799",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000800",
+            "sst": 1,
+            "sd": "ffffff",
+            "dnn": "oai"
+        },
+        {
+            "msin": "0000000801",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000802",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000803",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000804",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000805",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000806",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000807",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000808",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000809",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000810",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000811",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000812",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000813",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000814",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000815",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000816",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000817",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000818",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000819",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000820",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000821",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000822",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000823",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000824",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000825",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000826",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000827",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000828",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000829",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000830",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000831",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000832",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000833",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000834",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000835",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000836",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000837",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000838",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000839",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000840",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000841",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000842",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000843",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000844",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000845",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000846",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000847",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000848",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000849",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000850",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000851",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000852",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000853",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000854",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000855",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000856",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000857",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000858",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000859",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000860",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000861",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000862",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000863",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000864",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000865",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000866",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000867",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000868",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000869",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000870",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000871",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000872",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000873",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000874",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000875",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000876",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000877",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000878",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000879",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000880",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000881",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000882",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000883",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000884",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000885",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000886",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000887",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000888",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000889",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000890",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000891",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000892",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000893",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000894",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000895",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000896",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000897",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000898",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000899",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000900",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000901",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000902",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000903",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000904",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000905",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000906",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000907",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000908",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000909",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000910",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000911",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000912",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000913",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000914",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000915",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000916",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000917",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000918",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000919",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000920",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000921",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000922",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000923",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000924",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000925",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000926",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000927",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000928",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000929",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000930",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000931",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000932",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000933",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000934",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000935",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000936",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000937",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000938",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000939",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000940",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000941",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000942",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000943",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000944",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000945",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000946",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000947",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000948",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000949",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000950",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000951",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000952",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000953",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000954",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000955",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000956",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000957",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000958",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000959",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000960",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000961",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000962",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000963",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000964",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000965",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000966",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000967",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000968",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000969",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000970",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000971",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000972",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000973",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000974",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000975",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000976",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000977",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000978",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000979",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000980",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000981",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000982",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000983",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000984",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000985",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000986",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000987",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000988",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000989",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000990",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000991",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000992",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000993",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000994",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000995",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000996",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000997",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000998",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000000999",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        },
+        {
+            "msin": "0000001000",
+            "sst": 2,
+            "sd": "ffffff",
+            "dnn": "oai2"
+        }
+    ],
+    "ULInfoNR": {
+        "NRCGI": {
+            "PLMN": {
+                "mcc": 1,
+                "mnc": 1
+            },
+            "NRCellID": 1
+        },
+        "TAI": {
+            "PLMN": {
+                "mcc": 1,
+                "mnc": 1
+            },
+            "TAC": "0x000001"
+        }
+    },
+    "NGAPPeerAddr": "192.168.70.132",
+    "GTPuIFname": "gtp-gnb",
+    "GTPuLocalAddr": "192.168.70.155",
+    "DEREG_AFTER": 3600
+}

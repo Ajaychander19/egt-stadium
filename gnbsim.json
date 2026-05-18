@@ -1,0 +1,76 @@
+{
+	"GlobalGNBID": {
+		"mcc": 1,
+		"mnc": 1,
+		"gnbid": 1
+	},
+	"SupportedTAList" : [
+		{
+			"TAC": "0x000001",
+			"BroadcastPLMNList": [
+				{
+					"MCC": 1,
+					"MNC": 1,
+					"SliceSupportList": [
+						{
+							"SST": 1,
+							"SD": "ffffff"
+						}
+					]
+				}
+			]
+		}
+	],
+	"PagingDRX" : "v32",
+	"RANUENGAPID" : 0,
+	"UE": {
+		"imeisv": "35609204079514",
+		"msin": "0000000001",
+		"mcc": 1,
+		"mnc": 1,
+		"RoutingIndicator": 1234,
+		"ProtectionScheme": "null",
+		"AuthParam": {
+			"K": "0C0A34601D4F07677303652C0462535B",
+			"OPc": "63bfa50ee6523365ff14c1f45f88737d"
+		},
+		"snssai": {
+			"sst": 1,
+			"sd": "ffffff"
+		},
+		"dnn": "oai",
+		"url": "http://192.168.70.140:80/"
+	},
+	"UEList": [
+		{"msin": "0000000001", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000002", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000003", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000004", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000005", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000006", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000007", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000008", "sst": 1, "sd": "ffffff", "dnn": "oai"},
+		{"msin": "0000000009", "sst": 2, "sd": "ffffff", "dnn": "oai2"},
+		{"msin": "0000000010", "sst": 2, "sd": "ffffff", "dnn": "oai2"}
+	],
+	"ULInfoNR": {
+		"NRCGI": {
+			"PLMN": {
+				"mcc": 1,
+				"mnc": 1
+			},
+			"NRCellID": 1
+		},
+		"TAI": {
+			"PLMN": {
+				"mcc": 1,
+				"mnc": 1
+			},
+			"TAC": "0x000001"
+		}
+	},
+	"NGAPPeerAddr": "192.168.70.132",
+	"GTPuIFname": "gtp-gnb",
+	"GTPuLocalAddr": "192.168.70.155",
+	"DEREG_AFTER" : 3600
+}

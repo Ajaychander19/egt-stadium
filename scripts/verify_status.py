@@ -2,8 +2,11 @@
 Project verification script — EGT Stadium 5G
 Checks every component and writes a status log.
 """
-import subprocess, json, os, datetime
+import subprocess, json, os, datetime, sys
 import numpy as np
+sys.stdout.reconfigure(encoding='utf-8')
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(BASE_DIR, "src", "python"))
 
 results = []
 PASS, FAIL, WARN = "✓ PASS", "✗ FAIL", "⚠ WARN"
@@ -36,11 +39,11 @@ print("="*60)
 # ── 1. FILE STRUCTURE ─────────────────────────────────────────
 print("\n[1] FILE STRUCTURE")
 files = {
-    "egt_controller.py":         "EGT algorithm",
-    "validate_fig2.py":          "Alevizaki validation",
-    "stadium_simulation.py":     "3-phase simulation",
+    "src/python/egt_controller.py":         "EGT algorithm",
+    "scripts/validate_fig2.py":          "Alevizaki validation",
+    "src/python/stadium_simulation.py":     "3-phase simulation",
     "docker-compose.yaml":       "OAI stack definition",
-    "oai_db.sql":                "Subscriber database",
+    "config/oai_db.sql":                "Subscriber database",
     "config/amf.conf":           "AMF config",
     "config/smf.conf":           "SMF config (2 UPFs)",
     "config/nssf_slice_config.yaml": "NSSF slice config",
@@ -52,7 +55,7 @@ files = {
     "results/stadium_results.json":   "Simulation data",
 }
 for path, desc in files.items():
-    exists = os.path.isfile(path)
+    exists = os.path.isfile(os.path.join(BASE_DIR, path))
     check(f"{path} ({desc})", exists,
           "" if exists else "MISSING — needs to be created")
 
@@ -128,7 +131,7 @@ except Exception as e:
 # ── 3. SIMULATION OUTPUT ──────────────────────────────────────
 print("\n[3] SIMULATION OUTPUT")
 try:
-    with open("results/stadium_results.json") as f:
+    with open(os.path.join(BASE_DIR, "results/stadium_results.json")) as f:
         data = json.load(f)
     import pandas as pd
     df = pd.DataFrame(data)
@@ -285,7 +288,7 @@ log = {
                 "failed": failed, "warned": warned},
     "checks": results,
 }
-with open("results/verification_log.json", "w") as f:
+with open(os.path.join(BASE_DIR, "results/verification_log.json"), "w") as f:
     json.dump(log, f, indent=2)
 print(f"\n  Full log saved: results/verification_log.json")
 print("="*60 + "\n")

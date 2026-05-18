@@ -1,8 +1,11 @@
 import json
 import math
 import sys
+import os
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-with open('results/multi_scenario_results.json', 'r') as f:
+
+with open(os.path.join(BASE_DIR, 'results/multi_scenario_results.json'), 'r') as f:
     data = json.load(f)
 
 k_mec = 4.833e-4
