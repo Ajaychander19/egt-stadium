@@ -69,10 +69,10 @@ Hadi Houssainy
 
 \section{Executive Summary}
 \subsection{System Overview}
-Dense stadium deployments place extraordinary demands on 5G infrastructure, requiring simultaneous support for Enhanced Mobile Broadband (eMBB) fan services and Ultra-Reliable Low-Latency Communication (URLLC) operational and broadcast streams. This project develops and evaluates an advanced Dual-UPF traffic steering framework based on Evolutionary Game Theory (EGT). The system mathematically optimises the distribution of PDU sessions between a capacity-constrained Multi-Access Edge Computing (MEC) node and a central cloud (CC) node. Deployed within an OpenAirInterface (OAI) 5G emulation testbed with a high-performance multiplexed gnbsim engine, the solution dynamically adapts to massive traffic surges, such as the 5.5$\times$ load increase observed during event halftime, ensuring slice-specific QoS compliance under extreme congestion.
+Dense stadium deployments place extraordinary demands on 5G infrastructure, requiring simultaneous support for Enhanced Mobile Broadband (eMBB) fan services and Ultra-Reliable Low-Latency Communication (URLLC) operational and broadcast streams. This project develops and evaluates an advanced Dual-UPF traffic steering framework based on Evolutionary Game Theory (EGT)~\cite{Alevizaki2021upf}. The system mathematically optimises the distribution of PDU sessions between a capacity-constrained Multi-Access Edge Computing (MEC) node and a central cloud (CC) node. Deployed within an OpenAirInterface (OAI) 5G emulation testbed~\cite{oai_cn5g} with a high-performance multiplexed gnbsim engine, the solution dynamically adapts to massive traffic surges, such as the 5.5$\times$ load increase observed during event halftime~\cite{superbowl_lvii}, ensuring slice-specific QoS compliance under extreme congestion.
 
 \subsection{Problem Statement}
-In mass event scenarios, user density and traffic volatility overwhelm static routing policies. When 5G core networks rely on fixed UPF selection, edge resources quickly saturate, causing catastrophic delays for URLLC traffic, while central cloud resources remain underutilised. Existing SMF capabilities lack the mathematical frameworks necessary to balance delay-sensitive flows dynamically across distributed edge infrastructures without causing cascading service failures or violating the stringent 10~ms Packet Delay Budget (PDB) required by URLLC services.
+In mass event scenarios, user density and traffic volatility overwhelm static routing policies. When 5G core networks rely on fixed UPF selection, edge resources quickly saturate, causing catastrophic delays for URLLC traffic, while central cloud resources remain underutilised. Existing SMF capabilities lack the mathematical frameworks necessary to balance delay-sensitive flows dynamically across distributed edge infrastructures without causing cascading service failures or violating the stringent 10~ms Packet Delay Budget (PDB) required by URLLC services~\cite{3gpp_ts23501, 3gpp_ts22261}.
 
 \subsection{Proposed Solution}
 The proposed solution embeds discrete-time EGT replicator dynamics directly into the 5G Session Management Function (SMF). This approach treats PDU session dispatch as an evolutionary game, where slices compete for processing resources. Through a continuous warm-start tracking mechanism, the SMF redistributes incoming sessions iteratively, shifting eMBB traffic to the central cloud while preserving the MEC node for latency-sensitive URLLC sessions. The EGT controller models UPF processing capabilities asynchronously, allowing rapid, sub-millisecond strategy shifts that preempt edge saturation.
@@ -82,7 +82,7 @@ The EGT steering controller completely eliminates eMBB QoS violations under stan
 
 \section{Introduction}
 \subsection{Background and Context}
-5G standalone (SA) architectures separate the control and user planes (CUPS), allowing flexible placement of User Plane Functions (UPFs). In stadium and mass event environments, this flexibility is crucial. Venues typically deploy a Multi-Access Edge Computing (MEC) UPF on-site to handle low-latency use cases (e.g., AR/VR broadcasting, referee telemetry), supported by a Central Cloud (CC) UPF for bulk processing. However, stadiums generate extreme, non-uniform traffic profiles characterised by sudden spikes, particularly during halftime or major match events.
+5G standalone (SA) architectures separate the control and user planes (CUPS), allowing flexible placement of User Plane Functions (UPFs)~\cite{3gpp_ts23501}. In stadium and mass event environments, this flexibility is crucial. Venues typically deploy a Multi-Access Edge Computing (MEC) UPF on-site to handle low-latency use cases (e.g., AR/VR broadcasting, referee telemetry), supported by a Central Cloud (CC) UPF for bulk processing. However, stadiums generate extreme, non-uniform traffic profiles characterised by sudden spikes, particularly during halftime or major match events~\cite{superbowl_lvii}.
 
 \subsection{Importance of Dynamic Steering}
 Static, configuration-based UPF assignment fails during these surges. If all stadium traffic is anchored to the MEC UPF, the node experiences processing saturation, causing end-to-end delays to breach critical thresholds. Conversely, routing all traffic to the central cloud defeats the purpose of the edge deployment, destroying the URLLC low-latency guarantees. Dynamic, session-by-session steering is mandatory to maintain Quality of Service (QoS) constraints and optimise the overall system payload.
@@ -92,7 +92,7 @@ This project implements and evaluates an intelligent UPF selection mechanism lev
 
 \section{Problem Statement}
 \subsection{Current Challenges in Mass Events}
-Stadiums represent the most challenging deployment scenario for mobile networks. During Super Bowl LVII, for example, data usage spiked by 450\% during halftime. When such volatility is introduced into a 5G core, the sudden influx of session establishment requests and user-plane traffic can overwhelm the hardware processing buffers of the local UPF. In traditional setups, there is no autonomous feedback loop within the SMF to sense this impending edge saturation and divert non-critical traffic away from the venue.
+Stadiums represent the most challenging deployment scenario for mobile networks. During Super Bowl LVII, for example, data usage spiked by 450\% during halftime~\cite{superbowl_lvii}. When such volatility is introduced into a 5G core, the sudden influx of session establishment requests and user-plane traffic can overwhelm the hardware processing buffers of the local UPF. In traditional setups, there is no autonomous feedback loop within the SMF to sense this impending edge saturation and divert non-critical traffic away from the venue.
 
 \subsection{Impact on Quality of Service}
 The absence of intelligent steering leads to widespread QoS violations. Specifically, URLLC traffic, which requires end-to-end delays below 10~ms, becomes trapped in processing queues behind high-bandwidth eMBB video uploads. These delays break the Service Level Agreements (SLAs) required for critical venue operations. From an operational perspective, the network fails to protect its most valuable traffic classes, despite possessing adequate overall capacity if the central cloud were properly utilised.
@@ -120,13 +120,13 @@ The primary goal is to design, implement, and validate a Dual-UPF EGT-based traf
 
 \section{Literature and Market Overview}
 \subsection{Existing UPF Selection Systems}
-Within the 3GPP architecture, UPF selection is officially handled by the SMF based on static criteria provided by the UDM and NSSF (e.g., DNN, S-NSSAI, and tracking area). Market solutions currently rely on static weightings or simple round-robin DNS load balancing across UPF clusters. While some vendors offer basic threshold-based offloading (e.g., migrating sessions when CPU hits 80\%), these reactive approaches are often too slow to handle the instantaneous spikes of stadium environments, leading to transient QoS breaches while the system catches up.
+Within the 3GPP architecture, UPF selection is officially handled by the SMF based on static criteria provided by the UDM and NSSF (e.g., DNN, S-NSSAI, and tracking area)~\cite{3gpp_ts23501}. Market solutions currently rely on static weightings or simple round-robin DNS load balancing across UPF clusters. While some vendors offer basic threshold-based offloading (e.g., migrating sessions when CPU hits 80\%), these reactive approaches are often too slow to handle the instantaneous spikes of stadium environments, leading to transient QoS breaches while the system catches up.
 
 \subsection{Limitations of Traditional Approaches}
-Integer Linear Programming (ILP) and central optimisation algorithms have been proposed extensively in academic literature. However, ILP is NP-hard; executing a global optimisation algorithm for thousands of sessions simultaneously introduces computational delays at the control plane that exceed the user-plane delay constraints they are attempting to solve. Furthermore, traditional load balancing ignores the heterogeneous processing requirements of different network slices (eMBB vs. URLLC).
+Integer Linear Programming (ILP) and central optimisation algorithms have been proposed extensively in academic literature~\cite{LeyvaUPC2023}. However, ILP is NP-hard; executing a global optimisation algorithm for thousands of sessions simultaneously introduces computational delays at the control plane that exceed the user-plane delay constraints they are attempting to solve. Furthermore, traditional load balancing ignores the heterogeneous processing requirements of different network slices (eMBB vs. URLLC)~\cite{popovski2018wireless, zhang2019network}.
 
 \subsection{Emerging EGT-Driven Solutions}
-Evolutionary Game Theory (EGT) has emerged as a promising, lightweight alternative. Alevizaki et al. (2021) established the foundational EGT model for 5G UPF selection, treating slices as competing populations. EGT uses simple replicator equations that can be integrated with very low computational overhead ($O(1)$ complexity per step), making it highly suitable for high-throughput SMF environments. This project builds directly upon the Alevizaki framework, transitioning it from mathematical simulation to practical implementation and evaluating its discrete-time stability under extreme load.
+Evolutionary Game Theory (EGT) has emerged as a promising, lightweight alternative. Alevizaki et al.~\cite{Alevizaki2021upf} established the foundational EGT model for 5G UPF selection, treating slices as competing populations. EGT uses simple replicator equations that can be integrated with very low computational overhead ($O(1)$ complexity per step), making it highly suitable for high-throughput SMF environments. This project builds directly upon the Alevizaki framework, transitioning it from mathematical simulation to practical implementation and evaluating its discrete-time stability under extreme load.
 
 \section{Proposed Solution: Dual-UPF EGT Framework}
 \subsection{Concept Overview}
@@ -143,7 +143,7 @@ The framework operates as an intelligent policy engine within the SMF. It models
 
 \section{System Architecture}
 \subsection{Architecture Overview}
-The system architecture spans three primary domains: the emulated Radio Access Network (RAN), the 5G Core Control Plane, and the User Plane distribution. 
+The system architecture spans three primary domains: the emulated Radio Access Network (RAN), the 5G Core Control Plane, and the User Plane distribution~\cite{3gpp_ts23501}. 
 
 \begin{figure}[H]
     \centering
@@ -155,7 +155,7 @@ The system architecture spans three primary domains: the emulated Radio Access N
 \subsection{Main Components}
 \begin{itemize}
     \item \textbf{Emulated RAN (\texttt{gnbsim})}: A massively multiplexed simulator capable of injecting N1/N2 control signals and generating GTP-U user-plane traffic for 1,000 UEs across two network slices.
-    \item \textbf{5G Core Control Plane (OAI)}: OpenAirInterface (OAI) containers for AMF, UDM, NRF, NSSF, and specifically the SMF, which establishes the N4 interfaces to the UPFs.
+    \item \textbf{5G Core Control Plane (OAI)}: OpenAirInterface (OAI) containers for AMF, UDM, NRF, NSSF, and specifically the SMF, which establishes the N4 interfaces to the UPFs~\cite{3gpp_ts29244}.
     \item \textbf{EGT Controller}: A Python-based external control loop that reads active session counts, computes the EGT replicator equations, and dictates the UPF assignment probabilities to the SMF logic.
     \item \textbf{Distributed User Plane}: Two active UPF instances. UPF-1 represents the low-latency, capacity-constrained MEC node. UPF-2 represents the high-capacity, higher-propagation-delay Central Cloud node.
 \end{itemize}
@@ -177,7 +177,7 @@ The algorithm relies on the continuous evaluation of the replicator equation:
 \begin{equation}
     \Delta x_i = \beta(u_j - \bar{u}^g)x_i\,\Delta t
 \end{equation}
-Where $x_i$ is the fraction of traffic on UPF $i$, $u_j$ is the payoff, and $\bar{u}^g$ is the mean payoff. The system integrates this equation with step size $\Delta t = 0.05$ up to 2,000 iterations until the maximum payoff deviation falls below the tolerance $\varepsilon = 0.01$.
+Where $x_i$ is the fraction of traffic on UPF $i$, $u_j$ is the payoff, and $\bar{u}^g$ is the mean payoff. The system integrates this equation with step size $\Delta t = 0.05$ up to 2,000 iterations until the maximum payoff deviation falls below the tolerance $\varepsilon = 0.01$, converging to a Nash Equilibrium~\cite{Alevizaki2021upf}.
 
 \begin{figure}[H]
     \centering
@@ -202,11 +202,11 @@ In situations where an external failure forces traffic onto a single node, the s
 
 \section{Implementation and Methodology}
 \subsection{Development Approach}
-The project adopted a mathematical-emulation hybrid approach. The mathematical algorithms were prototyped and verified in Python, ensuring exact convergence against the theoretical benchmarks established by Alevizaki et al. (2021). Following verification, the OAI 5G core was deployed locally via Docker, and the Python controller was integrated to read live or emulated session states.
+The project adopted a mathematical-emulation hybrid approach. The mathematical algorithms were prototyped and verified in Python, ensuring exact convergence against the theoretical benchmarks established by Alevizaki et al.~\cite{Alevizaki2021upf}. Following verification, the OAI 5G core was deployed locally via Docker, and the Python controller was integrated to read live or emulated session states.
 
 \subsection{Tools and Technologies}
 \begin{itemize}
-    \item \textbf{Core Network:} OpenAirInterface (OAI) CN5G SA (Docker-based).
+    \item \textbf{Core Network:} OpenAirInterface (OAI) CN5G SA (Docker-based)~\cite{oai_cn5g}.
     \item \textbf{RAN Emulation:} Customised \texttt{gnbsim} written in Go. Standard per-UE goroutine processing was replaced with a multiplexed user-plane engine utilising $O(1)$ \texttt{IpToCamper} hash maps, enabling it to handle 1,000 UEs without CPU starvation.
     \item \textbf{Controller:} Python 3 with NumPy for matrix operations and EGT replicator calculations.
 \end{itemize}
@@ -261,10 +261,10 @@ Deploying EGT directly into commercial 5G SMFs requires modifications to the sta
 Future research should implement a PDB-margin payoff function ($u_i^g = \text{PDB}_g / d_i^g$) rather than raw delay inverse. This slice-aware formulation would weight UPF strategies by their margin relative to the critical threshold, driving URLLC traffic more aggressively toward compliant nodes during transient surges.
 
 \subsection{Decoupled Load Multipliers and ML Triggers}
-The current evaluation applied a uniform load multiplier ($\lambda$) across all slices as a worst-case algorithmic stress test. Future studies will employ decoupled multipliers to reflect the reality that eMBB surges while URLLC traffic remains relatively constant. Additionally, integrating Bidirectional LSTM (BLSTM) models into the control loop would allow the system to predict congestion and trigger EGT re-convergence proactively, rather than reacting to existing QoS degradations.
+The current evaluation applied a uniform load multiplier ($\lambda$) across all slices as a worst-case algorithmic stress test. Future studies will employ decoupled multipliers to reflect the reality that eMBB surges while URLLC traffic remains relatively constant. Additionally, integrating Bidirectional LSTM (BLSTM) models into the control loop would allow the system to predict congestion and trigger EGT re-convergence proactively, rather than reacting to existing QoS degradations~\cite{LeyvaUPC2023}.
 
 \section{Conclusion}
-This project successfully designed and evaluated a Dual-UPF EGT traffic steering framework for 5G stadium environments. By integrating discrete-time replicator dynamics into a simulated 5G control plane, the system demonstrated the ability to dynamically balance massive traffic surges, eliminating eMBB QoS violations while rigorously managing edge processing capacities.
+This project successfully designed and evaluated a Dual-UPF EGT traffic steering framework for 5G stadium environments. By integrating discrete-time replicator dynamics into a simulated 5G control plane~\cite{oai_cn5g}, the system demonstrated the ability to dynamically balance massive traffic surges, eliminating eMBB QoS violations while rigorously managing edge processing capacities~\cite{Alevizaki2021upf}.
 
 The evaluation highlighted the critical importance of continuous warm-start tracking in preventing gradient collapse under extreme load transitions. Furthermore, by defining a hard URLLC infrastructure ceiling, the research clearly delineates the boundary between algorithmic optimisation capabilities and fundamental hardware constraints. As 5G networks transition toward increasingly dense, slice-aware deployments, the mathematically grounded steering mechanisms developed in this project provide a robust foundation for maintaining service reliability during the most demanding operational events.
 
