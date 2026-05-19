@@ -1,169 +1,114 @@
-# Capacity-Aware 5G Stadium Emulation with EGT-Based UPF Selection
+# Dual-UPF Traffic Steering for 5G Stadium Deployments 🏟️📡
 
-This repository contains a full-scale 5G network emulation environment designed for high-density stadium scenarios. It leverages an **Evolutionary Game Theory (EGT)** model to dynamically select between **MEC (Edge)** and **Central Cloud (CC)** User Plane Functions based on capacity constraints and service requirements (eMBB vs. URLLC).
+![Status](https://img.shields.io/badge/Status-Peer_Reviewed-success)
+![OAI Core](https://img.shields.io/badge/OAI-5G_Core-blue)
+![Python](https://img.shields.io/badge/Python-3.8+-yellow)
 
-The project is built on the **OpenAirInterface (OAI) 5G Core** and features a high-performance, multiplexed GNB/UE simulator capable of handling **1,000 concurrent physical UEs**.
+This repository contains the emulation and simulation framework for the research paper: **"Dual-UPF Traffic Steering for 5G Network Slices in Stadium and Mass Event Deployments."** 
 
-## 🚀 Key Accomplishments
-- **1,000 UE Scale**: Successfully emulated 1,000 physical UEs (800 eMBB / 200 URLLC) with 100% PDU session establishment success.
-- **EGT-Based Steering**: Implemented the replicator dynamics model from **Alevizaki et al.** to ensure Nash Equilibrium and fairness in UPF selection.
-- **Dual-UPF Architecture**: Deployed independent MEC and Cloud UPFs with a 1:10 capacity ratio and multi-slice support (spillover enabled).
-- **High-Performance Multiplexing**: Re-engineered the `gnbsim` Go engine with $O(1)$ lookup maps to handle thousands of GTP tunnels on a single virtual gNB.
+It provides a full-scale 5G network environment specifically engineered to handle extreme peak-load scenarios (e.g., stadium halftime shows). The core of the project is an **Evolutionary Game Theory (EGT)** steering controller that dynamically distributes PDU sessions between a capacity-constrained **MEC (Edge)** UPF and a high-capacity **Central Cloud (CC)** UPF, ensuring fairness across eMBB and URLLC network slices.
 
 ---
 
-## 🏗 System Architecture
+## 🎯 What This Project Does
 
-The environment consists of a complete 5G Service-Based Architecture (SBA) deployed via Docker:
+This project bridges the gap between theoretical game theory and practical 5G Core implementations:
 
-- **Control Plane**: AMF, SMF, NRF, UDR, UDM, AUSF, NSSF.
-- **User Plane**: 
-  - **UPF-MEC**: Local edge processing (Low latency, limited capacity).
-  - **UPF-CC**: Central cloud processing (High latency, high capacity).
-- **Access Plane**: `gnbsim` multiplexed emulator (800 eMBB users, 200 URLLC users).
+1. **Massive Control-Plane Emulation**: Uses a containerized **OpenAirInterface (OAI) 5G Core** and a heavily optimized, multiplexed `gnbsim` engine to successfully provision **1,000 concurrent PDU sessions** (100% success rate at the AMF/SMF layer, assuming ideal radio conditions).
+2. **Dynamic Traffic Steering**: Runs a Python-based **EGT Replicator Dynamics** controller that polls the SMF for session states and calculates optimal anchor routing fractions ($x_{mec}$, $x_{cc}$) to minimize end-to-end delay without overloading the edge.
+3. **Data-Plane QoS Simulation**: Utilizes a robust analytical queuing model to simulate extreme data-plane traffic surges (up to $10\times$ baseline load) and measure Packet Delay Budget (PDB) violations across standard and stress-test scenarios.
 
----
-
-## 📊 Theoretical Model & Parameters
-
-The system follows the delay model and EGT dynamics specified in **"Dynamic Selection of User Plane Function in 5G Environments" (Alevizaki et al.)**.
-
-### System Parameters
-| Parameter | Value | Description |
-| :--- | :--- | :--- |
-| **$M_1$ (eMBB)** | 800 | Population group 1 (10 Mbps/UE) |
-| **$M_2$ (URLLC)**| 200 | Population group 2 (25 Mbps/UE) |
-| **$k_{mec} / k_{cc}$**| 10 | Capacity ratio (Cloud is 10x Edge) |
-| **$t_{prop}$ Ratio** | 4:1 | Cloud is 4x further than Edge |
-| **$PDB_{urllc}$** | 10 ms | Strict 3GPP Delay-Critical GBR target |
-| **$PDB_{embb}$** | 300 ms | Standard eMBB target |
+> **Note on Scope**: The OAI testbed handles the *control-plane scalability* (N1/N2/N4 signalling), while the EGT script computes the *data-plane QoS performance* offline using rigorous mathematical models calibrated to physical hardware metrics.
 
 ---
 
-## 💻 Detailed Execution Guide
+## 🚀 Key Features
+
+*   **Multi-Slice Support**: Differentiates between **eMBB** (high throughput, 300ms PDB) and **URLLC** (low latency AR/VR rendering, 10ms PDB).
+*   **Warm-Start Stabilization**: The EGT controller tracks load continuously, preventing discrete-time vanishing-gradient arrests and boundary collapses under extreme demand spikes.
+*   **Dual-UPF Architecture**: Simulates a 10:1 cloud-to-edge processing capacity ratio, forcing the controller to intelligently spill eMBB traffic to the cloud while preserving the MEC for latency-critical URLLC sessions.
+*   **High-Performance Multiplexing**: Re-engineered the Go-based `gnbsim` simulator with $O(1)$ lookup maps, allowing a single virtual gNB to handle thousands of GTP tunnels simultaneously.
+
+---
+
+## 🏗️ System Architecture
+
+The environment relies on a complete 5G Service-Based Architecture (SBA) deployed via Docker Compose:
+
+*   **Control Plane**: AMF, SMF, NRF, UDR, UDM, AUSF, NSSF.
+*   **User Plane Elements**: 
+    *   **UPF-MEC**: Local edge processing (Low latency: 0.25ms, limited capacity).
+    *   **UPF-CC**: Central cloud processing (High latency: 1.0ms, high capacity).
+*   **Access Plane**: `gnbsim` multiplexed emulator connecting 800 eMBB users and 200 URLLC users.
+*   **EGT Controller**: Python agent acting as a centralized policy engine interfacing with the SMF.
+
+---
+
+## 💻 Quick Start & Execution Guide
 
 ### 1. Prerequisites
-Before running the platform, ensure your environment meets the following requirements:
-*   **Docker & Docker Compose**: Installed and running.
-*   **Python 3.8+**: With the following packages:
-    ```bash
-    pip install numpy matplotlib requests paramiko
-    ```
-*   **System Resources**: Minimum 16GB RAM and 4 CPU cores recommended for 1,000-UE emulation.
+Ensure your host machine has at least **16GB RAM** and **4 CPU cores**.
+*   Docker & Docker Compose v2
+*   Python 3.8+ with dependencies: `pip install numpy matplotlib requests paramiko`
 
-### 2. Platform Deployment
-Follow these steps to initialize the 5G Core and Simulator:
-
-#### Step A: Initialize the OAI Core
-Deploy the 5G Stack (AMF, SMF, UPFs, etc.):
+### 2. Deploy the 5G SBA Core
+Bring up the OAI network functions and the dual UPFs:
 ```bash
 docker compose up -d
 ```
-Verify that all 9 containers are "healthy" using `docker ps`.
+Check `docker ps` to ensure all containers report a "healthy" state.
 
-#### Step B: Provision the Subscriber Database
-The MySQL database must be populated with the 1,000 UE identities matching the `gnbsim` configuration:
+### 3. Provision the Database
+The UDM/UDR MySQL database must be populated with the 1,000 UE subscriber identities that match the `gnbsim` configuration:
 ```bash
-# This script inserts 1,000 UEs into the 'oai_db'
 docker exec -i mysql mysql -uroot -plinux < provision_1000.sql
 ```
 
-#### Step C: Start the Stadium Emulator
-The `gnbsim` container handles the physical attachment of the UEs:
+### 4. Establish 1,000 PDU Sessions
+Trigger the multiplexed emulator to attach the UEs to the core:
 ```bash
-# Restart to ensure it picks up the latest config/gnbsim.json
 docker compose restart gnbsim
 ```
+**Verification:** Check the gnbsim logs. You should see successful camp messages for all UEs:
+```bash
+docker logs gnbsim | grep "camped" | tail -n 5
+# Output: [UE 1000] MSIN=0000001000 SST=2 DNN=oai2 camped
+```
 
-### 3. Running the EGT Simulations
-You can run different simulation scenarios to test the steering logic.
-
-*   **Standard Stadium Simulation**: Runs the 3-phase (Ramp-up, Peak, Dispersal) scenario.
-    ```bash
-    python3 multi_scenario_sim.py
-    ```
-*   **Individual Testing**: You can manually trigger the EGT controller to verify convergence for a specific load:
-    ```python
-    from egt_controller import EGTController, SystemParams
-    ctrl = EGTController(SystemParams(M1=800, M2=200))
-    results = ctrl.run_to_equilibrium(load_mult=5.5) # Simulate Halftime Peak
-    print(results['equilibrium'])
-    ```
+### 5. Run the EGT Stadium Simulation
+Execute the multi-scenario analytical script to evaluate how the EGT controller steers traffic during the 3-phase stadium event (Ramp-up, Halftime Peak, Dispersal):
+```bash
+python3 multi_scenario_sim.py
+```
+This generates the core outputs, delay graphs, and QoS violation reports in the `results/` directory.
 
 ---
 
-## ✅ Testing & Verification
+## ⚙️ Understanding the EGT Controller Parameters
 
-### 1. Verify UE Attachment
-Check the `gnbsim` logs to ensure all UEs have successfully established PDU sessions:
-```bash
-docker logs gnbsim | grep "camped" | tail -n 20
-```
-You should see: `[UE 1000] MSIN=0000001000 SST=2 DNN=oai2 camped`.
+The core logic lives in `egt_controller.py`. Modifying the `SystemParams` allows you to test entirely different network architectures:
 
-### 2. Monitor Traffic Steering
-To verify that traffic is actually being steered between the MEC and Cloud UPFs, monitor the SMF logs:
-```bash
-docker logs oai-smf | grep "Selection"
-```
-Or use the EGT controller's built-in polling tool to see live session counts:
-```python
-ctrl.poll_smf()
-print(ctrl.status()) # Shows x_fraction and delays per UPF
-```
-
----
-
-## ⚙️ Advanced Parameter Tuning & System Behavior
-The EGT controller operates based on a delicate balance of mathematical parameters. Modifying the values in `egt_controller.py` allows you to test entirely different network architectures and stress conditions. Here is a deep analysis of how changing each parameter alters the system's behavior:
-
-### 1. Population and Traffic Volume ($M_g$, $\rho_g$)
-*   **Parameters**: `M1` (eMBB count), `M2` (URLLC count), `rho_embb`, `rho_urllc`
-*   **System Impact**: These dictate the total offered load. The delay model is exponential: `Delay ∝ exp(load)`. 
-*   **Consequence of Change**:
-    *   **Increasing $M_2$ (URLLC)**: Since URLLC is highly latency-sensitive and primarily targets the MEC, significantly increasing $M_2$ will rapidly saturate the Edge infrastructure. If total URLLC load forces the MEC processing delay beyond 10ms, the system enters an "Infra-Limited" state where QoS violations are mathematically unavoidable on current hardware.
-    *   **Increasing $M_1$ (eMBB)**: Increases background congestion. Because eMBB has a relaxed 300ms PDB, the EGT controller will gracefully "spill" this excess traffic to the Cloud (`UPF-CC`). However, extreme eMBB scaling could eventually saturate the Cloud as well.
-
-### 2. Capacity Constraints ($k_{mec}$, $k_{cc}$)
-*   **Parameters**: `k_mec`, `k_cc`
-*   **System Impact**: In our model, $k$ represents the *inverse* of processing capacity. It acts as the multiplier in the exponent of the delay function. A higher $k$ means the UPF's delay degrades much faster under load.
-*   **Consequence of Change**:
-    *   Currently, `k_mec` is $10\times$ larger than `k_cc` ($4.833 \times 10^{-4}$ vs $4.833 \times 10^{-5}$), enforcing the 1:10 Edge-to-Cloud capacity ratio.
-    *   **Simulating Edge Upgrades**: If you halve `k_mec` (e.g., to $2.41 \times 10^{-4}$), you simulate doubling the CPU capacity of the MEC node. The EGT controller will automatically anchor more traffic at the MEC before the delay forces a spillover to the Cloud.
-
-### 3. Propagation Delays ($t_{prop\_mec}$, $t_{prop\_cc}$)
-*   **Parameters**: `t_prop_mec` (0.25 ms), `t_prop_cc` (1.0 ms)
-*   **System Impact**: This is the fixed baseline latency (fiber distance) added to the dynamic processing delay. It heavily biases the initial EGT payoff.
-*   **Consequence of Change**:
-    *   If you move the Cloud further away (e.g., $t_{prop\_cc} = 15.0$ ms), the Cloud becomes completely non-viable for URLLC traffic (which requires <10ms end-to-end). The EGT controller will refuse to steer URLLC traffic to the Cloud, forcing it to remain on an overloaded MEC and accepting the resulting QoS violations.
-
-### 4. Replicator Dynamics Speed ($\beta$)
-*   **Parameters**: `beta` (default: 1.0)
-*   **System Impact**: Controls the "step size" of the population shift during each iteration.
-*   **Consequence of Change**:
-    *   **$\beta > 1$**: Makes the steering logic highly aggressive. UEs will quickly jump to the better-performing UPF. However, if $\beta$ is set too high (e.g., 5.0), the system will suffer from **oscillations**—traffic will bounce back and forth between MEC and CC without ever settling on a stable Nash Equilibrium.
-    *   **$\beta < 1$**: Makes the system sluggish. It will smoothly approach the equilibrium without overshooting, but it may take hundreds of iterations to get there, potentially failing to react fast enough to a sudden halftime traffic spike.
-
-### 5. Quality of Service Thresholds ($PDB_{embb}$, $PDB_{urllc}$)
-*   **Parameters**: `PDB_embb` (300 ms), `PDB_urllc` (10 ms)
-*   **System Impact**: In the current implementation, these thresholds are used purely for **monitoring and compliance reporting**, not for the steering logic itself (the EGT optimizes absolute delay, not threshold margins).
-*   **Consequence of Change**: Changing these will alter the reported "Violations" in the multi-scenario simulation output, but the actual fraction of traffic steered to the MEC vs CC will remain exactly the same. Making the steering logic explicitly PDB-aware (e.g., heavily penalizing a UPF only when it approaches the PDB) is a subject for future research.
+*   **$M_1$, $M_2$ (Population Size)**: Dictates the base load. Increasing the URLLC population ($M_2$) rapidly saturates the MEC, potentially triggering unavoidable QoS violations if hardware capacity is exceeded.
+*   **$k_{mec}$, $k_{cc}$ (Processing Exponents)**: These dictate UPF capacity. Halving $k_{mec}$ simulates upgrading the Edge server CPU, allowing it to absorb more URLLC traffic before delays spike exponentially.
+*   **$\beta$ (Replicator Speed)**: Controls how aggressively traffic shifts between UPFs. High $\beta$ causes rapid adaptation but risks oscillation; low $\beta$ ensures smooth but slow convergence.
+*   **$PDB_{embb}$, $PDB_{urllc}$**: Delay thresholds (300ms / 10ms). Used for compliance monitoring. *Note: Future iterations of the algorithm aim to integrate PDB directly into the payoff function.*
 
 ---
 
 ## 📂 Repository Structure
-- `config/`: Configuration files for AMF, SMF, UPFs, and GNBSIM.
-- `results/`: Output charts and JSON metrics from the latest simulations.
-- `egt_controller.py`: The core Evolutionary Game Theory logic.
-- `multi_scenario_sim.py`: Automated tester for stadium scenarios.
-- `gnbsim/`: Optimized Go source code for multi-UE multiplexing.
+
+*   `config/`: NF configuration files (`amf.conf`, `smf.conf`, `gnbsim.json`, etc.).
+*   `paper/`: LaTeX source code for the associated peer-reviewed manuscript.
+*   `src/python/`: The Python-based EGT algorithm (`egt_controller.py`).
+*   `gnbsim/`: High-performance Go source code for multi-UE multiplexing.
+*   `verify_claims.py`: Reproducibility script to empirically validate all numerical claims made in the paper.
 
 ---
 
 ## 📖 References
-1. **Alevizaki et al.**, *"Dynamic Selection of User Plane Function in 5G Environments"*, IFIP 2021.
+1. **Alevizaki et al.**, *"Dynamic Selection of User Plane Function in 5G Environments"*, IFIP Networking 2021.
 2. **3GPP TS 23.501**, *"System architecture for the 5G System (5GS)"*.
 3. **OpenAirInterface (OAI)**, *CN5G Project*.
 
 ---
-*Developed for 5G Stadium Research Project | May 2026*
+*Maintained by Ajay Chander Ravichandran | IMT Atlantique, France | 2026*
