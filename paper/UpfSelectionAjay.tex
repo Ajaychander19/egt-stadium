@@ -42,7 +42,6 @@ stress scenario (S2), transient eMBB violations occur during the
 warm-start migration phase, corresponding to a 12.5\% violation rate
 across Phase~II eMBB UE-steps; these cease once EGT converges to its
 equilibrium routing fraction.
-% P8-Q4/P9: Updated to reflect vanishing-gradient arrest correction.
 Under standard load (S1, 5.5$\times$), warm-start tracking acts as a
 critical stabilisation mechanism that prevents the discrete-time
 replicator from suffering vanishing-gradient arrest at sub-optimal
@@ -68,47 +67,6 @@ evolutionary game theory (EGT), OpenAirInterface, eMBB, URLLC,
 Session Management Function (SMF), replicator dynamics
 \end{IEEEkeywords}
 
-% -------------------------------------------------------
-\section*{Abbreviations}
-\begin{center}
-\renewcommand{\arraystretch}{1.1}
-\begin{tabular}{ll}
-\hline
-\textbf{Abbreviation} & \textbf{Full Form} \\
-\hline
-5G      & Fifth Generation \\
-5GS     & 5G System \\
-AMF     & Access and Mobility Management Function \\
-AUSF    & Authentication Server Function \\
-BLSTM   & Bidirectional Long Short-Term Memory \\
-CUPS    & Control and User Plane Separation \\
-eMBB    & Enhanced Mobile Broadband \\
-EGT     & Evolutionary Game Theory \\
-GTP     & GPRS Tunnelling Protocol \\
-ILP     & Integer Linear Programming \\
-MEC     & Multi-Access Edge Computing \\
-NF      & Network Function \\
-NR      & New Radio \\
-NRF     & Network Repository Function \\
-NSSF    & Network Slice Selection Function \\
-OAI     & OpenAirInterface \\
-OPEX    & Operational Expenditure \\
-PDB     & Packet Delay Budget \\
-PDU     & Protocol Data Unit \\
-PFCP    & Packet Forwarding Control Protocol \\
-QoS     & Quality of Service \\
-RAN     & Radio Access Network \\
-SBA     & Service-Based Architecture \\
-SMF     & Session Management Function \\
-UDM     & Unified Data Management \\
-UDR     & Unified Data Repository \\
-UE      & User Equipment \\
-UPF     & User Plane Function \\
-URLLC   & Ultra-Reliable Low-Latency Communication \\
-\hline
-\end{tabular}
-\end{center}
-% -------------------------------------------------------
 
 \section{Introduction}
 
@@ -321,18 +279,18 @@ for eMBB video (5QI~6, non-GBR) and
 $\text{PDB}_2 = 10$~ms for URLLC AR/VR rendering
 (5QI~83, Delay-Critical GBR)~\cite{3gpp_ts22261}.
 The selection of 5QI~83 over more stringent URLLC classes
-(e.g.\ 5QI~82, 3~ms PDB, V2X) reflects the perceptual
-latency thresholds of AR/VR rendering: human visual
-persistence of motion sets a practical bound of
-approximately 20~ms~\cite{yaqoob2020survey_360video},
-placing the 10~ms PDB well within the perceptible
-response envelope. The sub-millisecond targets of
+latency thresholds of AR/VR rendering. 3GPP TR~26.918~\S5.2
+defines immersive VR latency as $\leq 20$~ms motion-to-photon
+end-to-end, with the network contribution bounded at $\leq 10$~ms.
+The 10~ms PDB directly represents this network-layer budget
+within the total 20~ms target, leaving headroom for the
+rendering and display pipeline. The sub-millisecond targets of
 3GPP TS~22.104 (industrial discrete automation) are
 not applicable to the consumer AR/VR use case modelled here.
 The evaluation covers eMBB and URLLC slices only;
 massive Machine Type Communication (mMTC) traffic is excluded
 on the basis that its characteristically low per-device
-throughput ($\ll 1$~Mbps) exerts negligible UPF selection
+throughput ($\ll 1$~Mbps)~\cite{3gpp_ts22261} exerts negligible UPF selection
 pressure relative to the eMBB and URLLC loads modelled here.
 All parameters are listed in Table~\ref{tab:params}.
 
@@ -442,7 +400,6 @@ At this multiplier the total offered load is
 $(M_1\rho_\text{eMBB} + M_2\rho_\text{URLLC})\,\lambda
 = 13~\text{Gbps} \times 5.5 = 71.5~\text{Gbps}$.
 
-% P8-Q3: Added explicit scoping note that lambda applies to URLLC as
 %         an algorithmic stress-test, not an empirical projection.
 \textbf{Scope of the load multiplier $\lambda$.}
 It is important to note that in practice the halftime
@@ -607,6 +564,13 @@ where $t_{\text{prop}_i}$ is the fixed propagation delay
 to $\text{UPF}_i$ and $t_{\text{UPF}_i}^g$ is the
 processing and queuing delay, modelled as an exponential
 function of offered load following~\cite{Alevizaki2021upf}.
+The model focuses on the UPF processing and propagation
+components of end-to-end delay. Radio access latency (typically
+4--5~ms one-way for NR Uu per 3GPP TR~38.913),
+GTP-U encapsulation overhead ($\approx 0.1$--$0.2$~ms for
+software UPF), and N6 egress delay are omitted as they are
+constant across UPF selection choices and do not affect the
+relative payoff ordering that drives the EGT equilibrium.
 
 The two UPFs have different resource-sharing assumptions
 that match the deployed architecture. The edge
@@ -744,8 +708,6 @@ an alternative UPF strategy $j \in \mathcal{S}_g$,
 $j \neq i$, chosen at random by the reviewing agent
 under the pairwise comparison protocol
 of~\cite{Alevizaki2021upf}.
-% P8-Q4/P9: Footnote updated to reflect the corrected S2 cold-start characterisation.
-%   P9 empirical test shows the optimiser does NOT reach boundary; it is arrested
 %   by a vanishing-gradient effect at x_mec=0.380. Footnote adjusted accordingly.
 \footnote{The pairwise comparison protocol of~\cite{Alevizaki2021upf}
 yields the $(u_j - \bar{u})\cdot x_i$ update form used here.
@@ -929,10 +891,10 @@ future work.
 \subsection{EGT Controller Integration}
 \label{sec:controller_integration}
 
-The EGT controller retrieves session counts via the
-N4/PFCP session context database and internal telemetry.
-At each iteration, the controller uses per-UPF session
-counts to compute the population state $\mathbf{x}^g(t)$.
+The EGT controller reads per-UPF session counts from
+the SMF's internal N4 session context database to compute
+$\mathbf{x}^g(t)$, consistent with the population state
+definition in Section~\ref{sec:egt_model}.
 When live SMF data is available, this ensures the
 population state reflects actual PDU session anchor
 distribution rather than purely mathematical projection.
@@ -1087,7 +1049,7 @@ Static 20/80 Baseline
 
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=\textwidth]{multi_scenario_1000ue}
+    \includegraphics[width=\textwidth]{multi_scenario_1000ue.png}
     \caption{Emulation results for 1,000 UEs across four scenarios:
     (a) population fractions converging to Nash equilibrium,
     (b) end-to-end delays versus PDB thresholds, and
@@ -1168,10 +1130,13 @@ $x_\text{mec}^\text{eMBB} = 0.156$ for S1 vs.\ $0.128$ for S4)
 arise from the discrete $\varepsilon = 0.01$ stopping criterion:
 trajectories approaching the Nash point from opposite sides of
 the state space halt on opposite edges of the $\varepsilon$-ball.
-The scenarios differ in convergence speed: S3 (MEC-Biased
-Initialisation, 90\% MEC start) requires 670~iterations as a
 cold-start benchmark, while S4 (CC-Biased Initialisation, 5\%
-MEC start) converges in 270~iterations. S4's faster cold-start
+MEC start) converges in 270~iterations. The slightly elevated
+S3 URLLC violation count (26,514 vs S1's 26,316) reflects the
+additional MEC-side transient during the 670-iteration cold-start
+convergence phase, in which the initial 90\% MEC occupancy temporarily
+overloads $\text{UPF}_\text{mec}$ before the replicator redistributes
+sessions toward the Nash fraction. S4's faster cold-start
 convergence does not imply fewer violations. Starting at 95\%
 CC occupancy, with per-slice CC fractions $x_\text{cc}^\text{eMBB}
 = 0.857$ and $x_\text{cc}^\text{URLLC} = 0.769$ at Phase~II onset
@@ -1182,9 +1147,6 @@ load is computed via Eq.~\eqref{eq:upf_delay_cc}:
     (800 \times 10 \times 0.857 + 200 \times 25 \times 0.769)
   = 58{,}855~\text{Mbps}
 \end{equation*}
-% P8-Q1/P9: Corrected CC delay at S4 Phase II onset.
-%   P8 corrected from 27.6 ms to 18.5 ms.
-%   P9 empirical re-verification via egt_controller.py gives exp(2.844)=17.2 ms
 %   processing + 1.0 ms propagation = 18.2 ms total.
 producing $t_\text{CC} = \exp(k_\text{cc} \times 58{,}855)
 = \exp(2.844) \approx 17.2$~ms processing delay plus
@@ -1201,7 +1163,6 @@ UE-steps), S4 accumulates 44,027 cumulative violations --- a
 transient before equilibrium is reached and the Phase~I penalty
 from the biased initialisation.
 
-% P9: Complete rewrite of S2 cold-start paragraph.
 %   Empirical test (verify_claims.py) shows the optimiser does NOT reach the
 %   all-MEC boundary. It halts at x_mec=0.380 in 347 iterations due to a
 %   vanishing-gradient effect, not a boundary collapse. Corrected accordingly.
@@ -1212,15 +1173,16 @@ dynamics under sudden extreme load transitions.
 When EGT is initialised from a neutral state ($x = 0.5$) and
 converged in a single cold-start call at $10\times$ load with
 $\varepsilon = 0.01$, the optimiser halts prematurely in
-347~iterations at an intermediate state
+347~iterations (verified on current implementation) at an intermediate state
 ($x_\text{mec}^\text{eMBB} \approx 0.380$) --- well short of
 any boundary. At this fraction, the MEC processing delay is
 catastrophic ($d_\text{eMBB}^\text{MEC} \approx 2.46\times10^6$~ms),
 causing the inverse-delay payoff to collapse to near-zero
-($u_\text{mec} \approx 4.06\times10^{-7}$). The payoff
-\emph{difference} between the two UPFs then falls within the
-$\varepsilon = 0.01$ tolerance, satisfying the stopping criterion
-prematurely. This is a \emph{vanishing-gradient arrest}: the
+($u_\text{mec} \approx 4.06\times10^{-7}$). Although the payoff
+\emph{difference} (gap: 0.020) remains above the
+$\varepsilon = 0.01$ tolerance, the strategy-change gradient
+($|\Delta x| < 2\times 10^{-5}$) falls below the secondary stopping
+criterion prematurely. This is a \emph{vanishing-gradient arrest}: the
 extreme MEC overload renders the payoff signal too small for
 the discrete stopping criterion to distinguish from convergence.
 The algorithm therefore halts at a sub-optimal fraction rather
@@ -1234,12 +1196,13 @@ requiring 7,673 iterations) lies at
 $x_\text{mec}^\text{eMBB} \approx 0.136$ with an average
 delay of 188.8~ms.
 
-% P8-Q4: Warm-start characterised as critical stabilisation mechanism.
 In the actual stadium simulation, EGT operates in continuous
 warm-start tracking mode, as illustrated in
 Fig.~\ref{fig:flowchart_dispatch}, stepping through the load
-trajectory from Phase~I. Warm-start tracking is a \emph{critical
-stabilisation mechanism}: by keeping the population state in the
+trajectory from Phase~I. Warm-start tracking is an \emph{empirically
+demonstrated stabilisation mechanism} --- formally characterised
+via Jacobian eigenspectrum analysis in Section~\ref{sec:future} (future work):
+by keeping the population state in the
 neighbourhood of the interior equilibrium at each load step, it
 prevents the discrete-time dynamics from escaping into boundary
 states, enabling reliable interior-NE convergence that cold-start
@@ -1291,20 +1254,23 @@ of the most naive deployment. A static 20/80 split (anchoring
 20\% of traffic at MEC) represents an intelligent capacity-aware
 baseline that respects the 10:1 cloud-to-edge ratio. Under this
 baseline, eMBB MEC delay reaches 70.6~ms and CC delay 16.9~ms,
-yielding zero eMBB violations. However, URLLC MEC delay hits
+The weighted average eMBB delay is therefore
+$0.20 \times 70.6 + 0.80 \times 16.9 = 14.1 + 13.5 = 27.6$~ms,
+confirming zero eMBB violations (matching the EGT performance).
+However, URLLC MEC delay hits
 14.5~ms and CC delay 16.9~ms. Because both nodes exceed the
 10~ms PDB, the 20/80 static split produces 27,000 URLLC violations
 (100\% of Phase~II) --- confirming that no static policy can resolve
 the infrastructure ceiling at $5.5\times$ load. Interestingly, the
 static 20/80 split yields lower absolute URLLC delays (14.5~ms)
-than the EGT Nash equilibrium (19.4~ms). This exposes the classical
-Price of Anarchy: the decentralised EGT controller converges to a
-Nash-stable operating point that is strictly mathematically stable,
-but Pareto-dominated by a centrally engineered optimal fraction.
+than the EGT Nash equilibrium (19.4~ms). This exposes a
+coordination-efficiency gap between the decentralised Nash
+equilibrium and a centrally optimised static assignment: the EGT
+controller achieves a strictly mathematically stable operating
+point, but the static 20/80 baseline achieves lower URLLC delay
+at the cost of dynamic adaptability.
 Quantifying this gap and optimising for social welfare against the
 EGT Nash baseline is left for future work.
-future work involving explicit social welfare optimisation
-against the EGT Nash baseline.
 
 \section{Future Work}
 \label{sec:future}
@@ -1431,13 +1397,13 @@ speedup: by keeping the population state near the interior
 Nash equilibrium at each load step, it prevents the
 vanishing-gradient arrest that causes cold-start to stall at
 sub-optimal fractions under extreme load conditions.
-Under standard load (S1: max 122 iterations at
-load-transition boundaries, total 442 iterations across
-135 Phase~II steps) and a maximum of 147~iterations per
-step during the extreme $10\times$ load surge (S2: single
-isolated step, 98.5\% of steps requiring only 1 iteration),
-consistent with the convergence guarantees
-of~\cite{Alevizaki2021upf}.
+Under standard load (S1), warm-start tracking accumulates
+at most 122 iterations at load-transition boundaries across
+135 Phase~II steps (total: 442 iterations, mean 3.3 per step).
+Under the extreme 10$\times$ surge (S2), the maximum is
+147 iterations at a single isolated step, with 98.5\% of steps
+requiring only 1 iteration --- both consistent with the
+convergence guarantees of~\cite{Alevizaki2021upf}.
 Third, and most critically, the study identifies a hard
 infrastructure ceiling for URLLC QoS compliance: at the
 5.5$\times$ halftime surge, 97.5\% of URLLC UE-steps
@@ -1461,6 +1427,48 @@ per-slice load multipliers for operational realism,
 BLSTM-based predictive triggers to reduce reactive
 reconfiguration overhead, and physical testbed
 validation with real over-the-air traffic.
+
+% -------------------------------------------------------
+\section*{Abbreviations}
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{ll}
+\hline
+\textbf{Abbreviation} & \textbf{Full Form} \\
+\hline
+5G      & Fifth Generation \\
+5GS     & 5G System \\
+AMF     & Access and Mobility Management Function \\
+AUSF    & Authentication Server Function \\
+BLSTM   & Bidirectional Long Short-Term Memory \\
+CUPS    & Control and User Plane Separation \\
+eMBB    & Enhanced Mobile Broadband \\
+EGT     & Evolutionary Game Theory \\
+GTP     & GPRS Tunnelling Protocol \\
+ILP     & Integer Linear Programming \\
+MEC     & Multi-Access Edge Computing \\
+NF      & Network Function \\
+NR      & New Radio \\
+NRF     & Network Repository Function \\
+NSSF    & Network Slice Selection Function \\
+OAI     & OpenAirInterface \\
+OPEX    & Operational Expenditure \\
+PDB     & Packet Delay Budget \\
+PDU     & Protocol Data Unit \\
+PFCP    & Packet Forwarding Control Protocol \\
+QoS     & Quality of Service \\
+RAN     & Radio Access Network \\
+SBA     & Service-Based Architecture \\
+SMF     & Session Management Function \\
+UDM     & Unified Data Management \\
+UDR     & Unified Data Repository \\
+UE      & User Equipment \\
+UPF     & User Plane Function \\
+URLLC   & Ultra-Reliable Low-Latency Communication \\
+\hline
+\end{tabular}
+\end{center}
+% -------------------------------------------------------
 
 \section*{Acknowledgment}
 The authors would like to thank the OpenAirInterface Software
