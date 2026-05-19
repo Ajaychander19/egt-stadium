@@ -930,23 +930,43 @@ as noted in Table~\ref{tab:stadium_results}.
 % Scenario definition table
 \begin{table}[ht]
 \centering
-\caption{Scenario Definition: Phase~I/II/III Parameters and Initialisation Conditions}
+\caption{Scenario Definition: Phase~I/II/III Parameters and
+         Initialisation Conditions}
 \label{tab:scenario_def}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{p{1.5cm}p{0.8cm}p{1.3cm}p{1.0cm}p{0.7cm}p{0.7cm}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{1.9cm}p{0.75cm}p{1.5cm}p{1.8cm}p{0.8cm}p{0.7cm}}
 \toprule
-\textbf{Scenario} & \textbf{$\lambda$ Ph.II} & \textbf{Ph.I $\lambda$ range} &
-  \textbf{Ph.II Init} & \textbf{$x_\text{eMBB}$ start} & \textbf{$x_\text{URLLC}$ start} \\
+\textbf{Scenario} &
+  \textbf{$\lambda$} &
+  \textbf{Ph.I} &
+  \textbf{Ph.II} &
+  \textbf{$x^\text{eM}$} &
+  \textbf{$x^\text{UR}$} \\
+ &
+  \textbf{Ph.II} &
+  \textbf{range} &
+  \textbf{Init} &
+  \textbf{start} &
+  \textbf{start} \\
 \midrule
-S1 Standard       & 5.5$\times$ & 0.011$\to$1.0 & Warm        & 0.189 & 0.309 \\
-S2 Extreme Spike  & 10.0$\times$ & 0.011$\to$1.0 & Warm        & 0.170 & 0.278 \\
-S3 MEC-Biased     & 5.5$\times$ & 0.011$\to$1.0 & Cold ($x\!=\!0.90$) & 0.900 & 0.900 \\
-S4 CC-Biased      & 5.5$\times$ & 0.509$\to$5.0 & Warm (elev.) & 0.143 & 0.231 \\
+S1 Standard
+  & 5.5$\times$ & 0.011$\to$1.0 & Warm        & 0.189 & 0.309 \\
+S2 Extreme
+  & 10$\times$  & 0.011$\to$1.0 & Warm        & 0.170 & 0.278 \\
+S3 MEC-Bias
+  & 5.5$\times$ & 0.011$\to$1.0 & Cold ($x\!=\!0.90$) & 0.900 & 0.900 \\
+S4 CC-Bias
+  & 5.5$\times$ & 0.509$\to$5.0 & Warm (elev.)       & 0.143 & 0.231 \\
 \bottomrule
-\multicolumn{6}{l}{\footnotesize Phase~III $\lambda$ range: S1/S3/S4: 5.0$\to$0.3$\times$;
-  S2: 9.0$\to$0.3$\times$.} \\
-\multicolumn{6}{l}{\footnotesize S3 Phase~II init: manual cold-start at $x_\text{mec}=0.90$
-  for both slices, overriding Phase~I warm-start.} \\
+\noalign{\smallskip}
+\multicolumn{6}{l}{%
+  \parbox{8.3cm}{\footnotesize
+    
+    Ph.III $\lambda$: S1/S3/S4: $5.0\!\to\!0.3\times$;
+    S2: $9.0\!\to\!0.3\times$.
+    S3 Ph.II: cold-start $x_\text{mec}\!=\!0.90$,
+    overriding Ph.I warm-start.}}\\
 \end{tabular}
 \end{table}
 
@@ -1142,11 +1162,11 @@ CC occupancy, with per-slice CC fractions $x_\text{cc}^\text{eMBB}
 = 0.857$ and $x_\text{cc}^\text{URLLC} = 0.769$ at Phase~II onset
 (from Table~\ref{tab:scenario_def}), the aggregate CC processing
 load is computed via Eq.~\eqref{eq:upf_delay_cc}:
-\begin{equation*}
+\begin{multline*}
   \text{CC load} = 5.5 \times
-    (800 \times 10 \times 0.857 + 200 \times 25 \times 0.769)
+    (800 \times 10 \times 0.857 + 200 \times 25 \times 0.769) \\
   = 58{,}855~\text{Mbps}
-\end{equation*}
+\end{multline*}
 %   processing + 1.0 ms propagation = 18.2 ms total.
 producing $t_\text{CC} = \exp(k_\text{cc} \times 58{,}855)
 = \exp(2.844) \approx 17.2$~ms processing delay plus
