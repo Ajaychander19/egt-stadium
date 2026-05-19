@@ -147,9 +147,9 @@ The system architecture spans three primary domains: the emulated Radio Access N
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{src/scenarios_diagram.png} % Assuming scenario_diagram maps to architecture concepts
-    \caption{Dual-UPF Network Slicing Architecture and EGT Integration within the 5G Core.}
-    \label{fig:high_level_architecture}
+    \includegraphics[width=0.8\linewidth]{image1.png}
+    \caption{5G dual-UPF network architecture. eMBB and URLLC UEs connect to the gNB via the Uu air interface. The gNB forwards traffic over N3 to either the MEC edge UPF or the central cloud UPF. The SMF steers sessions between both UPFs via the N4 control interface.}
+    \label{fig:network_architecture}
 \end{figure}
 
 \subsection{Main Components}
@@ -165,6 +165,13 @@ The system architecture spans three primary domains: the emulated Radio Access N
 \subsection{Intelligent Session Steering}
 When a UE requests a PDU session, the SMF intercepts the request and queries the EGT controller. The EGT controller provides the equilibrium fraction (e.g., 22\% to MEC, 78\% to CC). The SMF then uses stochastic selection to assign the UPF anchor, issuing the appropriate PFCP session establishment rules over the N4 interface.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{flowchart2.png}
+    \caption{SMF session dispatch loop showing warm-start and cold-start logic along with real-time transition triggers.}
+    \label{fig:dispatch_loop}
+\end{figure}
+
 \subsection{EGT Replicator Dynamics}
 The algorithm relies on the continuous evaluation of the replicator equation:
 \begin{equation}
@@ -172,15 +179,17 @@ The algorithm relies on the continuous evaluation of the replicator equation:
 \end{equation}
 Where $x_i$ is the fraction of traffic on UPF $i$, $u_j$ is the payoff, and $\bar{u}^g$ is the mean payoff. The system integrates this equation with step size $\Delta t = 0.05$ up to 2,000 iterations until the maximum payoff deviation falls below the tolerance $\varepsilon = 0.01$.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{flowchart1.png}
+    \caption{EGT replicator computation loop for discrete-time convergence to Nash Equilibrium.}
+    \label{fig:replicator_loop}
+\end{figure}
+
 \subsection{Delay Equalisation and Modelling}
 End-to-end delay is calculated as the sum of physical propagation delay and queuing delay. The MEC node offers a very low propagation delay (0.25~ms) but suffers from rapid queuing saturation under load (modelled via $k_\text{mec} = 4.833\times10^{-4}$). The CC has a higher base propagation delay (1.0~ms) but is 10 times more resilient to load ($k_\text{cc} = 4.833\times10^{-5}$). The EGT controller mathematically bridges this capability gap.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{src/traffic_timeline.png}
-    \caption{Stadium Traffic Phase Timeline. Phase I: Ingress. Phase II: Halftime Surge. Phase III: Dispersal.}
-    \label{fig:timeline}
-\end{figure}
+
 
 \section{Use Cases and Applications}
 \subsection{Stadium EGT Steering}
@@ -217,7 +226,7 @@ Testing encompassed 1,000 concurrent UE sessions across four distinct scenarios:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{src/multi_scenario_1000ue.png}
+    \includegraphics[width=\linewidth]{multi_scenario_1000ue.png}
     \caption{Emulation results for 1,000 UEs across scenarios S1-S4: Population fractions, end-to-end delays, and throughput/QoS violations.}
     \label{fig:results_matrix}
 \end{figure}
