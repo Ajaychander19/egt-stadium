@@ -90,7 +90,7 @@ MEC     & Multi-Access Edge Computing \\
 NF      & Network Function \\
 NR      & New Radio \\
 NRF     & Network Repository Function \\
-NSSF    & OpenAirInterface \\
+NSSF    & Network Slice Selection Function \\
 OAI     & OpenAirInterface \\
 OPEX    & Operational Expenditure \\
 PDB     & Packet Delay Budget \\
@@ -588,7 +588,7 @@ The SMF maintains the population state of group $g$ as:
 \end{equation}
 where $x_i^g(t)$ is the fraction of sessions in group
 $g$ currently anchored at $\text{UPF}_i$, computed from
-per-UPF session counts reported over N4/PFCP at each
+the internal SMF N4 session context database at each
 iteration interval $\Delta t$.
 
 %--------------------------------------------------------------
@@ -675,9 +675,16 @@ shared across all groups, consistent with the reference model.
 We note that the $k$ parameters, originally derived from optical
 switching hardware, are utilised here as generic capacity
 constraints to preserve the 10:1 cloud-to-edge ratio and test
-the steering logic's stability. In a physical software UPF
-deployment, extreme overload would result in packet drops and
-session rejections rather than unbounded exponential queuing delay.
+the steering logic's stability. Because these parameters were
+calibrated at a $\approx 20$~Gbps baseline, applying them at the
+71--130~Gbps ranges of S1 and S2 constitutes a mathematical
+extrapolation. Consequently, the millisecond delay figures reported
+in Section~\ref{sec:results} should be interpreted as ordinal
+indicators of extreme congestion relative to the PDB, rather than
+exact physical latency predictions on COTS hardware. In a physical
+software UPF deployment, extreme overload would result in packet
+drops and session rejections rather than unbounded exponential
+queuing delay.
 
 The payoff for sessions in group $g$ anchored at
 $\text{UPF}_i$ is the inverse end-to-end delay:
@@ -799,7 +806,7 @@ redistribution applies to new establishments only.
     \caption{EGT replicator computation loop (inner loop, Fig.~2).
     On each invocation, the SMF identifies the slice group $g$ of
     the arriving PDU session, reads the current population state
-    $\mathbf{x}^g$ from N4/PFCP session counts, and iterates
+    $\mathbf{x}^g$ from its internal session context database, and iterates
     Eq.~\eqref{eq:replicator}: computing UPF processing delays
     (Eqs.~\eqref{eq:upf_delay_mec}--\eqref{eq:upf_delay_cc}),
     end-to-end delays (Eq.~\eqref{eq:delay}), inverse-delay
@@ -923,8 +930,7 @@ future work.
 \label{sec:controller_integration}
 
 The EGT controller retrieves session counts via the
-N4/PFCP interface using Session Report messages and
-utilises the O1 interface for management-plane telemetry.
+N4/PFCP session context database and internal telemetry.
 At each iteration, the controller uses per-UPF session
 counts to compute the population state $\mathbf{x}^g(t)$.
 When live SMF data is available, this ensures the
@@ -1055,6 +1061,8 @@ S4 (CC-Biased Init., $5.5\times$)$^\S$
 \midrule
 Static 50/50 Baseline
   & 0.500 & 0.500 & 35.8~Gbps & 35.8~Gbps & 54{,}000 & 13{,}500 & N/A \\
+Static 20/80 Baseline
+  & 0.200 & 0.200 & 14.3~Gbps & 57.2~Gbps & 0 & 27{,}000 & N/A \\
 \bottomrule
 \multicolumn{8}{l}{\footnotesize $^\star$Theoretical cold-start benchmark: iterations to converge from a neutral 50/50 state
   under an instantaneous load spike. Distinct from}\\
@@ -1279,22 +1287,22 @@ remains lightly loaded at 6.6~ms. The weighted average eMBB
 delay is 20,736~ms and URLLC average is 388~ms, both far
 exceeding their PDB targets. The 50/50 split was chosen as the
 zero-configuration OAI default, representing the failure mode
-of the most naive deployment. A static 20/80 split would reduce
-MEC URLLC load to 5.5~Gbps (still 17\% above the 4.7~Gbps
-ceiling), sustaining near-total URLLC violations while
-catastrophically overloading MEC eMBB traffic --- confirming
-that no static policy can resolve the infrastructure ceiling
-at $5.5\times$ load.
-% P8-Q2: Removed the unsupported "3.5% aggregate delay reduction /
-%         5 ms URLLC MEC delay increase" quantitative claim.
-%         Replaced with a theoretically correct and defensible
-%         statement about the Nash equilibrium vs. social optimum.
-The EGT controller converges to a Nash-stable operating
-point that is strictly superior to static routing for both
-slices simultaneously. We acknowledge that this Nash
-equilibrium may be Pareto-dominated by a centralised social
-optimum, representing the classical price of anarchy in
-decentralised steering; quantifying this gap is left for
+of the most naive deployment. A static 20/80 split (anchoring
+20\% of traffic at MEC) represents an intelligent capacity-aware
+baseline that respects the 10:1 cloud-to-edge ratio. Under this
+baseline, eMBB MEC delay reaches 70.6~ms and CC delay 16.9~ms,
+yielding zero eMBB violations. However, URLLC MEC delay hits
+14.5~ms and CC delay 16.9~ms. Because both nodes exceed the
+10~ms PDB, the 20/80 static split produces 27,000 URLLC violations
+(100\% of Phase~II) --- confirming that no static policy can resolve
+the infrastructure ceiling at $5.5\times$ load. Interestingly, the
+static 20/80 split yields lower absolute URLLC delays (14.5~ms)
+than the EGT Nash equilibrium (19.4~ms). This exposes the classical
+Price of Anarchy: the decentralised EGT controller converges to a
+Nash-stable operating point that is strictly mathematically stable,
+but Pareto-dominated by a centrally engineered optimal fraction.
+Quantifying this gap and optimising for social welfare against the
+EGT Nash baseline is left for future work.
 future work involving explicit social welfare optimisation
 against the EGT Nash baseline.
 
